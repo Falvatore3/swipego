@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<title>SwipeGo · 曼谷小时级攻略</title>
+<meta name="description" content="J人专属·小时级曼谷旅游规划" />
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0F3D2E;        /* 深墨绿 */
+    --ink-2:#1A5240;
+    --cream:#FAF7F0;      /* 奶油白 */
+    --paper:#F2EDE0;
+    --accent:#FF6B35;     /* 曼谷橙 */
+    --line:#D9D2BF;
+    --muted:#6B7A70;
+  }
+  html,body{background:var(--cream);color:var(--ink);font-family:Inter,'Noto Serif SC',system-ui,sans-serif;}
+  .font-serif{font-family:'Noto Serif SC',serif;letter-spacing:.02em;}
+  .font-mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+  .bg-ink{background:var(--ink);} .text-ink{color:var(--ink);}
+  .bg-cream{background:var(--cream);} .bg-paper{background:var(--paper);}
+  .border-line{border-color:var(--line);}
+  .text-accent{color:var(--accent);} .bg-accent{background:var(--accent);}
+  .text-muted{color:var(--muted);}
+  /* 网格纸背景，强化"清单"感 */
+  .grid-paper{
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size: 32px 32px;
+    background-color:var(--cream);
+    opacity:.35;
+  }
+  /* 滑动卡阴影 */
+  .card-shadow{box-shadow:0 1px 0 rgba(15,61,46,.08),0 20px 40px -16px rgba(15,61,46,.35);}
+  /* 打勾动画 */
+  @keyframes tickIn{from{transform:scale(.2) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+  .tick-in{animation:tickIn .3s cubic-bezier(.2,.8,.2,1);}
+  /* 隐藏滚动条 */
+  .no-scrollbar::-webkit-scrollbar{display:none}
+  .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+  /* 时间轴点 */
+  .dot{width:10px;height:10px;border-radius:9999px;background:var(--ink);box-shadow:0 0 0 3px var(--cream),0 0 0 4px var(--ink);}
+  .btn-primary{background:var(--ink);color:var(--cream);}
+  .btn-primary:hover{background:var(--ink-2);}
+  /* 详情抽屉动画 */
+  @keyframes sheetFade{from{opacity:0}to{opacity:1}}
+  @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .sheet-fade{animation:sheetFade .25s ease-out}
+  .sheet-up{animation:sheetUp .32s cubic-bezier(.2,.8,.2,1)}
+  /* safe area */
+  .pb-safe{padding-bottom:calc(env(safe-area-inset-bottom,0) + 1rem);}
+  .pt-safe{padding-top:calc(env(safe-area-inset-top,0) + 1rem);}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useMemo, useRef, useCallback } = React;
+
+/* ---------- 数据加载 ---------- */
+function usePois(){
+  const [data,setData] = useState(null);
+  const [err,setErr] = useState(null);
+  useEffect(()=>{
+    fetch('./data/bangkok-pois.json?v='+Date.now())
+      .then(r=>{ if(!r.ok) throw new Error('poi 数据还没就绪，研究 Agent 正在整理'); return r.json(); })
+      .then(setData)
+      .catch(e=>setErr(e.message));
+  },[]);
+  return {data,err};
+}
+
+/* ---------- 小工具 ---------- */
+const CAT_META = {
+  landmark:  {label:'地标寺庙', icon:'🏛'},
+  food:      {label:'美食',     icon:'🍜'},
+  market:    {label:'市集购物', icon:'🛍'},
+  nightlife: {label:'夜生活',   icon:'🌃'},
+  niche:     {label:'小众文艺', icon:'🛕'},
+  spa:       {label:'SPA体验',  icon:'💆'},
+  nature:    {label:'自然公园', icon:'🌳'},
+};
+const TIME_META = {
+  morning:{label:'清晨',range:'06-11'},
+  noon:{label:'午间',range:'11-14'},
+  afternoon:{label:'午后',range:'14-17'},
+  evening:{label:'傍晚',range:'17-20'},
+  night:{label:'夜间',range:'20-24'},
+};
+
+/* ---------- 顶部 Header ---------- */
+function Header({step,total,onBack}){
+  return (
+    <header className="sticky top-0 z-20 bg-cream/90 backdrop-blur border-b border-line">
+      <div className="max-w-xl mx-auto px-5 pt-safe pb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {onBack && (
+            <button onClick={onBack} className="w-8 h-8 grid place-items-center rounded-full border border-line text-ink/80 hover:bg-paper">←</button>
+          )}
+          <div className="leading-tight">
+            <div className="font-serif text-lg font-bold tracking-tight">SwipeGo</div>
+            <div className="font-mono text-[10px] text-muted -mt-0.5">BANGKOK · 小时级清单</div>
+          </div>
+        </div>
+        <div className="font-mono text-[11px] text-muted">
+          STEP <span className="text-ink font-bold">{step}</span> / {total}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/* ---------- STEP 0: 开场问卷 ---------- */
+function StepIntake({onDone}){
+  const [days,setDays] = useState(null);
+  const [wake,setWake] = useState(null);
+  const [pace,setPace] = useState(null);
+  const canNext = days && wake && pace;
+  const pick = (setter,val,next)=>{
+    setter(val);
+    if(next) setTimeout(()=>next(),180);
+  };
+
+  const Group = ({title, hint, options, value, onPick})=>(
+    <div className="mb-8">
+      <div className="flex items-baseline justify-between mb-3">
+        <h3 className="font-serif text-base font-bold">{title}</h3>
+        <span className="font-mono text-[10px] text-muted uppercase">{hint}</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2">
+        {options.map(o=>{
+          const active = value===o.v;
+          return (
+            <button key={o.v} onClick={()=>onPick(o.v)}
+              className={`relative p-3 rounded-xl border text-left transition ${active?'bg-ink text-cream border-ink':'bg-paper border-line hover:border-ink/40'}`}>
+              <div className="font-serif font-bold text-sm">{o.label}</div>
+              <div className={`text-[11px] mt-0.5 ${active?'text-cream/70':'text-muted'}`}>{o.sub}</div>
+              {active && <span className="absolute top-2 right-2 text-xs tick-in">✓</span>}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-6 pb-10">
+      <div className="mb-6">
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// 01 INTAKE</div>
+        <h2 className="font-serif text-2xl font-bold leading-tight">开始规划你的曼谷</h2>
+        <p className="text-sm text-muted mt-1">3 个问题 · 每一小时都给你排明白</p>
+      </div>
+
+      <Group title="你打算待几天？" hint="days"
+        value={days}
+        onPick={v=>pick(setDays,v)}
+        options={[
+          {v:2,label:'2 天',sub:'极限周末'},
+          {v:3,label:'3 天',sub:'黄金节奏'},
+          {v:4,label:'4 天',sub:'推荐'},
+          {v:5,label:'5 天',sub:'深度'},
+          {v:6,label:'6 天',sub:'慢游'},
+          {v:7,label:'7 天+',sub:'定居感'},
+        ]}/>
+
+      <Group title="每天几点起？" hint="wake-up"
+        value={wake}
+        onPick={v=>pick(setWake,v)}
+        options={[
+          {v:'07:00',label:'07:00',sub:'早鸟型'},
+          {v:'09:00',label:'09:00',sub:'标准'},
+          {v:'10:30',label:'10:30',sub:'躺平型'},
+        ]}/>
+
+      <Group title="行程强度？" hint="pace"
+        value={pace}
+        onPick={v=>pick(setPace,v)}
+        options={[
+          {v:'intense',label:'暴走拉满',sub:'每天 7-8 项'},
+          {v:'standard',label:'标准',sub:'每天 5-6 项'},
+          {v:'chill',label:'留白',sub:'每天 3-4 项'},
+        ]}/>
+
+      <button disabled={!canNext}
+        onClick={()=>onDone({days,wake,pace})}
+        className={`w-full mt-4 py-4 rounded-2xl font-serif font-bold text-base transition ${canNext?'btn-primary':'bg-paper text-muted cursor-not-allowed'}`}>
+        开始刷卡 →
+      </button>
+
+      <p className="font-mono text-[10px] text-muted text-center mt-4 tracking-wider">
+        SWIPE TO PLAN · DOWN = SAVE FOR LATER
+      </p>
+    </div>
+  );
+}
+
+/* ---------- STEP 1: 刷 POI 卡 ---------- */
+function StepSwipe({pois,onDone}){
+  const [idx,setIdx] = useState(0);
+  const [decisions,setDecisions] = useState({}); // id => 'like' | 'pass' | 'maybe'
+  const [openDetail,setOpenDetail] = useState(null);
+  const [drag,setDrag] = useState({x:0,y:0,active:false});
+  const [exiting,setExiting] = useState(null); // {dir, verb}
+  const startRef = useRef(null);
+
+  const current = pois[idx];
+  const next = pois[idx+1];
+
+  const decide = (verb)=>{
+    if(!current || exiting) return;
+    // 飞出去的方向
+    const dir = verb==='like'?{x:600,y:-50}:verb==='pass'?{x:-600,y:-50}:{x:0,y:600};
+    setExiting({dir,verb});
+    setTimeout(()=>{
+      setDecisions(prev=>({...prev,[current.id]:verb}));
+      setIdx(i=>i+1);
+      setDrag({x:0,y:0,active:false});
+      setExiting(null);
+    },260);
+  };
+
+  const onPointerDown = (e)=>{
+    if(exiting) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    startRef.current = {x:e.clientX, y:e.clientY};
+    setDrag({x:0,y:0,active:true});
+  };
+  const onPointerMove = (e)=>{
+    if(!startRef.current) return;
+    const dx = e.clientX - startRef.current.x;
+    const dy = e.clientY - startRef.current.y;
+    setDrag({x:dx,y:dy,active:true});
+  };
+  const onPointerUp = (e)=>{
+    if(!startRef.current) return;
+    const {x,y} = drag;
+    startRef.current = null;
+    if(x > 110)      decide('like');
+    else if(x < -110) decide('pass');
+    else if(y > 110)  decide('maybe');
+    else setDrag({x:0,y:0,active:false});
+  };
+
+  useEffect(()=>{
+    if(idx>=pois.length){
+      const liked = pois.filter(p=>decisions[p.id]==='like');
+      const maybe = pois.filter(p=>decisions[p.id]==='maybe');
+      onDone({liked,maybe,decisions});
+    }
+  },[idx]);
+
+  const doneCount = Object.keys(decisions).length;
+  const likeCount = Object.values(decisions).filter(v=>v==='like').length;
+
+  if(!current){
+    return <div className="p-10 text-center text-muted">整理中...</div>;
+  }
+
+  // 计算变换
+  const tx = exiting ? exiting.dir.x : drag.x;
+  const ty = exiting ? exiting.dir.y : drag.y;
+  const rot = Math.max(-22,Math.min(22, tx*0.08));
+  const cardStyle = {
+    transform:`translate(${tx}px, ${ty}px) rotate(${rot}deg)`,
+    transition: drag.active && !exiting ? 'none' : 'transform .26s cubic-bezier(.2,.8,.2,1)',
+    touchAction:'none',
+  };
+  const likeOp = Math.max(0,Math.min(1,(drag.x-20)/100));
+  const passOp = Math.max(0,Math.min(1,(-drag.x-20)/100));
+  const maybeOp = Math.max(0,Math.min(1,(drag.y-20)/100));
+
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-4 pb-6">
+      {/* 进度 */}
+      <div className="mb-3 flex items-center justify-between text-[11px] font-mono text-muted">
+        <span>{doneCount} / {pois.length}</span>
+        <span className="text-accent">♥ 想去 {likeCount}</span>
+      </div>
+      <div className="h-1 bg-paper rounded-full overflow-hidden mb-5">
+        <div className="h-full bg-ink transition-all" style={{width:`${(doneCount/pois.length)*100}%`}}/>
+      </div>
+
+      {/* 卡堆 */}
+      <div className="relative h-[540px] select-none">
+        {next && <PoiCard poi={next} stacked />}
+        <div
+          className="absolute inset-0"
+          style={cardStyle}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}>
+          <PoiCard poi={current} onTapDetail={()=>setOpenDetail(current)} />
+          {/* 三个方向的标签 */}
+          <div style={{opacity:likeOp}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none">想去 ♥</div>
+          <div style={{opacity:passOp}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none">跳过</div>
+          <div style={{opacity:maybeOp}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-muted text-muted rounded font-serif font-bold pointer-events-none">待定 ↓</div>
+        </div>
+      </div>
+
+      {/* 按钮操作区（桌面端也能点） */}
+      <div className="flex items-center justify-between mt-6 px-4">
+        <button onClick={()=>decide('pass')}
+          className="w-14 h-14 rounded-full border-2 border-ink grid place-items-center text-xl hover:bg-ink hover:text-cream transition" title="左滑：不感兴趣">✕</button>
+        <button onClick={()=>decide('maybe')}
+          className="w-12 h-12 rounded-full border-2 border-line grid place-items-center text-base text-muted hover:border-muted transition" title="下滑：待定">⇩</button>
+        <button onClick={()=>decide('like')}
+          className="w-14 h-14 rounded-full bg-accent text-white grid place-items-center text-xl hover:scale-105 transition shadow-lg" title="右滑：想去">♥</button>
+      </div>
+
+      <p className="text-center text-[11px] text-muted mt-4 font-mono">左滑跳过 · 右滑想去 · 下滑待定 · 点卡看详情</p>
+
+      {openDetail && <PoiDetail poi={openDetail} onClose={()=>setOpenDetail(null)}/>}
+    </div>
+  );
+}
+
+function PoiCard({poi,stacked,onTapDetail}){
+  const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
+  const bg = poi.color || '#0F3D2E';
+  return (
+    <div className={`absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line ${stacked?'scale-[0.96] opacity-60 translate-y-3':''}`}
+      style={{background:'var(--cream)'}}>
+      {/* 顶部色块（替代图片） */}
+      <div className="relative h-64 overflow-hidden flex flex-col justify-between p-5"
+        style={{background:bg,color:'#FAF7F0'}}>
+        {/* 装饰网格 */}
+        <div className="absolute inset-0 opacity-15"
+          style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'28px 28px'}}/>
+        {/* 大 emoji 背景 */}
+        <div className="absolute -right-4 -bottom-6 text-[180px] leading-none opacity-20 select-none">{poi.icon||meta.icon}</div>
+        {/* 顶部标签行 */}
+        <div className="relative flex items-start justify-between">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-1 bg-white/15 backdrop-blur rounded-full font-mono text-[10px] tracking-wider">
+              {meta.icon} {meta.label}
+            </span>
+          </div>
+          <span className="px-2.5 py-1 bg-white/15 rounded-full font-mono text-[10px]">{poi.price_level||'¥¥'}</span>
+        </div>
+        {/* ID 编号 */}
+        <div className="relative">
+          <div className="font-mono text-[10px] opacity-60 tracking-widest">{poi.id?.toUpperCase()} · {poi.district_zh||poi.district}</div>
+        </div>
+      </div>
+
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="font-serif text-xl font-bold leading-tight">{poi.name_zh}</h3>
+            <p className="text-xs text-muted mt-0.5 font-mono truncate">{poi.name_en}</p>
+          </div>
+          <button onClick={onTapDetail} className="shrink-0 text-[11px] text-ink underline underline-offset-2 font-mono">详情 →</button>
+        </div>
+
+        <p className="text-sm leading-relaxed mt-3 text-ink/80 line-clamp-3">{poi.short_desc}</p>
+
+        <div className="mt-4 grid grid-cols-3 gap-2 text-[11px]">
+          <InfoChip label="停留" value={`${poi.duration_hr}h`}/>
+          <InfoChip label="最佳" value={(poi.best_time||[]).map(t=>TIME_META[t]?.label||t).join('/') || '-'}/>
+          <InfoChip label="人均" value={poi.price_thb?`฿${poi.price_thb}`:'免费'}/>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 mt-3">
+          {(poi.tags||[]).slice(0,4).map(t=>(
+            <span key={t} className="px-2 py-0.5 bg-paper rounded-full text-[10px] text-ink/70 border border-line">#{t}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+function InfoChip({label,value}){
+  return (
+    <div className="bg-paper border border-line rounded-lg px-2 py-1.5">
+      <div className="font-mono text-[9px] text-muted uppercase tracking-wider">{label}</div>
+      <div className="font-serif text-[13px] font-bold mt-0.5 truncate">{value}</div>
+    </div>
+  );
+}
+
+function PoiDetail({poi,onClose}){
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm sheet-fade" onClick={onClose}>
+      <div className="absolute inset-x-0 bottom-0 bg-cream rounded-t-3xl max-h-[90vh] overflow-y-auto no-scrollbar sheet-up"
+        onClick={(e)=>e.stopPropagation()}>
+        <div className="w-10 h-1 bg-line rounded-full mx-auto mt-3"/>
+        <div className="relative h-48 mt-3 flex items-center justify-center overflow-hidden"
+          style={{background:poi.color||'#0F3D2E',color:'#FAF7F0'}}>
+          <div className="absolute inset-0 opacity-10"
+            style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'32px 32px'}}/>
+          <div className="text-[120px] leading-none opacity-90">{poi.icon||'📍'}</div>
+        </div>
+        <div className="p-5 pb-10">
+          <div className="font-mono text-[10px] text-accent tracking-widest">{CAT_META[poi.category]?.label}</div>
+          <h3 className="font-serif text-2xl font-bold mt-1">{poi.name_zh}</h3>
+          <p className="text-xs text-muted font-mono mt-0.5">{poi.name_en} {poi.name_th && `· ${poi.name_th}`}</p>
+
+          <div className="grid grid-cols-2 gap-2 mt-4">
+            <InfoChip label="推荐停留" value={`${poi.duration_hr} 小时`}/>
+            <InfoChip label="人均" value={poi.price_thb ? `฿${poi.price_thb}` : '免费'}/>
+            <InfoChip label="最佳时段" value={(poi.best_time||[]).map(t=>TIME_META[t]?.label).join(' / ')}/>
+            <InfoChip label="区域" value={poi.district_zh||poi.district}/>
+          </div>
+
+          <h4 className="font-serif font-bold mt-6 mb-2">简介</h4>
+          <p className="text-sm leading-relaxed text-ink/85 whitespace-pre-line">{poi.long_desc || poi.short_desc}</p>
+
+          {poi.address && <>
+            <h4 className="font-serif font-bold mt-6 mb-2">地址</h4>
+            <p className="text-sm text-ink/80">{poi.address}</p>
+            {poi.lat && <p className="font-mono text-[11px] text-muted mt-1">{poi.lat}, {poi.lng}</p>}
+          </>}
+
+          {poi.tips?.length>0 && <>
+            <h4 className="font-serif font-bold mt-6 mb-2">贴士</h4>
+            <ul className="space-y-1.5">
+              {poi.tips.map((t,i)=>(
+                <li key={i} className="text-sm text-ink/85 pl-5 relative before:content-['·'] before:absolute before:left-1 before:text-accent before:font-bold">{t}</li>
+              ))}
+            </ul>
+          </>}
+
+          <div className="flex flex-wrap gap-1.5 mt-6">
+            {(poi.tags||[]).map(t=>(
+              <span key={t} className="px-2.5 py-1 bg-paper rounded-full text-xs text-ink/70 border border-line">#{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- STEP 2: 行程清单 ---------- */
+function StepItinerary({intake,liked,maybe,onRestart}){
+  const [itinerary,setItinerary] = useState(()=>buildItinerary(liked,intake));
+  const [tab,setTab] = useState(0);
+  const [done,setDone] = useState({}); // poiId => true
+
+  const regenerate = ()=>{ setItinerary(buildItinerary(liked,intake)); setDone({}); };
+
+  const totalItems = itinerary.reduce((s,d)=>s+d.items.length,0);
+  const doneCount = Object.keys(done).filter(k=>done[k]).length;
+  const day = itinerary[tab];
+
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-4 pb-24">
+      <div className="mb-5">
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-1">// 03 ITINERARY</div>
+        <div className="flex items-end justify-between">
+          <h2 className="font-serif text-2xl font-bold">你的曼谷清单</h2>
+          <button onClick={regenerate} className="font-mono text-[11px] text-ink underline underline-offset-2">↻ 重新排程</button>
+        </div>
+        <p className="text-xs text-muted mt-1">{intake.days} 天 · {intake.wake} 起床 · {({intense:'暴走',standard:'标准',chill:'留白'})[intake.pace]}强度 · 共 {liked.length} 个想去点</p>
+      </div>
+
+      {/* 总进度 */}
+      <div className="bg-paper border border-line rounded-2xl p-4 mb-5">
+        <div className="flex items-center justify-between mb-2">
+          <span className="font-serif font-bold text-sm">总进度</span>
+          <span className="font-mono text-sm"><span className="text-ink font-bold">{doneCount}</span><span className="text-muted"> / {totalItems}</span></span>
+        </div>
+        <div className="h-2 bg-cream rounded-full overflow-hidden">
+          <div className="h-full bg-accent transition-all" style={{width:`${totalItems?(doneCount/totalItems)*100:0}%`}}/>
+        </div>
+      </div>
+
+      {/* Day Tabs */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar mb-5 pb-1">
+        {itinerary.map((d,i)=>{
+          const active = i===tab;
+          const dCount = d.items.filter(it=>done[it.poi.id]).length;
+          return (
+            <button key={i} onClick={()=>setTab(i)}
+              className={`shrink-0 px-4 py-2.5 rounded-xl border transition text-left ${active?'bg-ink text-cream border-ink':'bg-paper border-line text-ink'}`}>
+              <div className="font-mono text-[10px] opacity-70">DAY</div>
+              <div className="font-serif font-bold text-base leading-none">{i+1}</div>
+              <div className="font-mono text-[10px] mt-1 opacity-70">{dCount}/{d.items.length}</div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 某天的时间轴 */}
+      <div className="relative">
+        <div className="absolute left-4 top-4 bottom-4 w-px bg-line"/>
+        <div className="space-y-3">
+          {day.items.map((it,i)=>(
+            <TimelineItem key={i} item={it} checked={!!done[it.poi.id]}
+              onToggle={()=>setDone(prev=>({...prev,[it.poi.id]:!prev[it.poi.id]}))}/>
+          ))}
+          {day.items.length===0 && (
+            <div className="py-10 text-center text-muted text-sm">这一天没有安排，去刷几个点吧</div>
+          )}
+        </div>
+      </div>
+
+      {maybe.length>0 && (
+        <div className="mt-8 p-4 bg-paper border border-dashed border-line rounded-2xl">
+          <div className="flex items-center justify-between mb-2">
+            <span className="font-serif font-bold text-sm">待定清单</span>
+            <span className="font-mono text-[11px] text-muted">{maybe.length} 项</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {maybe.map(p=>(
+              <span key={p.id} className="px-2.5 py-1 bg-cream rounded-full text-[11px] border border-line">{p.name_zh}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button onClick={onRestart} className="mt-8 w-full py-3 rounded-xl border border-line text-sm text-muted">重新开始</button>
+
+      <p className="font-mono text-[10px] text-muted text-center mt-6 tracking-wider">MADE WITH SWIPEGO · v0.1</p>
+    </div>
+  );
+}
+
+function TimelineItem({item,checked,onToggle}){
+  const {poi,start,end} = item;
+  const meta = CAT_META[poi.category];
+  return (
+    <div className="relative pl-10">
+      <div className="absolute left-[13px] top-4 w-2.5 h-2.5 rounded-full border-2 border-ink bg-cream"/>
+      <div className={`rounded-2xl border transition ${checked?'bg-paper border-line opacity-60':'bg-cream border-line card-shadow'}`}>
+        <div className="flex">
+          <div className="w-20 shrink-0 bg-ink text-cream p-3 rounded-l-2xl flex flex-col items-center justify-center">
+            <div className="font-mono text-[10px] opacity-70">{start}</div>
+            <div className="font-serif font-bold text-xs">↓</div>
+            <div className="font-mono text-[10px] opacity-70">{end}</div>
+          </div>
+          <div className="flex-1 p-3 flex gap-3 items-start">
+            <div className="w-14 h-14 rounded-lg shrink-0 grid place-items-center text-2xl"
+              style={{background:poi.color||'#0F3D2E',color:'#FAF7F0'}}>
+              {poi.icon || meta?.icon || '📍'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="font-mono text-[10px] text-muted">{meta?.icon} {meta?.label}</span>
+                <span className="font-mono text-[10px] text-muted">· {poi.duration_hr}h</span>
+              </div>
+              <div className={`font-serif font-bold text-sm mt-0.5 truncate ${checked?'line-through':''}`}>{poi.name_zh}</div>
+              <div className="text-[11px] text-muted truncate">{poi.district_zh||poi.district}</div>
+            </div>
+            <button onClick={onToggle}
+              className={`shrink-0 w-7 h-7 rounded-md border-2 grid place-items-center transition ${checked?'bg-accent border-accent text-white':'border-ink/30 hover:border-ink'}`}>
+              {checked && <span className="tick-in text-sm">✓</span>}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- 排程规则引擎 ---------- */
+function buildItinerary(liked,intake){
+  const days = intake.days;
+  const wake = intake.wake; // "07:00"
+  const pace = intake.pace; // intense/standard/chill
+  const itemsPerDay = {intense:8,standard:6,chill:4}[pace] || 6;
+
+  // 按品类/区域分组，做点简单均衡
+  const byDistrict = {};
+  liked.forEach(p=>{
+    const k = p.district || '_';
+    (byDistrict[k] = byDistrict[k] || []).push(p);
+  });
+  const districtList = Object.values(byDistrict).sort((a,b)=>b.length-a.length);
+
+  // 分配到每天：尽量同区域扎堆
+  const buckets = Array.from({length:days},()=>[]);
+  let cursor = 0;
+  districtList.flat().forEach(p=>{
+    // 找一个还能装的桶
+    let attempts = 0;
+    while(buckets[cursor].length >= itemsPerDay && attempts < days){
+      cursor = (cursor+1)%days;
+      attempts++;
+    }
+    if(attempts>=days) buckets[cursor].push(p); // 都满了也塞进去
+    else buckets[cursor].push(p);
+    cursor = (cursor+1)%days;
+  });
+
+  // 每个桶内按 best_time 排序
+  const timeRank = {morning:1,noon:2,afternoon:3,evening:4,night:5};
+  buckets.forEach(arr=>{
+    arr.sort((a,b)=>{
+      const ra = Math.min(...(a.best_time||['afternoon']).map(t=>timeRank[t]||3));
+      const rb = Math.min(...(b.best_time||['afternoon']).map(t=>timeRank[t]||3));
+      return ra-rb;
+    });
+  });
+
+  // 生成带时间戳的 schedule
+  return buckets.map((arr,dayIdx)=>{
+    const [wh,wm] = wake.split(':').map(Number);
+    let cursorMin = wh*60 + wm;
+    const items = [];
+    arr.forEach((poi,i)=>{
+      // 开餐时间留白：第一个后加 30min 早餐；午饭/晚饭窗口插空
+      const start = cursorMin;
+      const dur = Math.round((poi.duration_hr||1.5)*60);
+      const end = start + dur;
+      items.push({poi, start:fmt(start), end:fmt(end)});
+      // 间隔：通勤 30min + 必要时加用餐
+      let gap = 30;
+      if((start<=13*60 && end>=12*60)) gap += 0; // 刚好吃
+      cursorMin = end + gap;
+    });
+    return {dayIdx, items};
+  });
+}
+function fmt(min){
+  const h = Math.floor(min/60)%24;
+  const m = min%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+
+/* ---------- 空态：等数据 ---------- */
+function DataPending({err}){
+  return (
+    <div className="max-w-xl mx-auto px-5 py-20 text-center">
+      <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// LOADING</div>
+      <h2 className="font-serif text-2xl font-bold">数据整理中</h2>
+      <p className="text-sm text-muted mt-3 leading-relaxed">
+        研究 Agent 正在爬取并整理 50 个曼谷 POI 数据……<br/>
+        完成后会写入 <span className="font-mono text-ink">data/bangkok-pois.json</span>，刷新页面即可看到。
+      </p>
+      {err && <div className="mt-6 p-4 bg-paper border border-line rounded-xl text-xs text-muted font-mono text-left">{err}</div>}
+      <button onClick={()=>location.reload()} className="mt-8 px-6 py-3 btn-primary rounded-xl text-sm font-serif font-bold">刷新重试</button>
+    </div>
+  );
+}
+
+/* ---------- 主 App ---------- */
+function App(){
+  const {data,err} = usePois();
+  const [step,setStep] = useState(0);
+  const [intake,setIntake] = useState(null);
+  const [swipeResult,setSwipeResult] = useState(null);
+
+  const reset = ()=>{setStep(0); setIntake(null); setSwipeResult(null);};
+
+  if(!data) return <><Header step={0} total={3}/><DataPending err={err}/></>;
+
+  return (
+    <div className="min-h-screen">
+      <Header step={step+1} total={3} onBack={step>0?()=>setStep(s=>Math.max(0,s-1)):null}/>
+
+      {step===0 && (
+        <StepIntake onDone={(v)=>{setIntake(v); setStep(1);}}/>
+      )}
+      {step===1 && intake && (
+        <StepSwipe pois={data.pois} onDone={(r)=>{setSwipeResult(r); setStep(2);}}/>
+      )}
+      {step===2 && swipeResult && (
+        <StepItinerary intake={intake} liked={swipeResult.liked} maybe={swipeResult.maybe} onRestart={reset}/>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

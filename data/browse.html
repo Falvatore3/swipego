@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SwipeGo · 50 POI 数据浏览器</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif;background:#FAF7F0;color:#1B2A22}
+  .mono{font-family:'JetBrains Mono','SF Mono',Menlo,monospace}
+  .card{transition:all .15s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,61,46,.08)}
+  .pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;font-size:11px;line-height:1.6}
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-7xl mx-auto px-5 py-6">
+  <header class="mb-5 flex items-end justify-between flex-wrap gap-3">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight">SwipeGo · 曼谷 POI 数据浏览</h1>
+      <p class="text-sm text-stone-500 mt-1 mono" id="meta">loading...</p>
+    </div>
+    <div class="flex gap-2 items-center flex-wrap">
+      <input id="q" type="search" placeholder="搜中文/英文/泰文/区域/标签..." class="px-3 py-2 rounded-lg border border-stone-300 bg-white text-sm w-72"/>
+      <select id="cat" class="px-3 py-2 rounded-lg border border-stone-300 bg-white text-sm">
+        <option value="">全部类型</option>
+      </select>
+      <button id="exportCsv" class="px-3 py-2 rounded-lg bg-emerald-900 text-white text-sm">导出 CSV</button>
+    </div>
+  </header>
+
+  <section id="stats" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6"></section>
+
+  <section id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></section>
+</div>
+
+<dialog id="dlg" class="rounded-2xl p-0 backdrop:bg-black/40 max-w-2xl w-[92vw]">
+  <div id="dlgBody" class="p-6"></div>
+  <div class="px-6 pb-5 flex justify-end">
+    <button onclick="document.getElementById('dlg').close()" class="px-4 py-2 rounded-lg bg-stone-200 text-sm">关闭</button>
+  </div>
+</dialog>
+
+<script>
+const CAT_COLOR={landmark:'#0F3D2E',art:'#7C3AED',market:'#FF6B35',nightlife:'#1E40AF',spa:'#10B981',cafe:'#A16207',mall:'#DB2777',family:'#0EA5E9',hidden:'#475569'};
+let DATA=null;
+
+fetch('./bangkok-pois.json?v='+Date.now()).then(r=>r.json()).then(data=>{
+  DATA=data;
+  document.getElementById('meta').textContent =
+    `${data.city} · v${data.version} · 更新 ${data.updated_at} · 共 ${data.total} 条`;
+
+  // stats
+  const cats={};
+  data.pois.forEach(p=>cats[p.category]=(cats[p.category]||0)+1);
+  const labels={landmark:'地标',art:'文艺',market:'市集',nightlife:'夜生活',spa:'按摩',cafe:'咖啡',mall:'商场',family:'亲子',hidden:'小众'};
+  const statHtml=Object.entries(cats).map(([k,v])=>
+    `<div class="bg-white rounded-xl p-3 border border-stone-200">
+      <div class="text-xs text-stone-500">${labels[k]||k}</div>
+      <div class="text-2xl font-bold mt-1" style="color:${CAT_COLOR[k]}">${v}</div>
+    </div>`).join('');
+  document.getElementById('stats').innerHTML = statHtml;
+
+  // category select
+  const sel=document.getElementById('cat');
+  Object.entries(cats).forEach(([k,v])=>{
+    const o=document.createElement('option'); o.value=k; o.textContent=`${labels[k]} (${v})`; sel.appendChild(o);
+  });
+
+  render();
+});
+
+function render(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  const cat=document.getElementById('cat').value;
+  const list=DATA.pois.filter(p=>{
+    if(cat && p.category!==cat) return false;
+    if(q){
+      const hay=[p.name_zh,p.name_en,p.name_th,p.district_zh,p.district,p.short_desc,p.long_desc,...(p.tags||[])].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  document.getElementById('grid').innerHTML = list.map(p=>cardHtml(p)).join('') ||
+    `<div class="col-span-full text-center text-stone-400 py-10">无匹配结果</div>`;
+}
+
+function cardHtml(p){
+  return `<div class="card bg-white rounded-2xl border border-stone-200 overflow-hidden cursor-pointer" onclick='showDetail("${p.id}")'>
+    <div class="relative h-44 bg-stone-100">
+      <img src="${p.cover_url}" alt="${p.name_zh}" loading="lazy" class="w-full h-full object-cover" onerror="this.style.opacity=0.2"/>
+      <span class="pill absolute top-2 left-2 text-white" style="background:${CAT_COLOR[p.category]}">${p.category_label}</span>
+      <span class="pill absolute top-2 right-2 bg-white/90 mono">${p.id}</span>
+    </div>
+    <div class="p-4">
+      <div class="flex items-baseline justify-between gap-2">
+        <h3 class="font-semibold text-base truncate">${p.name_zh}</h3>
+        <span class="text-xs text-stone-400 mono shrink-0">${p.duration_hr}h · ${p.price_level}</span>
+      </div>
+      <div class="text-xs text-stone-500 mt-1 mono">${p.name_en} · ${p.district_zh}</div>
+      <p class="text-sm text-stone-700 mt-2 line-clamp-2">${p.short_desc}</p>
+      <div class="mt-3 flex flex-wrap gap-1">
+        ${p.tags.map(t=>`<span class="pill bg-stone-100 text-stone-600">${t}</span>`).join('')}
+        ${p.best_time.map(t=>`<span class="pill bg-amber-50 text-amber-700">${({morning:'晨',afternoon:'午',evening:'昏',night:'夜'})[t]||t}</span>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function showDetail(id){
+  const p=DATA.pois.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('dlgBody').innerHTML=`
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <div>
+        <div class="text-xs mono text-stone-400">${p.id} · ${p.category_label}</div>
+        <h2 class="text-xl font-bold mt-1">${p.name_zh}</h2>
+        <div class="text-xs text-stone-500 mono mt-1">${p.name_en} · ${p.name_th}</div>
+      </div>
+      <span class="pill text-white shrink-0" style="background:${CAT_COLOR[p.category]}">${p.category_label}</span>
+    </div>
+    <img src="${p.cover_url}" class="w-full h-56 object-cover rounded-xl"/>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4 text-xs mono">
+      <div class="bg-stone-50 rounded-lg p-2"><div class="text-stone-400">区域</div><div class="font-semibold">${p.district_zh}</div></div>
+      <div class="bg-stone-50 rounded-lg p-2"><div class="text-stone-400">坐标</div><div class="font-semibold">${p.lat},${p.lng}</div></div>
+      <div class="bg-stone-50 rounded-lg p-2"><div class="text-stone-400">时长</div><div class="font-semibold">${p.duration_hr}h</div></div>
+      <div class="bg-stone-50 rounded-lg p-2"><div class="text-stone-400">人均</div><div class="font-semibold">${p.price_thb} THB · ${p.price_level}</div></div>
+    </div>
+    <div class="mt-4">
+      <div class="text-xs text-stone-400 mb-1">一句话简介</div>
+      <p class="text-sm">${p.short_desc}</p>
+    </div>
+    <div class="mt-3">
+      <div class="text-xs text-stone-400 mb-1">详细介绍 · ${p.long_desc.length} 字</div>
+      <p class="text-sm leading-relaxed whitespace-pre-line">${p.long_desc}</p>
+    </div>
+    <div class="mt-3">
+      <div class="text-xs text-stone-400 mb-1">实用 tips</div>
+      <ul class="text-sm list-disc pl-5 space-y-1">${p.tips.map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+    <div class="mt-3 flex flex-wrap gap-1.5">
+      ${p.tags.map(t=>`<span class="pill bg-emerald-50 text-emerald-800">#${t}</span>`).join('')}
+      <span class="pill bg-pink-50 text-pink-700">小红书：${p.xhs_keyword}</span>
+    </div>
+    <div class="mt-3 text-xs text-stone-400 break-all">${p.address}</div>
+  `;
+  document.getElementById('dlg').showModal();
+}
+
+document.getElementById('q').addEventListener('input',render);
+document.getElementById('cat').addEventListener('change',render);
+
+document.getElementById('exportCsv').addEventListener('click',()=>{
+  const cols=['id','name_zh','name_en','category_label','district_zh','duration_hr','price_thb','price_level','best_time','short_desc','long_desc','tags','address','lat','lng','cover_url','xhs_keyword'];
+  const rows=[cols.join(',')];
+  DATA.pois.forEach(p=>{
+    rows.push(cols.map(c=>{
+      let v=p[c]; if(Array.isArray(v))v=v.join('|');
+      v=String(v??'').replace(/"/g,'""'); return `"${v}"`;
+    }).join(','));
+  });
+  const blob=new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='bangkok-pois.csv'; a.click();
+});
+</script>
+</body>
+</html>
