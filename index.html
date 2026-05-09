@@ -177,7 +177,9 @@ function StepIntake({onDone}){
 function StepSwipe({pois,onDone}){
   const [idx,setIdx] = useState(0);
   const [decisions,setDecisions] = useState({}); // id => 'like' | 'pass' | 'maybe'
+  const [history,setHistory] = useState([]);     // [{idx, poiId, verb}]，用于撤销
   const [openDetail,setOpenDetail] = useState(null);
+  const [openShortlist,setOpenShortlist] = useState(false);
   const [drag,setDrag] = useState({x:0,y:0,active:false});
   const [exiting,setExiting] = useState(null); // {dir, verb}
   const [skipTransition,setSkipTransition] = useState(false);
@@ -191,16 +193,41 @@ function StepSwipe({pois,onDone}){
     // 飞出去的方向
     const dir = verb==='like'?{x:600,y:-50}:verb==='pass'?{x:-600,y:-50}:{x:0,y:600};
     setExiting({dir,verb});
+    const snapshotIdx = idx;
+    const snapshotPoi = current;
     setTimeout(()=>{
-      // 标记跳过下一帧的过渡，避免新 current 从飞走位置滑回
       setSkipTransition(true);
-      setDecisions(prev=>({...prev,[current.id]:verb}));
+      setDecisions(prev=>({...prev,[snapshotPoi.id]:verb}));
+      setHistory(h=>[...h, {idx:snapshotIdx, poiId:snapshotPoi.id, verb}]);
       setIdx(i=>i+1);
       setDrag({x:0,y:0,active:false});
       setExiting(null);
-      // 下一帧再恢复过渡
       requestAnimationFrame(()=>requestAnimationFrame(()=>setSkipTransition(false)));
     },220);
+  };
+
+  const undo = ()=>{
+    if(history.length === 0 || exiting) return;
+    const last = history[history.length-1];
+    setHistory(h=>h.slice(0,-1));
+    setSkipTransition(true);
+    setDecisions(prev=>{
+      const next = {...prev};
+      delete next[last.poiId];
+      return next;
+    });
+    setIdx(last.idx);
+    setDrag({x:0,y:0,active:false});
+    setExiting(null);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>setSkipTransition(false)));
+  };
+
+  // 修改某个 POI 的决定（清单里用）
+  const updateDecision = (poiId, newVerb)=>{
+    setDecisions(prev=>{
+      if(!newVerb){ const n={...prev}; delete n[poiId]; return n; }
+      return {...prev, [poiId]: newVerb};
+    });
   };
 
   const onPointerDown = (e)=>{
@@ -231,19 +258,23 @@ function StepSwipe({pois,onDone}){
     else setDrag({x:0,y:0,active:false});
   };
 
-  useEffect(()=>{
-    if(idx>=pois.length){
-      const liked = pois.filter(p=>decisions[p.id]==='like');
-      const maybe = pois.filter(p=>decisions[p.id]==='maybe');
-      onDone({liked,maybe,decisions});
-    }
-  },[idx]);
+  // 全部刷完不自动跳，让用户去清单里点"开始规划"
+  // （撤销后也能继续操作）
 
   const doneCount = Object.keys(decisions).length;
   const likeCount = Object.values(decisions).filter(v=>v==='like').length;
   const maybeCount = Object.values(decisions).filter(v=>v==='maybe').length;
+  const allDone = idx >= pois.length;
 
-  if(!current){
+  // 触发规划
+  const startPlanning = ()=>{
+    const liked = pois.filter(p=>decisions[p.id]==='like');
+    const maybe = pois.filter(p=>decisions[p.id]==='maybe');
+    if(liked.length + maybe.length === 0) return;
+    onDone({liked,maybe,decisions});
+  };
+
+  if(!current && !allDone){
     return <div className="p-10 text-center text-muted">整理中...</div>;
   }
 
@@ -274,66 +305,89 @@ function StepSwipe({pois,onDone}){
         <div className="h-full bg-ink transition-all" style={{width:`${(doneCount/pois.length)*100}%`}}/>
       </div>
 
-      {/* 卡堆 */}
+      {/* 卡堆 / 完成态 */}
       <div className="relative select-none" style={{height:'min(560px, calc(100vh - 230px))'}}>
-        {next && <PoiCard poi={next} stacked/>}
-        <div
-          className="absolute inset-0"
-          style={cardStyle}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}>
-          <PoiCard poi={current} instant={skipTransition} onTapDetail={()=>setOpenDetail(current)} />
-          {/* 三个方向的标签 */}
-          <div style={{opacity:likeOp}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none">想去 ♥</div>
-          <div style={{opacity:passOp}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none">没兴趣</div>
-          <div style={{opacity:maybeOp}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-muted text-muted rounded font-serif font-bold pointer-events-none">待定 ⌛</div>
-        </div>
+        {!allDone && (
+          <>
+            {next && <PoiCard poi={next} stacked/>}
+            <div
+              className="absolute inset-0"
+              style={cardStyle}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerCancel={onPointerUp}>
+              <PoiCard poi={current} instant={skipTransition} onTapDetail={()=>setOpenDetail(current)} />
+              <div style={{opacity:likeOp}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none">想去 ♥</div>
+              <div style={{opacity:passOp}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none">没兴趣</div>
+              <div style={{opacity:maybeOp}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-muted text-muted rounded font-serif font-bold pointer-events-none">待定 ⌛</div>
+            </div>
+          </>
+        )}
+        {allDone && (
+          <div className="absolute inset-0 rounded-3xl bg-paper border border-line flex flex-col items-center justify-center p-6 text-center">
+            <div className="text-5xl mb-3">🎉</div>
+            <div className="font-serif text-xl font-bold mb-2">全部刷完了</div>
+            <div className="text-sm text-muted leading-relaxed">
+              选了 <span className="text-accent font-bold">{likeCount}</span> 个想去
+              {maybeCount>0 && <> · <span className="font-bold text-ink">{maybeCount}</span> 个待定</>}
+              <br/>点右上角"清单"查看 / 调整 / 开始规划
+            </div>
+            <button onClick={undo}
+              className="mt-6 px-4 py-2 rounded-full border border-line text-sm font-mono">
+              ↶ 撤销上一张
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* 按钮操作区 — 带中文文字 */}
+      {/* 按钮操作区 — 带撤销 */}
       <div className="flex items-center justify-around mt-5 px-2">
-        <button onClick={()=>decide('pass')}
-          className="flex flex-col items-center gap-1.5 active:scale-95 transition" title="左滑：不感兴趣">
+        <button onClick={undo} disabled={history.length===0}
+          className={`flex flex-col items-center gap-1.5 transition ${history.length===0?'opacity-30 cursor-not-allowed':'active:scale-95'}`} title="撤销上一张">
+          <span className="w-12 h-12 rounded-full border-2 border-line grid place-items-center text-base text-muted bg-cream">↶</span>
+          <span className="font-serif text-[11px] text-muted">撤销</span>
+        </button>
+        <button onClick={()=>decide('pass')} disabled={allDone}
+          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-30':'active:scale-95'}`} title="左滑：不感兴趣">
           <span className="w-14 h-14 rounded-full border-2 border-ink grid place-items-center text-xl bg-cream">✕</span>
           <span className="font-serif text-xs text-ink">没兴趣</span>
         </button>
-        <button onClick={()=>decide('maybe')}
-          className="flex flex-col items-center gap-1.5 active:scale-95 transition" title="下滑：待定">
+        <button onClick={()=>decide('maybe')} disabled={allDone}
+          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-30':'active:scale-95'}`} title="下滑：待定">
           <span className="w-14 h-14 rounded-full border-2 border-line grid place-items-center text-base text-muted bg-cream">⌛</span>
           <span className="font-serif text-xs text-muted">待定</span>
         </button>
-        <button onClick={()=>decide('like')}
-          className="flex flex-col items-center gap-1.5 active:scale-95 transition" title="右滑：想去">
+        <button onClick={()=>decide('like')} disabled={allDone}
+          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-30':'active:scale-95'}`} title="右滑：想去">
           <span className="w-14 h-14 rounded-full bg-accent text-white grid place-items-center text-xl shadow-lg">♥</span>
           <span className="font-serif text-xs text-accent font-bold">想去</span>
         </button>
       </div>
 
-      {/* 一键规划按钮 — 浮在 Header 右侧 */}
+      {/* 右上角：景点清单按钮 */}
       <button
-        onClick={()=>{
-          if(likeCount + maybeCount === 0) return;
-          const liked = pois.filter(p=>decisions[p.id]==='like');
-          const maybe = pois.filter(p=>decisions[p.id]==='maybe');
-          onDone({liked,maybe,decisions});
-        }}
-        disabled={likeCount + maybeCount === 0}
+        onClick={()=>setOpenShortlist(true)}
         className={`fixed right-4 z-30 px-3 py-1.5 rounded-full font-serif text-xs shadow-md transition flex items-center gap-1.5
           ${likeCount + maybeCount === 0
-            ? 'bg-paper text-muted border border-line cursor-not-allowed'
-            : 'bg-accent text-white active:scale-95'}`}
+            ? 'bg-paper text-muted border border-line'
+            : 'bg-ink text-cream active:scale-95'}`}
         style={{top:'calc(env(safe-area-inset-top,0px) + 14px)'}}>
-        <span>✨ 一键规划</span>
-        {likeCount + maybeCount > 0 && (
-          <span className="font-mono text-[10px] bg-white/25 rounded-full px-1.5 py-0.5 leading-none">
-            {likeCount}<span className="opacity-70">+{maybeCount}</span>
-          </span>
-        )}
+        <span>📋 我的清单</span>
+        <span className={`font-mono text-[10px] rounded-full px-1.5 py-0.5 leading-none ${likeCount+maybeCount===0?'bg-line text-muted':'bg-accent text-white'}`}>
+          {likeCount + maybeCount}
+        </span>
       </button>
 
       {openDetail && <PoiDetail poi={openDetail} onClose={()=>setOpenDetail(null)}/>}
+      {openShortlist && (
+        <ShortlistSheet
+          pois={pois}
+          decisions={decisions}
+          onUpdate={updateDecision}
+          onClose={()=>setOpenShortlist(false)}
+          onPlan={()=>{ setOpenShortlist(false); startPlanning(); }}/>
+      )}
     </div>
   );
 }
@@ -421,6 +475,122 @@ function MetaCell({icon,label,value}){
         <div className="font-serif text-[14px] font-bold leading-tight truncate text-ink">{value}</div>
       </div>
     </div>
+  );
+}
+
+/* ---------- 我的清单抽屉 ---------- */
+function ShortlistSheet({pois, decisions, onUpdate, onClose, onPlan}){
+  const [tab,setTab] = useState('like'); // like / maybe
+  const liked = pois.filter(p=>decisions[p.id]==='like');
+  const maybe = pois.filter(p=>decisions[p.id]==='maybe');
+  const list = tab==='like'? liked : maybe;
+  const total = liked.length + maybe.length;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm sheet-fade" onClick={onClose}>
+      <div className="absolute inset-x-0 bottom-0 bg-cream rounded-t-3xl max-h-[92vh] overflow-hidden sheet-up flex flex-col"
+        onClick={(e)=>e.stopPropagation()}>
+        <div className="w-10 h-1 bg-line rounded-full mx-auto mt-3 shrink-0"/>
+
+        {/* 标题 */}
+        <div className="px-5 pt-3 pb-3 shrink-0">
+          <div className="flex items-baseline justify-between">
+            <h3 className="font-serif text-xl font-bold">我的曼谷清单</h3>
+            <button onClick={onClose} className="font-mono text-xs text-muted">收起 ↓</button>
+          </div>
+          <p className="text-xs text-muted mt-1">长按可调整决定 · 点卡看详情</p>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex gap-2 px-5 mb-2 shrink-0">
+          <button onClick={()=>setTab('like')}
+            className={`flex-1 py-2.5 rounded-xl border transition ${tab==='like'?'bg-accent text-white border-accent':'bg-paper border-line text-muted'}`}>
+            <div className="font-serif font-bold text-sm">♥ 想去 <span className="font-mono">{liked.length}</span></div>
+          </button>
+          <button onClick={()=>setTab('maybe')}
+            className={`flex-1 py-2.5 rounded-xl border transition ${tab==='maybe'?'bg-ink text-cream border-ink':'bg-paper border-line text-muted'}`}>
+            <div className="font-serif font-bold text-sm">⌛ 待定 <span className="font-mono">{maybe.length}</span></div>
+          </button>
+        </div>
+
+        {/* 列表 */}
+        <div className="flex-1 overflow-y-auto no-scrollbar px-5 pb-3">
+          {list.length===0 ? (
+            <div className="py-16 text-center text-muted text-sm">
+              {tab==='like' ? '还没有"想去"的景点，去刷几张吧' : '没有待定的景点'}
+            </div>
+          ) : (
+            <ul className="space-y-2">
+              {list.map(p=>(
+                <ShortlistRow key={p.id} poi={p} verb={tab}
+                  onMove={(newVerb)=>onUpdate(p.id, newVerb)}
+                  onRemove={()=>onUpdate(p.id, null)}/>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* 底部规划按钮 */}
+        <div className="p-4 border-t border-line shrink-0 bg-cream"
+          style={{paddingBottom:'calc(env(safe-area-inset-bottom,0px) + 16px)'}}>
+          <button onClick={onPlan} disabled={total===0}
+            className={`w-full py-4 rounded-2xl font-serif font-bold text-base transition flex items-center justify-center gap-2
+              ${total===0
+                ? 'bg-paper text-muted border border-line cursor-not-allowed'
+                : 'bg-ink text-cream active:scale-[0.98]'}`}>
+            <span>✨ 一键规划我的行程</span>
+            {total>0 && <span className="font-mono text-xs bg-accent text-white rounded-full px-2 py-0.5">{total}</span>}
+          </button>
+          <p className="text-[10px] text-muted text-center mt-2 font-mono">
+            按天分配 · 同区域聚类 · 小时级排程
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ShortlistRow({poi, verb, onMove, onRemove}){
+  const [showOps,setShowOps] = useState(false);
+  const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
+  return (
+    <li className="bg-paper border border-line rounded-xl overflow-hidden">
+      <div className="flex items-stretch">
+        <div className="w-20 shrink-0 relative" style={{background:poi.color||'#0F3D2E'}}>
+          {poi.cover_url
+            ? <img src={poi.cover_url} className="w-full h-full object-cover" loading="lazy"
+                onError={(e)=>{e.currentTarget.style.display='none'}}/>
+            : <div className="w-full h-full grid place-items-center text-2xl text-white/95">{poi.icon||meta.icon}</div>}
+        </div>
+        <div className="flex-1 p-3 min-w-0">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="font-mono text-[10px] text-muted">{meta.icon} {meta.label}</span>
+            <span className="font-mono text-[10px] text-muted">· {poi.duration_hr}h</span>
+            <span className="font-mono text-[10px] text-muted">· {poi.district_zh||poi.district}</span>
+          </div>
+          <div className="font-serif font-bold text-sm mt-0.5 truncate">{poi.name_zh}</div>
+          <div className="text-[11px] text-ink/60 line-clamp-1 mt-0.5">{poi.short_desc}</div>
+        </div>
+        <button onClick={()=>setShowOps(s=>!s)}
+          className="shrink-0 px-3 grid place-items-center text-muted active:bg-line">
+          <span className="text-base">⋯</span>
+        </button>
+      </div>
+      {showOps && (
+        <div className="border-t border-line bg-cream/60 grid grid-cols-3 divide-x divide-line">
+          {verb !== 'like' && (
+            <button onClick={()=>{onMove('like'); setShowOps(false);}}
+              className="py-2.5 text-xs font-serif text-accent active:bg-paper">移到想去 ♥</button>
+          )}
+          {verb !== 'maybe' && (
+            <button onClick={()=>{onMove('maybe'); setShowOps(false);}}
+              className="py-2.5 text-xs font-serif text-ink active:bg-paper">移到待定 ⌛</button>
+          )}
+          <button onClick={()=>{onRemove(); setShowOps(false);}}
+            className="py-2.5 text-xs font-serif text-red-600 active:bg-paper">删除</button>
+        </div>
+      )}
+    </li>
   );
 }
 function InfoChip({label,value}){

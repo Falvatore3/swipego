@@ -24,7 +24,9 @@
       "price_thb": 500,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-001.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/3/30/A_roof_of_a_building_at_the_Grand_Palace%2C_Bangkok%2C_sunrise%2C_2017.jpg"
+      ],
       "short_desc": "拉玛一世建造的泰国王室官邸，玉佛寺所在地。",
       "long_desc": "大皇宫始建于 1782 年拉玛一世迁都时期，占地 21.84 万平方米，是历代国王的居所与举行加冕、皇室葬礼的场所。园区内的玉佛寺供奉 66 厘米高的翡翠玉佛，是泰国最神圣的佛像；Chakri Maha Prasat 御座大殿融合了泰式金顶与维多利亚立面。现场实测：08:30 一开门就到能拍空镜，10:00 后大批旅行团涌入，主殿外排队 30 分钟起跳。门票 500 铢含同票通玉佛寺 + 柚木行宫，按 Google 评论看大多数人评价值回票价但抱怨太晒。",
       "tips": [
