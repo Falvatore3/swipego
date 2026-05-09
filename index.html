@@ -270,6 +270,7 @@ function StepSwipe({pois,onDone}){
 
   const doneCount = Object.keys(decisions).length;
   const likeCount = Object.values(decisions).filter(v=>v==='like').length;
+  const maybeCount = Object.values(decisions).filter(v=>v==='maybe').length;
 
   if(!current){
     return <div className="p-10 text-center text-muted">整理中...</div>;
@@ -318,16 +319,41 @@ function StepSwipe({pois,onDone}){
       </div>
 
       {/* 按钮操作区（桌面端也能点） */}
-      <div className="flex items-center justify-between mt-6 px-4">
+      <div className="flex items-center justify-between mt-4 px-4">
         <button onClick={()=>decide('pass')}
-          className="w-14 h-14 rounded-full border-2 border-ink grid place-items-center text-xl hover:bg-ink hover:text-cream transition" title="左滑：不感兴趣">✕</button>
+          className="w-12 h-12 rounded-full border-2 border-ink grid place-items-center text-lg hover:bg-ink hover:text-cream transition" title="左滑：不感兴趣">✕</button>
         <button onClick={()=>decide('maybe')}
-          className="w-12 h-12 rounded-full border-2 border-line grid place-items-center text-base text-muted hover:border-muted transition" title="下滑：待定">⇩</button>
+          className="w-10 h-10 rounded-full border-2 border-line grid place-items-center text-sm text-muted hover:border-muted transition" title="下滑：待定">⇩</button>
         <button onClick={()=>decide('like')}
-          className="w-14 h-14 rounded-full bg-accent text-white grid place-items-center text-xl hover:scale-105 transition shadow-lg" title="右滑：想去">♥</button>
+          className="w-12 h-12 rounded-full bg-accent text-white grid place-items-center text-lg hover:scale-105 transition shadow-lg" title="右滑：想去">♥</button>
       </div>
 
-      <p className="text-center text-[11px] text-muted mt-4 font-mono">左滑跳过 · 右滑想去 · 下滑待定 · 点卡查看详情</p>
+      <p className="text-center text-[10px] text-muted mt-2 font-mono">左滑跳过 · 右滑想去 · 下滑待定 · 点卡查看详情</p>
+
+      {/* 一键规划悬浮按钮 — 随时可触发 */}
+      <button
+        onClick={()=>{
+          if(likeCount + maybeCount === 0) return;
+          const liked = pois.filter(p=>decisions[p.id]==='like');
+          const maybe = pois.filter(p=>decisions[p.id]==='maybe');
+          onDone({liked,maybe,decisions});
+        }}
+        disabled={likeCount + maybeCount === 0}
+        className={`fixed left-1/2 -translate-x-1/2 z-30 px-5 py-3 rounded-full font-serif font-bold text-sm shadow-xl transition flex items-center gap-2
+          ${likeCount + maybeCount === 0
+            ? 'bg-paper text-muted border border-line cursor-not-allowed'
+            : 'bg-ink text-cream hover:bg-ink-2 active:scale-95'}`}
+        style={{bottom:'calc(env(safe-area-inset-bottom,0px) + 14px)'}}>
+        <span>✨ 一键规划我的行程</span>
+        {likeCount + maybeCount > 0 && (
+          <span className="font-mono text-[11px] bg-accent text-white rounded-full px-2 py-0.5">
+            {likeCount}<span className="opacity-70">+{maybeCount}</span>
+          </span>
+        )}
+      </button>
+
+      {/* 占位防止内容被悬浮按钮遮挡 */}
+      <div className="h-20"/>
 
       {openDetail && <PoiDetail poi={openDetail} onClose={()=>setOpenDetail(null)}/>}
     </div>
