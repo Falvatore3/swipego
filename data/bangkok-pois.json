@@ -258,7 +258,15 @@
       "price_thb": 100,
       "price_level": "¥",
       "cover_url": "",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2808%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2808%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2812%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2812%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2801%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2801%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2809%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2809%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2807%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2807%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2827%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2827%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2803%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Wat_Traimit_Witthayaram_%2803%29.jpg"
+      ],
       "short_desc": "全球最大纯金佛像，5.5 吨真金打造。",
       "long_desc": "Wat Traimit 镇寺的 Phra Phuttha Maha Suwana Patimakon 是世界最大的纯金铸造佛像，高 3 米、重 5.5 吨，13 世纪素可泰王朝时期铸成，曾被石膏伪装数百年躲过缅军劫掠，1955 年搬迁时石膏裂开才重见天日。寺内 2/3 楼是金佛历史与唐人街文化展示馆，含金量满满又凉快。位于 Yaowarat 唐人街入口，参观完正好接着扫街吃宵夜。游客评价集中在「亲眼看到真金心震撼」「博物馆英文解说很到位」。",
       "tips": [
@@ -298,7 +306,15 @@
       "price_thb": 0,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-007.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Erawan_Shrine_Bangkok_2021_May.jpg/1280px-Erawan_Shrine_Bangkok_2021_May.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bangkok_ErawanShrine2.jpg/1280px-Bangkok_ErawanShrine2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Dance_offering_at_Erawan_Shrine%2C_Bangkok_%2832844253793%29.jpg/1280px-Dance_offering_at_Erawan_Shrine%2C_Bangkok_%2832844253793%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/People_praying_at_Erawan_Shrine_2018.jpg/1280px-People_praying_at_Erawan_Shrine_2018.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Erawan_Shrine_at_Night.jpg/1280px-Erawan_Shrine_at_Night.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Erawan_Shrine_at_Bangkok.jpg/1280px-Erawan_Shrine_at_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Erawan_Shrine_from_pedestrian_walkway.JPG/1280px-Erawan_Shrine_from_pedestrian_walkway.JPG"
+      ],
       "short_desc": "全球最灵验的四面佛之一，BTS Chit Lom 出口。",
       "long_desc": "四面佛 1956 年因 Erawan 酒店动工不顺而立，传说极为灵验，多年来吸引明星与商界名流前来还愿。四面分别司职事业、爱情、财富、健康，按顺时针参拜，许愿要还愿（一般通过供奉花圈、舞团或大象雕塑）。每天 06:00-22:30 开放，场内有专属舞团表演还愿舞，BTS Chit Lom 站 8 号口出来步行 1 分钟，香火日夜不断。Tripadvisor 评 4.4/5，争议在「人挤香烟呛」但绝大多数中港台游客必拜。",
       "tips": [
@@ -337,7 +353,15 @@
       "price_thb": 0,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-008.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Wat_Paknam_Phasi_Charoen%2CBangkok_%2861%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%2861%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Wat_Paknam_Phasi_Charoen%2CBangkok_%28130%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%28130%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Wat_Paknam_Phasi_Charoen%2CBangkok_%28124%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%28124%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Wat_Paknam_Phasi_Charoen%2CBangkok_%28106%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%28106%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Wat_Paknam_Phasi_Charoen%2CBangkok_%28143%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%28143%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Wat_Paknam_Phasi_Charoen%2CBangkok_%2878%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%2878%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Wat_Paknam_Phasi_Charoen%2CBangkok_%2827%29.jpg/1280px-Wat_Paknam_Phasi_Charoen%2CBangkok_%2827%29.jpg"
+      ],
       "short_desc": "5 楼 8 米高的翡翠绿玻璃佛塔，宇宙感封面。",
       "long_desc": "帕南寺主体是 80 米高的白色 5 层佛塔（Phra Maha Chedi Maha Rajamongkol），2012 年完工。最出片的是顶层大殿——8 米高的翡翠绿玻璃佛塔下方铺满星空藻井壁画，仿佛宇宙穹顶，被小红书称为「曼谷最不像曼谷的寺庙」。每层都设博物馆展示佛教文物。地处偏远（曼谷西郊），打车去单程 30-40 分钟，但人少出片率极高。游客评价：「绝美但工作日才能拍到无人」「免费值五星」。",
       "tips": [
@@ -376,7 +400,15 @@
       "price_thb": 200,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-009.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Jim_Thompson_House_spirit_house.JPG/1280px-Jim_Thompson_House_spirit_house.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/JT_House_-_Jim_Thompson_House%2C_Bangkok_-_Thailand_-_panoramio.jpg/1280px-JT_House_-_Jim_Thompson_House%2C_Bangkok_-_Thailand_-_panoramio.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Jim_Thompson_House_Bangkok_P1110310.JPG/1280px-Jim_Thompson_House_Bangkok_P1110310.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Jim_Thompson_House_Bangkok_P1110317.JPG/1280px-Jim_Thompson_House_Bangkok_P1110317.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Jim_Thompson_House_Bangkok_P1110282.JPG/1280px-Jim_Thompson_House_Bangkok_P1110282.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Jim_Thompson_House_Bangkok_P1110305.JPG/1280px-Jim_Thompson_House_Bangkok_P1110305.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Jim_Thompson_House_Bangkok_P1110304.JPG/1280px-Jim_Thompson_House_Bangkok_P1110304.JPG"
+      ],
       "short_desc": "美国丝绸大亨的泰式柚木宅邸，市中心绿洲。",
       "long_desc": "Jim Thompson 是二战后复兴泰丝产业的美国传奇商人，1967 年在马来西亚神秘失踪。他在曼谷的故居由 6 栋老柚木屋拼合而成，悬于运河之上，里面珍藏他从东南亚各地搜罗的明清瓷器、佛像与高棉雕塑。强制讲解参观（含中英日泰语），全程 45 分钟。出来后旁边的咖啡馆 + 丝绸店是必逛点，Pad Thai 也很地道。猫途鹰 4.5/5，多数人惊喜「在 Siam 商圈居然有这么静的地方」。",
       "tips": [
@@ -414,7 +446,15 @@
       "price_thb": 0,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-010.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/BKK_Art_and_Culture_Centre.jpg/1280px-BKK_Art_and_Culture_Centre.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Modern_art%2C_Bangkok_Art_and_Culture_Centre%2C_Rama_I_Road_in_central_Bangkok%2C_Thailand.jpg/1280px-Modern_art%2C_Bangkok_Art_and_Culture_Centre%2C_Rama_I_Road_in_central_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Bangkok_Art_and_Culture_Centre_building.jpg/1280px-Bangkok_Art_and_Culture_Centre_building.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Rama_I_Road_in_central_Bangkok%2C_Thailand.jpg/1280px-Rama_I_Road_in_central_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Bangkok_Art_and_Culture_Centre_2.jpg/1280px-Bangkok_Art_and_Culture_Centre_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Bangkok_Art_and_Culture_Centre_1.jpg/1280px-Bangkok_Art_and_Culture_Centre_1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Exhibition_at_the_Bangkok_Art_and_Culture_Centre_4.jpg/1280px-Exhibition_at_the_Bangkok_Art_and_Culture_Centre_4.jpg"
+      ],
       "short_desc": "9 层螺旋艺术中心，曼谷年轻人最爱的免费空间。",
       "long_desc": "BACC 是曼谷市政府运营的当代艺术中心，2008 年建成，外观和纽约古根海姆神似——9 层螺旋空间环绕中央天井。1-4 楼是免费独立咖啡馆、设计书店、二手黑胶店；5-9 楼为主题展厅，每 1-2 月换一次展，从泰国新锐摄影到东南亚装置艺术。免费入场，是曼谷大学生约会、出来交友的场地。BTS National Stadium 直接连廊步行可达。Google 评 4.6，多数评价「展览水准超出期待，对面就是 MBK 商场超方便」。",
       "tips": [
@@ -452,7 +492,15 @@
       "price_thb": 280,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-011.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-05.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-05.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-02.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-02.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-08.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-08.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-04.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-04.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-06.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-06.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-03.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-03.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-07.jpg/1280px-Museum_of_Contemporary_Art_%28MOCA%29%2C_Bangkok%2C_Thailand_-_20161201-07.jpg"
+      ],
       "short_desc": "5 层私人当代艺术馆，泰国艺术家天花板。",
       "long_desc": "MOCA 是泰国电信大亨 Boonchai Bencharongkul 私人创建的当代美术馆，2012 年开幕，5 层楼 800+ 件作品全部出自泰国艺术家。镇馆之宝是 3 楼的「Three Kingdoms」——巨型超现实主义油画用泰式宗教元素重构地狱、人间、天堂。馆藏数量在东南亚私人博物馆里数一数二。地处城北稍远，但内部是大片留白白盒子建筑，每个展厅都能拍出来杂志感。Google 评 4.7，「质量秒杀很多公立美术馆」「打车去值得」。",
       "tips": [
@@ -490,7 +538,15 @@
       "price_thb": 200,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-012.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Bangkok_National_Museum.jpg/1280px-Bangkok_National_Museum.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Bangkok_National_Museum_-_2017-04-22_%28067%29.jpg/1280px-Bangkok_National_Museum_-_2017-04-22_%28067%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Bangkok_National_Museum_2018-12-21_%2833%29.jpg/1280px-Bangkok_National_Museum_2018-12-21_%2833%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Bangkok_National_Museum_November_1964_01.jpg/1280px-Bangkok_National_Museum_November_1964_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bangkok_National_Museum_November_1964_02.jpg/1280px-Bangkok_National_Museum_November_1964_02.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Bangkok_National_Museum_November_1964_04.jpg/1280px-Bangkok_National_Museum_November_1964_04.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Bangkok_National_Museum_November_1964_03.jpg/1280px-Bangkok_National_Museum_November_1964_03.jpg"
+      ],
       "short_desc": "东南亚最大博物馆，前皇宫改建，2000 年文物。",
       "long_desc": "国立博物馆建于 1874 年，由前王副宫（Wang Na）改建而成，是东南亚规模最大的博物馆，馆藏从史前班清文化、堕罗钵底王朝、素可泰、阿瑜陀耶到拉达那哥欣的近 2000 件原始文物。建议从右翼「泰国艺术史」厅开始顺时针逛。每周三、周四上午 09:30 有英文免费导览（约 2 小时），由志愿者讲解。游客评价两极：历史控觉得「内容厚重值回 200 铢」，普通游客觉得「展厅照明偏暗、动线复杂」。",
       "tips": [
@@ -529,7 +585,15 @@
       "price_thb": 0,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-013.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/LHONG_1919_%28I%29.jpg/1280px-LHONG_1919_%28I%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/LHONG_1919_%28II%29.jpg/1280px-LHONG_1919_%28II%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Mural_drawing_at_Lhong%2C_Thailand%2C_renovated_but_presumaky_originally_drawn_in_1850.jpg/1280px-Mural_drawing_at_Lhong%2C_Thailand%2C_renovated_but_presumaky_originally_drawn_in_1850.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3.jpg/1280px-%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_%283%29.jpg/1280px-%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_%283%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_%2812%29.jpg/1280px-%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_%2812%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_%285%29.jpg/1280px-%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B5_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%B2%E0%B8%99_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_%285%29.jpg"
+      ],
       "short_desc": "百年潮汕码头改建文创园，妈祖庙保留完好。",
       "long_desc": "Lhong 1919 原是泰中贸易最繁忙的潮汕华人码头，1850 年由广东潮商所建，2017 年由 Wanglee 家族将三合院旧建筑修复为文创园区。中央妈祖庙仍在使用，墙上福建/潮州壁画保留 150 年原貌。园区有泰式服饰租赁、华丽下午茶、独立设计师店。免费入场。从 ICONSIAM 步行 10 分钟可到，是河西看古朴一面的最佳点。猫途鹰 4.0/5，「免费值得逛」「但商铺不算多 1 小时够」。",
       "tips": [
@@ -567,7 +631,15 @@
       "price_thb": 0,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-014.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Phaya_Thai_Palace_%28I%29.jpg/1280px-Phaya_Thai_Palace_%28I%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Phaya_Thai_Palace%2C_Bangkok%2C_Thailand.jpg/1280px-Phaya_Thai_Palace%2C_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Payathai_palace.jpg/1280px-Payathai_palace.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%87%E0%B8%81%E0%B8%B8%E0%B8%8E%E0%B9%80%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%B2_%28%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97%29.jpg/1280px-%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A1%E0%B8%87%E0%B8%81%E0%B8%B8%E0%B8%8E%E0%B9%80%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%B2_%28%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/NarongchaiV_0000194.jpg/1280px-NarongchaiV_0000194.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bkkwangphayathai0905c.jpg/1280px-Bkkwangphayathai0905c.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%974.jpg/1280px-%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%974.jpg"
+      ],
       "short_desc": "拉玛六世新艺术风行宫，藏在军医院里的秘境。",
       "long_desc": "帕亚泰宫由拉玛五世下令建造，拉玛六世扩建为新艺术（Art Nouveau）+ 哥特复兴风格的乡间行宫，1932 年改制后划入皇家陆军医院（Phramongkutklao Hospital）院内，多数游客根本不知道存在。现免费开放参观，每周六下午 13:30 有英文导览。柚木天花板、彩色玻璃窗、玫瑰花园保存极好。BTS Phaya Thai 站走 5 分钟就到，市中心绝佳避世点。Google 评 4.6，「曼谷被遗忘的宝藏」「英文导览员超热情」。",
       "tips": [
@@ -606,7 +678,15 @@
       "price_thb": 800,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-015.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Chatuchak_Weekend_Market%2C_Bangkok%2C_Thailand_%284570440063%29.jpg/1280px-Chatuchak_Weekend_Market%2C_Bangkok%2C_Thailand_%284570440063%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Chatuchak_Weekend_Market%2C_Bangkok%2C_Thailand_%284570450571%29.jpg/1280px-Chatuchak_Weekend_Market%2C_Bangkok%2C_Thailand_%284570450571%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Chatuchak_Weekend_Market_P1100750.JPG/1280px-Chatuchak_Weekend_Market_P1100750.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Chatuchak_Weekend_Market_P1100754.JPG/1280px-Chatuchak_Weekend_Market_P1100754.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Chatuchak_Weekend_Market_P1100755.JPG/1280px-Chatuchak_Weekend_Market_P1100755.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Chatuchak_Weekend_Market_P1100762.JPG/1280px-Chatuchak_Weekend_Market_P1100762.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Chatuchak_Weekend_Market_P1100753.JPG/1280px-Chatuchak_Weekend_Market_P1100753.JPG"
+      ],
       "short_desc": "15000 摊位东南亚最大周末市集，仅周六日开。",
       "long_desc": "恰图恰（JJ Market）占地 27 公顷，分为 27 个 Section，号称世界最大周末市集，超过 15000 家摊位、每个周末 20 万人次。Section 1-3 古着复古，Section 7-8 工艺品，Section 22-26 设计师服饰，Section 4 宠物（活体禁出口慎入）。议价空间一般 10-30%，越靠里越便宜。空调有限，备一瓶水必带。仅周六周日 09:00-18:00 营业（周三周四夜场只开植物花卉区）。Tripadvisor 评 4.4/5，「能血拼一整天」「迷路是常态，记住地图站点」。",
       "tips": [
@@ -644,7 +724,15 @@
       "price_thb": 100,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-016.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Bangkok_Pak_Khlong_Talat_2.jpg/1280px-Bangkok_Pak_Khlong_Talat_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bangkok_Pak_Khlong_Talat_1.jpg/1280px-Bangkok_Pak_Khlong_Talat_1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Bangkok_Pak_Khlong_Talat_P1100391.JPG/1280px-Bangkok_Pak_Khlong_Talat_P1100391.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bangkok_Pak_Khlong_Talat_P1100401.JPG/1280px-Bangkok_Pak_Khlong_Talat_P1100401.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Bangkok_Pak_Khlong_Talat_P1100385.JPG/1280px-Bangkok_Pak_Khlong_Talat_P1100385.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Bangkok_Pak_Khlong_Talat_P1100392.JPG/1280px-Bangkok_Pak_Khlong_Talat_P1100392.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Bangkok_Pak_Khlong_Talat_P1100386.JPG/1280px-Bangkok_Pak_Khlong_Talat_P1100386.JPG"
+      ],
       "short_desc": "曼谷最大鲜花批发市场，凌晨最美最香。",
       "long_desc": "帕空塔拉花市从 1782 年开市至今，是曼谷最大的鲜花批发市场，24 小时营业但凌晨 02:00-06:00 货车云集最热闹。万寿菊、茉莉花圈、玫瑰、莲花成捆按公斤卖，价格仅是市区花店的 1/3。游客不来批发，主要为氛围和拍照——一捆捆橙黄白红色花朵堆成山，是 Lonely Planet 公认的「曼谷最浪漫夜景」。和大皇宫、卧佛寺同区，可作为夜场延伸。Google 评 4.4，「凌晨人少又出片」「白天有点闷热花已蔫」。",
       "tips": [
@@ -683,7 +771,15 @@
       "price_thb": 400,
       "price_level": "¥¥",
       "cover_url": "",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Garlic_for_sale.jpg/1280px-Garlic_for_sale.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/2025_Or_Tor_Kor_Market_shooting_CCTV.png/1280px-2025_Or_Tor_Kor_Market_shooting_CCTV.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/197_-_CIMG0830.jpg/1280px-197_-_CIMG0830.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Dried_shrimp.jpg/1280px-Dried_shrimp.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/3_-_hoi_men_puu.jpg/1280px-3_-_hoi_men_puu.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/135_-_CIMG2722.JPG/1280px-135_-_CIMG2722.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/195_-_pomfret_%28pla_jeramet_talay%29.jpg/1280px-195_-_pomfret_%28pla_jeramet_talay%29.jpg"
+      ],
       "short_desc": "CNN 评全球四大市集之一，本地阿姨买菜的天花板。",
       "long_desc": "Or Tor Kor 由皇家政府运营，是 CNN Travel 评选的全球四大新鲜食品市集之一，主打本地中产/高端食材：榴莲山竹按品种分摊位、明虾每只大如手掌、咖喱酱用木桶现舀、芒果糯米饭一份才 80 铢。中央熟食区适合不会做饭的游客直接吃 brunch，环境干净空调凉快。和恰图恰隔条马路，可一站逛两个。Google 评 4.5，「价格不便宜但品质碾压旅游区」「水果阿姨愿意切给你试吃」。",
       "tips": [
@@ -722,7 +818,10 @@
       "price_thb": 400,
       "price_level": "¥¥",
       "cover_url": "",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Talad_Neon_Downtown_Night_Market%2C_Dec_2017.jpg/1280px-Talad_Neon_Downtown_Night_Market%2C_Dec_2017.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Talad_Neon_Night_Market_Signage%2C_Dec_2017.jpg/1280px-Talad_Neon_Night_Market_Signage%2C_Dec_2017.jpg"
+      ],
       "short_desc": "市中心彩色帐篷夜市，原拉差达火车夜市搬迁版。",
       "long_desc": "原 Train Night Market Ratchada 2021 年闭市，现以「Talad Neon」「Jodd Fairs」等形式分流复活。Jodd Fairs（位于 Esplanade 商场后）是当下接班人，入口排满霓虹招牌、彩色帐篷连成片，从无人机俯拍是网红封面。招牌「火山排骨」一份 599 铢叠成小山、海鲜烧烤、Heng Heng 麻辣烫都好吃。每天 16:00-24:00 营业。游客评价：「氛围 100 分价格便宜 60 分（按夜市标准）」「拍完照打卡走人」。",
       "tips": [
@@ -760,7 +859,10 @@
       "price_thb": 300,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-019.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%A1%E0%B8%B0%E0%B8%A2%E0%B8%A1_01.jpg/1280px-%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%A1%E0%B8%B0%E0%B8%A2%E0%B8%A1_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%A1%E0%B8%B0%E0%B8%A2%E0%B8%A1_02.jpg/1280px-%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A5%E0%B8%B1%E0%B8%94%E0%B8%A1%E0%B8%B0%E0%B8%A2%E0%B8%A1_02.jpg"
+      ],
       "short_desc": "曼谷市内最地道水上市场，无旅行团本地人聚集。",
       "long_desc": "相比丹嫩沙朵那种网红水市，Khlong Lat Mayom 是曼谷市内本地人会去吃早午饭的水上市场，距市中心 30 分钟车程。木船在窄运河里穿梭叫卖船面、椰子糖、椰汁咖喱蟹，岸边摊位卖手工点心和热带水果。可付 60 铢搭长尾船游运河 1 小时看泰式高脚屋人家。仅周六周日 08:00-17:00 营业。Tripadvisor 评 4.3，「比丹嫩沙朵真实 10 倍」「价格平民没有宰客」。",
       "tips": [
@@ -799,7 +901,15 @@
       "price_thb": 500,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-020.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Ulica_Yaowarat_%2805%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Ulica_Yaowarat_%2805%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Ulica_Yaowarat_%2802%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Samphanthawong%2C_Ulica_Yaowarat_%2802%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Chinatown_in_Bangkok_%28Yaowarat%29_at_night.jpg/1280px-Chinatown_in_Bangkok_%28Yaowarat%29_at_night.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Yaowarat_Bangkok_during_COVID-19.jpg/1280px-Yaowarat_Bangkok_during_COVID-19.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Yaowarat_Road_Bangkok.jpg/1280px-Yaowarat_Road_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bangkok_Chinatown_Yaowarat_street_sign.jpg/1280px-Bangkok_Chinatown_Yaowarat_street_sign.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Yaowarat_Road%2C_Bangkok.jpg/1280px-Yaowarat_Road%2C_Bangkok.jpg"
+      ],
       "short_desc": "200 年华人聚居地，霓虹招牌下的米其林街头美食。",
       "long_desc": "Yaowarat 是 1782 年拉玛一世划给华人的聚居街区，至今仍是亚洲最大唐人街之一，到 17:00 摊贩才推车上街，霓虹招牌全亮起来——T&K 海鲜（绿衣店主炒蟹）、Lek & Rut 海鲜（红衣对家）、Nai Mong 蚝煎、Khao Tom Bowon 潮州海鲜粥都是必吃。米其林必比登推介 5+ 家。MRT Wat Mangkon 站直接进入主街。Tripadvisor 排曼谷夜游 Top3，「中文招牌一片人不知身在何处」「人多但氛围太香」。",
       "tips": [
@@ -838,7 +948,15 @@
       "price_thb": 600,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-021.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/The_Sirimahannop_at_Asiatique_during_sunset%2C_Bangkok_2.jpg/1280px-The_Sirimahannop_at_Asiatique_during_sunset%2C_Bangkok_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Asiatique%2C_Bangkok_from_Chao_Phraya_River_2.jpg/1280px-Asiatique%2C_Bangkok_from_Chao_Phraya_River_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Asiatique%2C_Bangkok_from_Chao_Phraya_River.jpg/1280px-Asiatique%2C_Bangkok_from_Chao_Phraya_River.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/The_Sirimahannop_at_Asiatique_during_sunset%2C_Bangkok.jpg/1280px-The_Sirimahannop_at_Asiatique_during_sunset%2C_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Asiatique_The_Riverfront_Bangkok.jpg/1280px-Asiatique_The_Riverfront_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Asiatique_the_Riverfront_01.jpg/1280px-Asiatique_the_Riverfront_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Asiatique_the_Riverfront_02.jpg/1280px-Asiatique_the_Riverfront_02.jpg"
+      ],
       "short_desc": "湄南河畔仓库改造夜市，60 米大摩天轮地标。",
       "long_desc": "Asiatique 由 1907 年丹麦东亚公司的旧港口仓库改造，2012 年开业，分为 10 个 District 共 1500 间店铺、40 家餐厅。亮点是 60 米高的大摩天轮（票价 500 铢）和河畔甲板餐厅，太阳落山后仓库灯一亮非常出片。免费班船每 30 分钟从 BTS Saphan Taksin 旁的 Sathorn 码头开出，16:00-23:00 运营。游客评价分歧明显：摄影爱好者打 4.5/5，购物买手党觉得「3.5 分商品偏旅游品，没本地人来」。",
       "tips": [
@@ -914,7 +1032,15 @@
       "price_thb": 400,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-023.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/2016_Bangkok%2C_Dystrykt_Phra_Nakhon%2C_Ulica_Khaosan_%2808%29.jpg/1280px-2016_Bangkok%2C_Dystrykt_Phra_Nakhon%2C_Ulica_Khaosan_%2808%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Bangkok%2C_Thailand%2C_March_2023_-_Thanon_Khao_San_%28Khaosan_Road%29.jpg/1280px-Bangkok%2C_Thailand%2C_March_2023_-_Thanon_Khao_San_%28Khaosan_Road%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Scene_on_Khao_San_Road_-_Banglamphu_District_-_Bangkok_-_Thailand_%2811731634686%29.jpg/1280px-Scene_on_Khao_San_Road_-_Banglamphu_District_-_Bangkok_-_Thailand_%2811731634686%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Vendedor_en_Khao_San_Road%2C_Bangkok%2C_Tailandia_%2837622659491%29.jpg/1280px-Vendedor_en_Khao_San_Road%2C_Bangkok%2C_Tailandia_%2837622659491%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Bar_along_Khao_San_Road%2C_in_Phra_Nakhon_District%2C_Bangkok%2C_Thailand.jpg/1280px-Bar_along_Khao_San_Road%2C_in_Phra_Nakhon_District%2C_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B8%B7%E0%B8%99_%E0%B9%91_-_Khaosan_Road_at_night_1.jpg/1280px-%E0%B8%96%E0%B8%99%E0%B8%99%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AA%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B8%B7%E0%B8%99_%E0%B9%91_-_Khaosan_Road_at_night_1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Khao_San_Road_%283646762370%29.jpg/1280px-Khao_San_Road_%283646762370%29.jpg"
+      ],
       "short_desc": "全球背包客圣地，蝎子串和 60 铢桶酒发源地。",
       "long_desc": "Khao San 1980 年代成型，是全球背包客文化的图腾，《海滩》小说里 Leo 就在这开篇。一条 400 米长的步行街塞满便宜青旅、便宜按摩、便宜酒——一桶桶花花绿绿的鸡尾酒「Bucket」120-200 铢、炸蝎子 50 铢、Pad Thai 60 铢。深夜 22:00 后整条街变成开放迪斯科。2020 年市政府翻新拓宽人行道。本地年轻人也会来，但不算高端去处。Tripadvisor 评分 4.0/5，「人生必体验一次」「但不会再去第二次」。",
       "tips": [
@@ -952,7 +1078,15 @@
       "price_thb": 500,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-024.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Soi_Cowboy_-_Bangkok.jpg/1280px-Soi_Cowboy_-_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Soi_Cowboy_entrance_20230728.jpg/1280px-Soi_Cowboy_entrance_20230728.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Soi_Cowboy_Scene_-_Sukhumvit_District_-_Bangkok_-_Thailand_%2834735950835%29.jpg/1280px-Soi_Cowboy_Scene_-_Sukhumvit_District_-_Bangkok_-_Thailand_%2834735950835%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Midnite_Bar%2C_Soi_Cowboy%2C_Bangkok_%2843570932800%29.jpg/1280px-Midnite_Bar%2C_Soi_Cowboy%2C_Bangkok_%2843570932800%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Soi_Cowboy_2023_03.jpg/1280px-Soi_Cowboy_2023_03.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Soi_Cowboy_%2815351434931%29.jpg/1280px-Soi_Cowboy_%2815351434931%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Soi_Cowboy_2023_01.jpg/1280px-Soi_Cowboy_2023_01.jpg"
+      ],
       "short_desc": "150 米霓虹巷子，夜生活地标式打卡（仅看勿入）。",
       "long_desc": "Soi Cowboy 是 1977 年由美国退伍军人 T.G. Edwards（绰号 Cowboy）开第一家 Go-Go Bar 而得名，至今仍是曼谷三大成人夜生活区之一。150 米巷子两侧 40 多间 Go-Go Bar 和酒吧，霓虹招牌密度堪比香港佐敦。多数游客只是站在巷口拍霓虹封面就走，不进店。BTS Asok / MRT Sukhumvit 站 2 号口出步行 3 分钟，紧邻 Terminal 21 商场。请理性消费，明码标价店不会被宰。Google 评 4.2，「拍照 3 分钟够」「不进店纯当景点 OK」。",
       "tips": [
@@ -1264,7 +1398,9 @@
       "price_thb": 250,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-032.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/%25Arabica_ICONSIAM_20220115.jpg/1280px-%25Arabica_ICONSIAM_20220115.jpg"
+      ],
       "short_desc": "京都极简咖啡品牌，ICONSIAM 临河外卖窗口。",
       "long_desc": "% Arabica 是 2014 年京都岚山起家的咖啡品牌，黑底白色 % Logo 极简到出圈。ICONSIAM 店位于商场底层临河长廊，有外卖窗口直接面对湄南河，能边喝拿铁边看船。招牌：京都拿铁（Kyoto Latte）210 铢、Spanish Latte 230 铢、烤白巧软曲奇 80 铢。下午通常排 15-20 分钟，建议早上 11:00 前去。免费班船从 BTS Saphan Taksin 旁边码头 10 分钟到 ICONSIAM 码头。Google 评 4.5/5，「拍照位多但价格不便宜」「咖啡水准比海外稳定」。",
       "tips": [
@@ -1302,7 +1438,15 @@
       "price_thb": 350,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-033.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Cha_Thai_Bingsu_or_%28Bingsu_Thai_milk_tea%29_%2839921385751%29.jpg/1280px-Cha_Thai_Bingsu_or_%28Bingsu_Thai_milk_tea%29_%2839921385751%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Kiyomizu_Temple_Kiss_dessert_at_Detective_Conan_Caf%C3%A9_Chongqing_%2820191224210653%29.jpg/1280px-Kiyomizu_Temple_Kiss_dessert_at_Detective_Conan_Caf%C3%A9_Chongqing_%2820191224210653%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Gong_He_Guan_dessert_shop%2C_Chinatown%2C_Singapore_-_20140215.jpg/1280px-Gong_He_Guan_dessert_shop%2C_Chinatown%2C_Singapore_-_20140215.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Charlie%27s_Cafe_Exceptionale_Dessert_Menu_-_DPLA_-_26299b20afad50b06d492562a5dced50.jpg/1280px-Charlie%27s_Cafe_Exceptionale_Dessert_Menu_-_DPLA_-_26299b20afad50b06d492562a5dced50.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Charlie%27s_Cafe_Exceptionale_Dessert_Menu_%281981%29_-_DPLA_-_a616f175345f060d879e5ff3eb145cab.jpg/1280px-Charlie%27s_Cafe_Exceptionale_Dessert_Menu_%281981%29_-_DPLA_-_a616f175345f060d879e5ff3eb145cab.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Charlie%27s_Cafe_Exceptionale_Dessert_Menu_%281980%29_-_DPLA_-_587c66cdb6c04027ff00ef5c3e74e524.jpg/1280px-Charlie%27s_Cafe_Exceptionale_Dessert_Menu_%281980%29_-_DPLA_-_587c66cdb6c04027ff00ef5c3e74e524.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Charlie%27s_Cafe_Exceptionale_Dessert_Menu_%281982%29_-_DPLA_-_32965815b1fa35431196891f6f58ecc4.jpg/1280px-Charlie%27s_Cafe_Exceptionale_Dessert_Menu_%281982%29_-_DPLA_-_32965815b1fa35431196891f6f58ecc4.jpg"
+      ],
       "short_desc": "招牌涩谷蜜糖吐司，泰国甜品天花板连锁。",
       "long_desc": "After You 2007 年由两位泰国姑娘创立，至今曼谷 30+ 家店，是泰国年轻人最爱的甜品连锁。招牌 Shibuya Honey Toast（涩谷蜜糖吐司）从 165 铢起，整块吐司挖空中心烤到外脆内软，配冰淇淋 + 蜂蜜，必点。其他爆款：Kakigori 日式刨冰 295 铢、Mango Sticky Rice Toast 245 铢。Siam Paragon 店在 G/F 美食大堂，没有过分排队。Tripadvisor 4.5/5，「价格比 Pad Thai 贵但值得吃一次」「分量够 2 人」。",
       "tips": [
@@ -1496,7 +1640,15 @@
       "price_thb": 1000,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-038.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Iconsiam_Skyscrapers.jpg/1280px-Iconsiam_Skyscrapers.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Apple_Store_at_Iconsiam%2C_Bangkok_2.jpg/1280px-Apple_Store_at_Iconsiam%2C_Bangkok_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Iconsiam_decorated_for_Chinese_New_Year%2C_Bangkok_2.jpg/1280px-Iconsiam_decorated_for_Chinese_New_Year%2C_Bangkok_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Apple_Store_at_Iconsiam%2C_Bangkok.jpg/1280px-Apple_Store_at_Iconsiam%2C_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Approaching_Iconsiam_from_Chao_Phraya_River%2C_Bangkok.jpg/1280px-Approaching_Iconsiam_from_Chao_Phraya_River%2C_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Iconsiam_decorated_for_Chinese_New_Year%2C_Bangkok.jpg/1280px-Iconsiam_decorated_for_Chinese_New_Year%2C_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Iconsiam_at_Night.jpg/1280px-Iconsiam_at_Night.jpg"
+      ],
       "short_desc": "湄南河畔奢侈商场，5F 室内水上市场是封面打卡点。",
       "long_desc": "ICONSIAM 2018 年开业，500 亿泰铢打造，是曼谷规模最大、最高端的滨河商场。亮点是 SOOK SIAM 室内泰式水上市场（5F）——把 77 府特产、街头小吃、泰式工艺品搬进室内运河旁，傍晚 17:00 还有水秀表演。1-2F 是 LV/Hermès/Dior 全套奢侈品，4F 苹果旗舰店是亚洲首个滨河 Apple Store，6-7F 是高级餐厅。BTS Saphan Taksin 旁的 Sathorn 码头有免费班船 10 分钟到。Google 评 4.5/5，「商场建筑本身就是景点」「物价比 Siam Paragon 还高」。",
       "tips": [
@@ -1534,7 +1686,15 @@
       "price_thb": 800,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-039.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/The_main_hall_of_Siam_Paragon_Center%2C_Bangkok%2C_Thailand.jpg/1280px-The_main_hall_of_Siam_Paragon_Center%2C_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Uniqlo_Siam_Paragon_Bangkok_Thailand.jpg/1280px-Uniqlo_Siam_Paragon_Bangkok_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Vanilla_brasserie_siam_paragon_bangkok_thailand.jpg/1280px-Vanilla_brasserie_siam_paragon_bangkok_thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Siam_Paragon_06.23.jpg/1280px-Siam_Paragon_06.23.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bangkok%2C_Dolce_%26_Gabbana%2C_Thailand.jpg/1280px-Bangkok%2C_Dolce_%26_Gabbana%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Siam_Paragon_Bangkok_2.jpg/1280px-Siam_Paragon_Bangkok_2.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Siam_Paragon_Bangkok_1.jpg/1280px-Siam_Paragon_Bangkok_1.jpg"
+      ],
       "short_desc": "BTS 直达暹罗商圈核心，Sea Life 海洋馆所在地。",
       "long_desc": "Siam Paragon 2005 年开业，曾连续多年是 Instagram 全球被打卡最多的地点之一。BTS Siam 站 5 号口直连商场 1F，交通无敌。1-2F 是 LV/Gucci/Tiffany 等奢侈品，G/F 是 Gourmet Market 高级超市（手信药妆零食一站搞定），M/F 是美食街，B1 是 Sea Life Bangkok 海洋馆 + Madame Tussauds 蜡像馆双景点。家庭/亲子来这里基本一天能耗完。退税柜台在 M/F 游客中心。Google 评 4.6/5，「BTS 直达不出汗」「比 ICONSIAM 平价适合本地客」。",
       "tips": [
@@ -1572,7 +1732,15 @@
       "price_thb": 1000,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-040.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/%25Arabica_EmQuartier_20211106.jpg/1280px-%25Arabica_EmQuartier_20211106.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Emquartier_1-4-2015.JPG/1280px-Emquartier_1-4-2015.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Bangkok_Skyline_from_Emquartier%2C_Phrom_Phong.jpg/1280px-Bangkok_Skyline_from_Emquartier%2C_Phrom_Phong.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%94%E0%B8%B4_%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_The_Emquartier%2CVadhana%2CBangkok_%282%29.jpg/1280px-%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%94%E0%B8%B4_%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_The_Emquartier%2CVadhana%2CBangkok_%282%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%94%E0%B8%B4_%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_The_Emquartier%2CVadhana%2CBangkok_%283%29.jpg/1280px-%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%94%E0%B8%B4_%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_The_Emquartier%2CVadhana%2CBangkok_%283%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Emquartier_27-03-2015.JPG/1280px-Emquartier_27-03-2015.JPG",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%94%E0%B8%B4_%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_The_Emquartier%2CVadhana%2CBangkok_%281%29.jpg/1280px-%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B9%89%E0%B8%B2%E0%B8%94%E0%B8%B4_%E0%B9%80%E0%B8%AD%E0%B9%87%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B8%A2%E0%B8%A3%E0%B9%8C_%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2_%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3_The_Emquartier%2CVadhana%2CBangkok_%281%29.jpg"
+      ],
       "short_desc": "Phrom Phong 螺旋商场，日本主妇区高端首选。",
       "long_desc": "EmQuartier 2015 年开业，由 The Mall Group 运营，是曼谷日本人聚居的 Phrom Phong 商圈最高端商场。建筑由 3 个相连圆塔组成，6F「The Helix」是螺旋上升的 4 层餐饮区，全球米其林星厨开店云集（包括香港添好运、日本一兰拉面）。M Floor 的 Gourmet Market 高级超市比 Siam Paragon 还精致。3F「Quartier Avenue」是日韩潮牌，B1 美食街多日料。BTS Phrom Phong 1 号口直连。Google 评 4.5/5，「日料和米其林餐厅密度最高」「比 Siam Paragon 安静些」。",
       "tips": [
@@ -1611,7 +1779,15 @@
       "price_thb": 800,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-041.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Emsphere_21-12-2023_%281%29.jpg/1280px-Emsphere_21-12-2023_%281%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/EmSphere_20240915.jpg/1280px-EmSphere_20240915.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/2024-May_Bangkok_-_EMSPHERE_interior_-_img_04.jpg/1280px-2024-May_Bangkok_-_EMSPHERE_interior_-_img_04.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/2024-May_Bangkok_-_EMSPHERE_interior_-_img_08.jpg/1280px-2024-May_Bangkok_-_EMSPHERE_interior_-_img_08.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Emsphere%2CBangkok_%282%29.jpg/1280px-Emsphere%2CBangkok_%282%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/2024-May_-_Bangkok_Thailand_-_Emsphere_UOBLive.jpg/1280px-2024-May_-_Bangkok_Thailand_-_Emsphere_UOBLive.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/2024-May_Bangkok_-_EMSPHERE_interior_-_img_01.jpg/1280px-2024-May_Bangkok_-_EMSPHERE_interior_-_img_01.jpg"
+      ],
       "short_desc": "2023 年新开年轻潮流商场，IKEA 城市店进驻。",
       "long_desc": "EmSphere 2023 年 12 月开业，是 EM District（EmQuartier+EmPorium+EmSphere）三角的最新成员，主打 Z 世代/年轻潮流市场，比另两家更年轻 + 性价比高。亮点：泰国首家 IKEA 城市店（B1，按家具体验区设计）、4F「EM Live」户外大草坪舞台经常有市集和演唱会、5-6F「ARENA HALL」是亚洲最大商场内多功能厅、4F UNIQLO 旗舰店是泰国最大店。底层有 Don Don Donki 24 小时日货店。BTS Phrom Phong 6 号口直连。Google 评 4.4/5，「比另外两家年轻」「IKEA 适合伴手礼」。",
       "tips": [
@@ -1650,7 +1826,15 @@
       "price_thb": 800,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-042.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Central_World_%28I%29.jpg/1280px-Central_World_%28I%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/CentralWorld%2C_Bangkok.jpg/1280px-CentralWorld%2C_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/CentralWorld_Bangkok_Thailand.jpg/1280px-CentralWorld_Bangkok_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Bangkok_Convention_Centre_-_Centara_Grand_at_CentralWorld.jpg/1280px-Bangkok_Convention_Centre_-_Centara_Grand_at_CentralWorld.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Centara_Grand_at_CentralWorld_Facade.jpg/1280px-Centara_Grand_at_CentralWorld_Facade.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/CentralWorld_in_Bangkok_viewed_from_the_adjacent_corner.jpg/1280px-CentralWorld_in_Bangkok_viewed_from_the_adjacent_corner.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Panorama_View_Of_CentralWorld%2C_Bangkok%2C_Thailand-20181230.jpg/1280px-Panorama_View_Of_CentralWorld%2C_Bangkok%2C_Thailand-20181230.jpg"
+      ],
       "short_desc": "东南亚最大商场之一，跨年倒计时官方场地。",
       "long_desc": "CentralWorld 是 Central Group 旗下旗舰商场，55 万平方米，仅次于迪拜 Mall of Emirates 在亚洲第六大。8 层楼加 3 个百货公司（Zen、Isetan、Central），品牌密度极高。每年 12/31 跨年广场（CTW Square）会变成全曼谷最大的跨年现场，有官方明星演唱会。商场连四面佛只需走 5 分钟。BTS Chit Lom 站 9 号口或 Siam 1 号口空中走廊都可步行 5 分钟到。Google 评 4.6/5，「品牌全」「圣诞跨年装饰豪华」。",
       "tips": [
@@ -1688,7 +1872,15 @@
       "price_thb": 1500,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-043.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Safari_World.jpg/1280px-Safari_World.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Safari_World%2C_Bangkok%2C_Thailand_%28Unsplash%29.jpg/1280px-Safari_World%2C_Bangkok%2C_Thailand_%28Unsplash%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Ara_macaws_at_Safari_World_-Bangkok-8a.jpg/1280px-Ara_macaws_at_Safari_World_-Bangkok-8a.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Ara_macaws_at_Safari_World_-Bangkok-8b.jpg/1280px-Ara_macaws_at_Safari_World_-Bangkok-8b.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Safari_World_-_panoramio.jpg/1280px-Safari_World_-_panoramio.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Safari_World_parrots.jpg/1280px-Safari_World_parrots.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Safari_World_%281514%29.jpg/1280px-Safari_World_%281514%29.jpg"
+      ],
       "short_desc": "曼谷东郊野生动物乐园，自驾游车看狮虎+海洋表演。",
       "long_desc": "Safari World 1988 年开业，180 公顷分两大区：Safari Park（开放式野生动物园，自驾或乘园方巴士看狮子、老虎、长颈鹿、斑马 + 1 公里非洲草原）+ Marine Park（海洋公园看海豚、海狮、人妖秀、牛仔 stunt 秀 + 大象嘉年华）。门票包含 7 场表演 + 1 次野生动物巴士游园。地处东郊距市区 30 公里，Grab 单程 350-500 铢，建议早 09:00 到晚 17:00 玩满一天。Klook 含接送 + 自助午餐套票约 1700 铢/成人。Tripadvisor 4.0/5，「亲子好去处但动物表演有伦理争议」。",
       "tips": [
@@ -1726,7 +1918,15 @@
       "price_thb": 990,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-044.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/SEA_LIFE_Bangkok_Ocean_World_in_2018_%2814%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%2814%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/SEA_LIFE_Bangkok_Ocean_World_in_2018_%28115%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%28115%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/SEA_LIFE_Bangkok_Ocean_World_in_2018_%28135%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%28135%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/SEA_LIFE_Bangkok_Ocean_World_in_2018_%2848%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%2848%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/SEA_LIFE_Bangkok_Ocean_World_in_2018_%28223%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%28223%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/SEA_LIFE_Bangkok_Ocean_World_in_2018_%2890%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%2890%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/SEA_LIFE_Bangkok_Ocean_World_in_2018_%2863%29.jpg/1280px-SEA_LIFE_Bangkok_Ocean_World_in_2018_%2863%29.jpg"
+      ],
       "short_desc": "Siam Paragon B1 东南亚最大水族馆，270 度海底隧道。",
       "long_desc": "SEA LIFE Bangkok（前 Siam Ocean World）位于 Siam Paragon B1-B2，1 万平方米，被 Lonely Planet 列为东南亚最大水族馆之一。亮点：270 度透明海底隧道（270 Degree Ocean Tunnel）、企鹅冰雪区、玻璃船底游览、鲨鱼喂食 SHOW（每天 13:00、16:00）。买联票可加 Madame Tussauds 蜡像馆 + 4D 影院。雨天 / 高温天遛娃首选。Klook 提前订 7 折比现场便宜 300 铢。BTS Siam 站直达。Tripadvisor 4.0/5，「东南亚最大但比新加坡的小」「亲子可以耗 2 小时」。",
       "tips": [
@@ -1764,7 +1964,10 @@
       "price_thb": 1280,
       "price_level": "¥¥¥",
       "cover_url": "",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Kidzania_Bangkok%2C_Dec_2017.jpg/1280px-Kidzania_Bangkok%2C_Dec_2017.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Mock_Court_at_Kidzania_Bangkok.jpg/1280px-Mock_Court_at_Kidzania_Bangkok.jpg"
+      ],
       "short_desc": "Siam Paragon 5 楼儿童职业小镇，4-14 岁体验天堂。",
       "long_desc": "KidZania 是墨西哥起源的全球连锁儿童职业体验主题乐园，曼谷店在 Siam Paragon 5F，1 万平方米按 70% 比例搭建迷你城市，含 70 多种职业体验：消防员、飞行员、医生、寿司师傅、警察、记者、面包师、CSI 法医。孩子完成任务能挣到园区货币 KidZos 在镇上消费。适合 4-14 岁，每场 4 小时（10:00-14:00 或 15:00-19:00）。家长不能进入很多体验区域（玻璃外观看）。Klook 比现场便宜 200 铢。Google 评 4.4/5，「3 小时孩子根本不想走」「英文+泰文双语讲解」。",
       "tips": [
@@ -1803,7 +2006,15 @@
       "price_thb": 200,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-046.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Talat_Noi_Map.jpg/1280px-Talat_Noi_Map.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Talat_Noi_Street_Art.jpg/1280px-Talat_Noi_Street_Art.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Rong_Kuak_Shrine%2C_talat_Noi%2C_Samphanthawong%2C_bangkok_Thailand_-_panoramio.jpg/1280px-Rong_Kuak_Shrine%2C_talat_Noi%2C_Samphanthawong%2C_bangkok_Thailand_-_panoramio.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Rong_Kuak_Shrine_Talat_Noi_%E0%B8%A8%E0%B8%B2%E0%B8%A5%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%81%E0%B8%B7%E0%B8%AD%E0%B8%81_%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2_2021_June.jpg/1280px-Rong_Kuak_Shrine_Talat_Noi_%E0%B8%A8%E0%B8%B2%E0%B8%A5%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%81%E0%B8%B7%E0%B8%AD%E0%B8%81_%E0%B8%95%E0%B8%A5%E0%B8%B2%E0%B8%94%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2_2021_June.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/View_of_Chao_Phraya_River_from_Talat_Noi%2C_Bangkok%2C_Thailand.jpg/1280px-View_of_Chao_Phraya_River_from_Talat_Noi%2C_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Sunset_View_of_Chao_Phraya_River_from_Talat_Noi%2C_Bangkok%2C_Thailand.jpg/1280px-Sunset_View_of_Chao_Phraya_River_from_Talat_Noi%2C_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/2022_January_-_Siam_Commercial_Bank%2C_Talat_Noi_Branch.jpg/1280px-2022_January_-_Siam_Commercial_Bank%2C_Talat_Noi_Branch.jpg"
+      ],
       "short_desc": "唐人街边小巷涂鸦+汽车零件街，复古迷宫感拍照圣地。",
       "long_desc": "Talat Noi 是 17 世纪潮汕华人最早登陆的码头区，紧邻 Yaowarat 唐人街但完全不同氛围——巷子曲折，墙上是新生代街头艺术家的涂鸦，地上散落着拆解的旧汽车零件（这里是曼谷最大的二手汽车零件集散地）。500 米长的小巷可以晃 1.5 小时，每个转角都是封面照位：复古铁门、生锈的雪佛兰车头嵌进墙、So Heng Tai 中式深井宅（120 年老宅可付费学潜水）、Hong Sieng Kong 老仓库咖啡馆。MRT Hua Lamphong 步行 8 分钟。Tripadvisor 4.3/5，「小红书曼谷拍照神店」「免费」。",
       "tips": [
@@ -1842,7 +2053,15 @@
       "price_thb": 200,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-047.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Kudi_Chin_kitty_-_2017-02-25_%28013%29.jpg/1280px-Kudi_Chin_kitty_-_2017-02-25_%28013%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Kudi_Chin_kitty_-_2017-02-25_%28008%29.jpg/1280px-Kudi_Chin_kitty_-_2017-02-25_%28008%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kudi_Chin_community_-_2017-02-25_%28021%29.jpg/1280px-Kudi_Chin_community_-_2017-02-25_%28021%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Kudi_Chin_kitty_-_2017-02-25_%28005%29.jpg/1280px-Kudi_Chin_kitty_-_2017-02-25_%28005%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Kudi_Chin_kitty_-_2017-02-25_%28011%29.jpg/1280px-Kudi_Chin_kitty_-_2017-02-25_%28011%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Kudi_Chin_community_-_2017-02-25_%28005%29.jpg/1280px-Kudi_Chin_community_-_2017-02-25_%28005%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Kudi_Chin_kitty_-_2017-02-25_%28010%29.jpg/1280px-Kudi_Chin_kitty_-_2017-02-25_%28010%29.jpg"
+      ],
       "short_desc": "200 年葡萄牙后裔社区，烤蛋糕和粉教堂藏在巷子里。",
       "long_desc": "Kudi Chin（库地秦）是 1782 年从大城迁来的葡萄牙天主教徒后裔聚居地，曼谷三种文化（佛教/伊斯兰/天主教）唯一交汇的社区。亮点：1834 年建的 Santa Cruz Church（粉色穹顶教堂）、Thanusingha Bakery 还在用炭火烤 200 年配方的「Khanom Farang Kudi Chin」杯子蛋糕（一个 15 铢）、Baan Kudichin Museum 免费博物馆讲述泰葡混血故事。从郑王庙码头搭船 5 分钟过河，再走 10 分钟到。Tripadvisor 4.4/5，「曼谷不为人知的一面」「蛋糕真的好吃」。",
       "tips": [
@@ -1880,7 +2099,15 @@
       "price_thb": 300,
       "price_level": "¥",
       "cover_url": "",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Bang_Kachao_jungle_path.jpg/1280px-Bang_Kachao_jungle_path.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Bangkok%2C_Thailand%E2%80%94split_by_the_Chao_Phraya_river_%28iss072e757257%29.jpg/1280px-Bangkok%2C_Thailand%E2%80%94split_by_the_Chao_Phraya_river_%28iss072e757257%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Toot_Toot_Tootles_the_Tugboat_%2816596634710%29.jpg/1280px-Toot_Toot_Tootles_the_Tugboat_%2816596634710%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Bang_Krachao_Railway_Halt-1.jpg/1280px-Bang_Krachao_Railway_Halt-1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Bang_Krachao_3.jpg/1280px-Bang_Krachao_3.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%811.jpg/1280px-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%88%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%811.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Bang_Krachao_Railway_Halt-3.jpg/1280px-Bang_Krachao_Railway_Halt-3.jpg"
+      ],
       "short_desc": "湄南河转弯里的人造绿肺，骑车穿椰林漫步天空。",
       "long_desc": "Bang Krachao 是湄南河 U 型转弯包围的「岛屿」（实际是半岛），16 平方公里 80% 是椰林、芒果园、水道，被 Time Magazine 评为「亚洲最佳城市绿洲」。本地人玩法：从 Klong Toei 码头搭船过河 4 铢、到对岸租自行车 80 铢/天，沿水泥窄道（仅供自行车）穿椰林、过吊脚屋、骑到 Bang Nam Phueng 周末水上市场。Sri Nakhon Khuean Khan 公园 + 鸟塔免费。雨季泥泞需注意。完全感受不到自己在曼谷市内。Tripadvisor 4.6/5，「曼谷最让人惊喜的免费体验」「至少 3 小时打底」。",
       "tips": [
@@ -1957,7 +2184,15 @@
       "price_thb": 400,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-050.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Old_Customs_House%2C_Bang_Rak_%28I%29.jpg/1280px-Old_Customs_House%2C_Bang_Rak_%28I%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Samphanthawong-Bang_Rak_Districts.jpg/1280px-Samphanthawong-Bang_Rak_Districts.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Bang_Rak%E2%80%93Pathum_Wan.jpg/1280px-Bang_Rak%E2%80%93Pathum_Wan.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Bangkok_Pano_%28II%29.jpg/1280px-Bangkok_Pano_%28II%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Braised_duck_in_clay_pot%2C_along_with_braised_duck_intestines_and_duck_blood_tofu%2C_Bang_Rak%2C_Bangkok.jpg/1280px-Braised_duck_in_clay_pot%2C_along_with_braised_duck_intestines_and_duck_blood_tofu%2C_Bang_Rak%2C_Bangkok.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Si_Phraya_in_Khet_Bang_Rak_-_canal_named_Khlong_Chong_Nonsi_IMG_7429.jpg/1280px-Si_Phraya_in_Khet_Bang_Rak_-_canal_named_Khlong_Chong_Nonsi_IMG_7429.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Map_Bang_Rak.png/1280px-Map_Bang_Rak.png"
+      ],
       "short_desc": "Charoen Krung 老街 + 米其林街头小吃 + 文创园 TCDC。",
       "long_desc": "Bang Rak 是曼谷最早的国际化街区，「Rak」泰语意为「爱」，意外地是注册结婚最多的区。Charoen Krung Road 是 1861 年拉玛四世下令建的曼谷第一条沥青路，至今两侧还能看到 1900-1930 年代殖民式商铺：Prachak 100 年烤鸭店、Jek Pui 没椅子的咖喱小摊、Wattana Panich 60 年牛肉汤。文创地标 TCDC（泰国设计创意中心）和 Warehouse 30 文创园都在这。从 BTS Saphan Taksin 出发，沿 Charoen Krung 一路向北步行 2 公里能解锁所有景点。Tripadvisor 4.3/5，「老城走街天花板」「比唐人街清净多了」。",
       "tips": [

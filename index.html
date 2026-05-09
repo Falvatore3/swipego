@@ -176,53 +176,92 @@ function StepIntake({onDone}){
 /* ---------- STEP 1: 刷 POI 卡 ---------- */
 function StepSwipe({pois,onDone}){
   const [idx,setIdx] = useState(0);
-  const [decisions,setDecisions] = useState({}); // id => 'like' | 'pass' | 'maybe'
-  const [history,setHistory] = useState([]);     // [{idx, poiId, verb}]，用于撤销
+  const [decisions,setDecisions] = useState({});
+  const [history,setHistory] = useState([]);
   const [openDetail,setOpenDetail] = useState(null);
   const [openShortlist,setOpenShortlist] = useState(false);
-  const [drag,setDrag] = useState({x:0,y:0,active:false});
-  const [exiting,setExiting] = useState(null); // {dir, verb}
-  const [skipTransition,setSkipTransition] = useState(false);
-  const startRef = useRef(null);
+  const [exiting,setExiting] = useState(null);
+
+  // 拖拽用 ref，不走 state，避免 60fps re-render 卡顿
+  const cardRef = useRef(null);
+  const labelLikeRef = useRef(null);
+  const labelPassRef = useRef(null);
+  const labelMaybeRef = useRef(null);
+  const dragRef = useRef({x:0,y:0,active:false,startX:0,startY:0});
 
   const current = pois[idx];
   const next = pois[idx+1];
 
+  // 应用 transform 到 DOM
+  const applyTransform = (x,y,withTransition=false)=>{
+    const el = cardRef.current;
+    if(!el) return;
+    const rot = Math.max(-22, Math.min(22, x*0.08));
+    el.style.transition = withTransition ? 'transform .28s cubic-bezier(.2,.8,.2,1)' : 'none';
+    el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rot}deg)`;
+    // 三个方向标签的不透明度也直接 DOM 改
+    if(labelLikeRef.current) labelLikeRef.current.style.opacity = Math.max(0, Math.min(1, (x-20)/100));
+    if(labelPassRef.current) labelPassRef.current.style.opacity = Math.max(0, Math.min(1, (-x-20)/100));
+    if(labelMaybeRef.current) labelMaybeRef.current.style.opacity = Math.max(0, Math.min(1, (y-20)/100));
+  };
+
   const decide = (verb)=>{
     if(!current || exiting) return;
-    // 飞出去的方向
-    const dir = verb==='like'?{x:600,y:-50}:verb==='pass'?{x:-600,y:-50}:{x:0,y:600};
+    const dir = verb==='like'?{x:700,y:-80}:verb==='pass'?{x:-700,y:-80}:{x:0,y:800};
     setExiting({dir,verb});
+    // 飞出动画用 transition
+    const el = cardRef.current;
+    if(el){
+      const rot = verb==='like'?22:verb==='pass'?-22:0;
+      el.style.transition = 'transform .26s cubic-bezier(.32,.72,.42,1), opacity .26s ease';
+      el.style.transform = `translate3d(${dir.x}px, ${dir.y}px, 0) rotate(${rot}deg)`;
+      el.style.opacity = '0';
+    }
     const snapshotIdx = idx;
     const snapshotPoi = current;
     setTimeout(()=>{
-      setSkipTransition(true);
-      setDecisions(prev=>({...prev,[snapshotPoi.id]:verb}));
+      // 状态切换
+      setDecisions(prev=>({...prev, [snapshotPoi.id]:verb}));
       setHistory(h=>[...h, {idx:snapshotIdx, poiId:snapshotPoi.id, verb}]);
       setIdx(i=>i+1);
-      setDrag({x:0,y:0,active:false});
       setExiting(null);
-      requestAnimationFrame(()=>requestAnimationFrame(()=>setSkipTransition(false)));
-    },220);
+      // 重置 ref 卡片：先无 transition 归零，再恢复完整 opacity
+      requestAnimationFrame(()=>{
+        const el2 = cardRef.current;
+        if(el2){
+          el2.style.transition = 'none';
+          el2.style.transform = 'translate3d(0,0,0) rotate(0deg)';
+          el2.style.opacity = '1';
+        }
+        if(labelLikeRef.current) labelLikeRef.current.style.opacity = 0;
+        if(labelPassRef.current) labelPassRef.current.style.opacity = 0;
+        if(labelMaybeRef.current) labelMaybeRef.current.style.opacity = 0;
+        dragRef.current = {x:0,y:0,active:false,startX:0,startY:0};
+      });
+    },260);
   };
 
   const undo = ()=>{
     if(history.length === 0 || exiting) return;
     const last = history[history.length-1];
     setHistory(h=>h.slice(0,-1));
-    setSkipTransition(true);
     setDecisions(prev=>{
-      const next = {...prev};
-      delete next[last.poiId];
-      return next;
+      const n = {...prev};
+      delete n[last.poiId];
+      return n;
     });
     setIdx(last.idx);
-    setDrag({x:0,y:0,active:false});
     setExiting(null);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>setSkipTransition(false)));
+    requestAnimationFrame(()=>{
+      const el = cardRef.current;
+      if(el){
+        el.style.transition = 'none';
+        el.style.transform = 'translate3d(0,0,0) rotate(0deg)';
+        el.style.opacity = '1';
+      }
+    });
   };
 
-  // 修改某个 POI 的决定（清单里用）
   const updateDecision = (poiId, newVerb)=>{
     setDecisions(prev=>{
       if(!newVerb){ const n={...prev}; delete n[poiId]; return n; }
@@ -233,29 +272,41 @@ function StepSwipe({pois,onDone}){
   const onPointerDown = (e)=>{
     if(exiting) return;
     e.currentTarget.setPointerCapture(e.pointerId);
-    startRef.current = {x:e.clientX, y:e.clientY};
-    setDrag({x:0,y:0,active:true});
+    dragRef.current = {x:0,y:0,active:true,startX:e.clientX,startY:e.clientY};
+    if(cardRef.current) cardRef.current.style.transition = 'none';
   };
   const onPointerMove = (e)=>{
-    if(!startRef.current) return;
-    const dx = e.clientX - startRef.current.x;
-    const dy = e.clientY - startRef.current.y;
-    setDrag({x:dx,y:dy,active:true});
+    const d = dragRef.current;
+    if(!d.active) return;
+    const dx = e.clientX - d.startX;
+    const dy = e.clientY - d.startY;
+    d.x = dx; d.y = dy;
+    applyTransform(dx, dy);
   };
   const onPointerUp = (e)=>{
-    if(!startRef.current) return;
-    const {x,y} = drag;
+    const d = dragRef.current;
+    if(!d.active) return;
+    const {x,y} = d;
     const moved = Math.hypot(x,y);
-    startRef.current = null;
+    d.active = false;
     if(x > 110)      decide('like');
     else if(x < -110) decide('pass');
     else if(y > 110)  decide('maybe');
-    else if(moved < 8) {
-      // 视为点击 → 打开详情
+    else if(moved < 8){
       setOpenDetail(current);
-      setDrag({x:0,y:0,active:false});
+      applyTransform(0, 0, true);
     }
-    else setDrag({x:0,y:0,active:false});
+    else {
+      // 弹回
+      applyTransform(0, 0, true);
+      // 标签也淡出
+      [labelLikeRef, labelPassRef, labelMaybeRef].forEach(r=>{
+        if(r.current){
+          r.current.style.transition = 'opacity .2s';
+          r.current.style.opacity = 0;
+        }
+      });
+    }
   };
 
   // 全部刷完不自动跳，让用户去清单里点"开始规划"
@@ -278,22 +329,6 @@ function StepSwipe({pois,onDone}){
     return <div className="p-10 text-center text-muted">整理中...</div>;
   }
 
-  // 计算变换
-  const tx = exiting ? exiting.dir.x : drag.x;
-  const ty = exiting ? exiting.dir.y : drag.y;
-  const rot = Math.max(-22,Math.min(22, tx*0.08));
-  const cardStyle = {
-    transform:`translate(${tx}px, ${ty}px) rotate(${rot}deg)`,
-    transition: (drag.active && !exiting) || skipTransition ? 'none'
-                : exiting ? 'transform .22s cubic-bezier(.32,.72,.42,1)'
-                : 'transform .22s cubic-bezier(.2,.8,.2,1)',
-    touchAction:'none',
-    willChange:'transform',
-  };
-  const likeOp = Math.max(0,Math.min(1,(drag.x-20)/100));
-  const passOp = Math.max(0,Math.min(1,(-drag.x-20)/100));
-  const maybeOp = Math.max(0,Math.min(1,(drag.y-20)/100));
-
   return (
     <div className="max-w-xl mx-auto px-5 pt-4 pb-6">
       {/* 进度 */}
@@ -311,16 +346,17 @@ function StepSwipe({pois,onDone}){
           <>
             {next && <PoiCard poi={next} stacked/>}
             <div
+              ref={cardRef}
               className="absolute inset-0"
-              style={cardStyle}
+              style={{touchAction:'none', willChange:'transform', transform:'translate3d(0,0,0)'}}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}>
-              <PoiCard poi={current} instant={skipTransition} onTapDetail={()=>setOpenDetail(current)} />
-              <div style={{opacity:likeOp}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none">想去 ♥</div>
-              <div style={{opacity:passOp}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none">没兴趣</div>
-              <div style={{opacity:maybeOp}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-muted text-muted rounded font-serif font-bold pointer-events-none">待定 ⌛</div>
+              <PoiCard poi={current} onTapDetail={()=>setOpenDetail(current)} />
+              <div ref={labelLikeRef} style={{opacity:0}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none bg-cream/90">想去 ♥</div>
+              <div ref={labelPassRef} style={{opacity:0}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none bg-cream/90">没兴趣</div>
+              <div ref={labelMaybeRef} style={{opacity:0}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-muted text-muted rounded font-serif font-bold pointer-events-none bg-cream/90">待定 ⌛</div>
             </div>
           </>
         )}
@@ -418,14 +454,14 @@ function PoiCover({poi, h='h-64'}){
   );
 }
 
-function PoiCard({poi,stacked,onTapDetail,instant}){
+function PoiCard({poi,stacked,onTapDetail}){
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
   return (
     <div className="absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line bg-ink"
       style={{
         transform: stacked ? 'scale(0.94) translateY(14px)' : 'scale(1) translateY(0)',
         opacity: stacked ? 0.7 : 1,
-        transition: instant ? 'none' : 'transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s ease',
+        transition: 'transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s ease',
       }}>
       {/* 整张大图作为背景 */}
       <PoiCover poi={poi} h="h-full"/>
@@ -606,53 +642,122 @@ function InfoChip({label,value}){
 }
 
 function PoiDetail({poi,onClose}){
+  const sheetRef = useRef(null);
+  const bgRef = useRef(null);
+  const scrollerRef = useRef(null);
+  const dragRef = useRef({active:false,startY:0,y:0});
+
+  const apply = (y, withTransition=false)=>{
+    const el = sheetRef.current;
+    if(!el) return;
+    el.style.transition = withTransition ? 'transform .26s cubic-bezier(.32,.72,.42,1)' : 'none';
+    el.style.transform = `translate3d(0, ${Math.max(0,y)}px, 0)`;
+    if(bgRef.current){
+      const op = Math.max(0, 1 - y/500);
+      bgRef.current.style.background = `rgba(0,0,0,${(0.4*op).toFixed(3)})`;
+    }
+  };
+
+  const close = ()=>{
+    apply(window.innerHeight, true);
+    setTimeout(onClose, 220);
+  };
+
+  const onPointerDown = (e)=>{
+    // 只在按到"手柄 / 顶部图"上才启用拖拽
+    // 或按在内容区但内容已经滚到顶部
+    const onHandle = e.target.closest && e.target.closest('[data-detail-handle]');
+    const sc = scrollerRef.current;
+    if(!onHandle && sc && sc.scrollTop > 0) return;
+    dragRef.current = {active:true, startY:e.clientY, y:0};
+  };
+  const onPointerMove = (e)=>{
+    const d = dragRef.current;
+    if(!d.active) return;
+    const dy = e.clientY - d.startY;
+    if(dy < 0){ d.y = 0; apply(0); return; }
+    d.y = dy;
+    apply(dy);
+  };
+  const onPointerUp = ()=>{
+    const d = dragRef.current;
+    if(!d.active) return;
+    d.active = false;
+    if(d.y > 120) close();
+    else apply(0, true);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm sheet-fade" onClick={onClose}>
-      <div className="absolute inset-x-0 bottom-0 bg-cream rounded-t-3xl max-h-[90vh] overflow-y-auto no-scrollbar sheet-up"
-        onClick={(e)=>e.stopPropagation()}>
-        <div className="w-10 h-1 bg-line rounded-full mx-auto mt-3"/>
-        <div className="relative h-56 mt-3">
+    <div ref={bgRef}
+      className="fixed inset-0 z-50 sheet-fade"
+      style={{background:'rgba(0,0,0,.4)'}}
+      onClick={close}>
+      <div ref={sheetRef}
+        className="absolute inset-x-0 bottom-0 bg-cream rounded-t-3xl max-h-[92vh] overflow-hidden sheet-up flex flex-col"
+        style={{touchAction:'none', willChange:'transform'}}
+        onClick={(e)=>e.stopPropagation()}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}>
+
+        {/* 拖拽 handle */}
+        <div data-detail-handle className="shrink-0 pt-3 pb-2">
+          <div className="w-12 h-1.5 bg-line rounded-full mx-auto"/>
+        </div>
+
+        {/* 顶部大图也作拖拽区 */}
+        <div data-detail-handle className="relative h-56 shrink-0">
           <PoiCover poi={poi} h="h-full"/>
+          <div className="absolute inset-0 pointer-events-none"
+            style={{background:'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 100%)'}}/>
           <div className="absolute inset-0 flex items-end p-5 pointer-events-none">
             <div className="text-white">
-              <div className="font-mono text-[10px] opacity-80 tracking-widest">{poi.id?.toUpperCase()}</div>
-              <div className="font-serif text-2xl font-bold drop-shadow">{poi.name_zh}</div>
+              <div className="font-mono text-[10px] opacity-85 tracking-widest">{CAT_META[poi.category]?.label}</div>
+              <div className="font-serif text-2xl font-bold mt-0.5" style={{textShadow:'0 2px 8px rgba(0,0,0,.5)'}}>{poi.name_zh}</div>
             </div>
           </div>
+          <button onClick={close}
+            className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center text-base active:scale-95">✕</button>
         </div>
-        <div className="p-5 pb-10">
-          <div className="font-mono text-[10px] text-accent tracking-widest">{CAT_META[poi.category]?.label}</div>
-          <p className="text-xs text-muted font-mono mt-1">{poi.name_en} {poi.name_th && `· ${poi.name_th}`}</p>
 
-          <div className="grid grid-cols-2 gap-2 mt-4">
-            <InfoChip label="推荐停留" value={`${poi.duration_hr} 小时`}/>
-            <InfoChip label="人均" value={poi.price_thb ? `฿${poi.price_thb}` : '免费'}/>
-            <InfoChip label="最佳时段" value={(poi.best_time||[]).map(t=>TIME_META[t]?.label).join(' / ')}/>
-            <InfoChip label="区域" value={poi.district_zh||poi.district}/>
-          </div>
+        {/* 内容可滚动区 */}
+        <div ref={scrollerRef}
+          className="flex-1 overflow-y-auto no-scrollbar"
+          style={{overscrollBehavior:'contain', touchAction:'pan-y'}}>
+          <div className="p-5 pb-10">
+            <p className="text-xs text-muted font-mono">{poi.name_en}{poi.name_th ? ` · ${poi.name_th}` : ''}</p>
 
-          <h4 className="font-serif font-bold mt-6 mb-2">简介</h4>
-          <p className="text-sm leading-relaxed text-ink/85 whitespace-pre-line">{poi.long_desc || poi.short_desc}</p>
+            <div className="grid grid-cols-2 gap-2 mt-4">
+              <InfoChip label="推荐停留" value={`${poi.duration_hr} 小时`}/>
+              <InfoChip label="人均" value={poi.price_thb ? `฿${poi.price_thb}` : '免费'}/>
+              <InfoChip label="最佳时段" value={(poi.best_time||[]).map(t=>TIME_META[t]?.label).join(' / ')}/>
+              <InfoChip label="区域" value={poi.district_zh||poi.district}/>
+            </div>
 
-          {poi.address && <>
-            <h4 className="font-serif font-bold mt-6 mb-2">地址</h4>
-            <p className="text-sm text-ink/80">{poi.address}</p>
-            {poi.lat && <p className="font-mono text-[11px] text-muted mt-1">{poi.lat}, {poi.lng}</p>}
-          </>}
+            <h4 className="font-serif font-bold mt-6 mb-2">简介</h4>
+            <p className="text-sm leading-relaxed text-ink/85 whitespace-pre-line">{poi.long_desc || poi.short_desc}</p>
 
-          {poi.tips?.length>0 && <>
-            <h4 className="font-serif font-bold mt-6 mb-2">贴士</h4>
-            <ul className="space-y-1.5">
-              {poi.tips.map((t,i)=>(
-                <li key={i} className="text-sm text-ink/85 pl-5 relative before:content-['·'] before:absolute before:left-1 before:text-accent before:font-bold">{t}</li>
+            {poi.address && <>
+              <h4 className="font-serif font-bold mt-6 mb-2">地址</h4>
+              <p className="text-sm text-ink/80">{poi.address}</p>
+              {poi.lat && <p className="font-mono text-[11px] text-muted mt-1">{poi.lat}, {poi.lng}</p>}
+            </>}
+
+            {poi.tips?.length>0 && <>
+              <h4 className="font-serif font-bold mt-6 mb-2">贴士</h4>
+              <ul className="space-y-1.5">
+                {poi.tips.map((t,i)=>(
+                  <li key={i} className="text-sm text-ink/85 pl-5 relative before:content-['·'] before:absolute before:left-1 before:text-accent before:font-bold">{t}</li>
+                ))}
+              </ul>
+            </>}
+
+            <div className="flex flex-wrap gap-1.5 mt-6">
+              {(poi.tags||[]).map(t=>(
+                <span key={t} className="px-2.5 py-1 bg-paper rounded-full text-xs text-ink/70 border border-line">#{t}</span>
               ))}
-            </ul>
-          </>}
-
-          <div className="flex flex-wrap gap-1.5 mt-6">
-            {(poi.tags||[]).map(t=>(
-              <span key={t} className="px-2.5 py-1 bg-paper rounded-full text-xs text-ink/70 border border-line">#{t}</span>
-            ))}
+            </div>
           </div>
         </div>
       </div>
