@@ -78,7 +78,7 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_39.jpg/1280px-Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_39.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_08.jpg/1280px-Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_08.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_40.jpg/1280px-Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_40.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_42.jpg/1280px-Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_42.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_30.jpg/1280px-Wat_Pho%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_30.jpg"
       ],
       "short_desc": "46 米长金色卧佛像，泰式按摩学校发源地。",
       "long_desc": "卧佛寺早于大皇宫存在，是曼谷最古老的寺庙之一。镇寺之宝是长 46 米、高 15 米的金箔卧佛像，绕一圈走完要 10 分钟，脚底镶嵌珍珠母贝刻有 108 幅吉祥图案。寺内还设有全泰最古老的传统泰医与按摩学校（Wat Pho Massage School），可现场体验：30 分钟泰式按摩 320 铢、60 分钟 480 铢，比外面贵但是教科书级手法。游客口碑稳定 4.7+，反映「人多但不嘈杂、给硬币投 108 个铜钵的仪式很解压」。",
@@ -123,8 +123,8 @@
         "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/The_sculptures_of_two_mythical_giant_demons%2C_Thotsakan_and_Sahatsadecha%2C_guarding_the_eastern_gate_of_the_main_chapel_of_Wat_Arun%2C_Bangkok.jpg/1280px-The_sculptures_of_two_mythical_giant_demons%2C_Thotsakan_and_Sahatsadecha%2C_guarding_the_eastern_gate_of_the_main_chapel_of_Wat_Arun%2C_Bangkok.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_28.jpg/1280px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_28.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_04.jpg/1280px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_04.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_29.jpg/1280px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_29.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_05.jpg/1280px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_05.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_05.jpg/1280px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_05.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_29.jpg/1280px-Templo_Wat_Arun%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_29.jpg"
       ],
       "short_desc": "湄南河畔瓷器镶嵌白塔，日落剪影封面级。",
       "long_desc": "郑王庙得名于驱逐缅军、定都吞武里的郑信大帝，主塔（Phra Prang）高 79 米，外立面由数十万片中国进口的彩瓷碎片和贝壳手工镶嵌而成，阳光下闪着粉白色光泽。游客可爬至主塔半腰平台远眺湄南河，阶梯极陡需扶栏杆。最佳玩法：白天进寺参观，傍晚 17:30 前过河到对岸 Eagle Nest Bar 或 The Deck 等日落配寺塔的封面镜头。Tripadvisor 评价 4.6/5，多数人称「比照片更精致」，差评集中在「没穿长裤被拒入殿」。",
@@ -164,7 +164,15 @@
       "price_thb": 100,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-004.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Wat_Saket%2C_Golden_Mount%2C_Bangkok%2C_Thailand.jpg/1280px-Wat_Saket%2C_Golden_Mount%2C_Bangkok%2C_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Golden_Mount_of_Wat_Saket_%282%29.jpg/1280px-Golden_Mount_of_Wat_Saket_%282%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Golden_Mount_of_Wat_Saket_%283%29.jpg/1280px-Golden_Mount_of_Wat_Saket_%283%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Golden_Mount_of_Wat_Saket_%285%29.jpg/1280px-Golden_Mount_of_Wat_Saket_%285%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Golden_Mount_of_Wat_Saket_%284%29.jpg/1280px-Golden_Mount_of_Wat_Saket_%284%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Golden_Mount_of_Wat_Saket_%281%29.jpg/1280px-Golden_Mount_of_Wat_Saket_%281%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Wat_Saket%2C_Bangkok%2C_Thailand.jpg/1280px-Wat_Saket%2C_Bangkok%2C_Thailand.jpg"
+      ],
       "short_desc": "344 级阶梯登顶看老城 360 度全景。",
       "long_desc": "金山寺得名于 80 米高的人造山丘，山顶金色佛塔曾是 19 世纪曼谷最高建筑，相传内含来自印度的佛骨舍利。爬 344 级螺旋阶梯上去，沿途挂满风铃可一路敲响祈福，登顶可俯瞰拉达那哥欣老城轮廓和远处的大皇宫金顶。每年 11 月卢卡通节会以红色绸布裹塔，整个山头像被火焰包裹一样壮观。本地评价：「比上 Mahanakhon 便宜 50 倍但风景不输」，吐槽点是「夏天爬上去汗流浃背」。",
       "tips": [
@@ -203,7 +211,15 @@
       "price_thb": 50,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-005.jpg",
-      "gallery": [],
+      "gallery": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Wat_Benchamabophit_15.jpg/1280px-Wat_Benchamabophit_15.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Wat_Benchamabophit_Thailand.jpg/1280px-Wat_Benchamabophit_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Wat_Benchamabophit_Thailand_02.jpg/1280px-Wat_Benchamabophit_Thailand_02.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Wat_Benchamabophit_Thailand_03.jpg/1280px-Wat_Benchamabophit_Thailand_03.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Wat_Benchamabophit%2CBangkok_Thailand.jpg/1280px-Wat_Benchamabophit%2CBangkok_Thailand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Wat_Benchamabophit_Dusitvanaram_Bangkok_03.jpg/1280px-Wat_Benchamabophit_Dusitvanaram_Bangkok_03.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Wat_Benchamabophit_Dusitvanaram_Bangkok_01.jpg/1280px-Wat_Benchamabophit_Dusitvanaram_Bangkok_01.jpg"
+      ],
       "short_desc": "拉玛五世亲自设计，意大利白大理石寺庙。",
       "long_desc": "云石寺由拉玛五世 1899 年下令兴建，本人亲自参与设计图，是泰国唯一通体由意大利卡拉拉白大理石建造的佛寺，曾印在 5 铢硬币背面。庭院内 52 尊不同流派的青铜佛像沿回廊一字排开，是研究佛像艺术的活教材。寺院规模不大，1 小时足够逛完，相比大皇宫人少很多，是拍寺庙建筑细节的清净地。Google 评分 4.6，常被评价为「曼谷被低估的寺庙」「鸽子很多有点意大利广场感」。",
       "tips": [

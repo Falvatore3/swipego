@@ -157,10 +157,10 @@ function StepIntake({onDone}){
           const active = days===o.v;
           return (
             <button key={o.v} onClick={()=>choose(o.v)}
-              className={`relative p-5 rounded-2xl border text-left transition ${active?'bg-ink text-cream border-ink scale-[0.98]':'bg-paper border-line hover:border-ink/40 active:scale-[0.98]'}`}>
+              className={`relative p-5 rounded-2xl border-2 text-left transition ${active?'bg-ink text-cream border-ink scale-[0.98] shadow-md':'bg-paper border-line hover:border-ink/40 active:scale-[0.98]'}`}>
               <div className="font-serif font-bold text-2xl">{o.label}</div>
-              <div className={`text-xs mt-1 ${active?'text-cream/70':'text-muted'}`}>{o.sub}</div>
-              {active && <span className="absolute top-3 right-3 text-base tick-in">✓</span>}
+              <div className={`text-xs mt-1 ${active?'text-cream/85':'text-muted'}`}>{o.sub}</div>
+              {active && <span className="absolute top-3 right-3 text-base tick-in text-cream">✓</span>}
             </button>
           );
         })}
@@ -368,13 +368,13 @@ function StepSwipe({pois,onDone}){
       {/* 右上角：景点清单按钮 */}
       <button
         onClick={()=>setOpenShortlist(true)}
-        className={`fixed right-4 z-30 px-3 py-1.5 rounded-full font-serif text-xs shadow-md transition flex items-center gap-1.5
+        className={`fixed right-4 z-30 px-3 py-1.5 rounded-full font-serif text-xs shadow-md transition flex items-center gap-1.5 border-2
           ${likeCount + maybeCount === 0
-            ? 'bg-paper text-muted border border-line'
-            : 'bg-ink text-cream active:scale-95'}`}
+            ? 'bg-cream text-ink/70 border-line'
+            : 'bg-ink text-cream border-ink active:scale-95'}`}
         style={{top:'calc(env(safe-area-inset-top,0px) + 14px)'}}>
         <span>📋 我的清单</span>
-        <span className={`font-mono text-[10px] rounded-full px-1.5 py-0.5 leading-none ${likeCount+maybeCount===0?'bg-line text-muted':'bg-accent text-white'}`}>
+        <span className={`font-mono text-[10px] rounded-full px-1.5 py-0.5 leading-none font-bold ${likeCount+maybeCount===0?'bg-line text-ink/70':'bg-accent text-white'}`}>
           {likeCount + maybeCount}
         </span>
       </button>
@@ -513,12 +513,12 @@ function ShortlistSheet({pois, decisions, onUpdate, onClose, onPlan}){
         {/* Tabs */}
         <div className="flex gap-2 px-5 mb-2 shrink-0">
           <button onClick={()=>setTab('like')}
-            className={`flex-1 py-2.5 rounded-xl border transition ${tab==='like'?'bg-accent text-white border-accent':'bg-paper border-line text-muted'}`}>
-            <div className="font-serif font-bold text-sm">♥ 想去 <span className="font-mono">{liked.length}</span></div>
+            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='like'?'bg-accent text-white border-accent shadow-md':'bg-cream border-line text-ink/60'}`}>
+            <div className="font-serif font-bold text-sm">♥ 想去 <span className="font-mono ml-1">{liked.length}</span></div>
           </button>
           <button onClick={()=>setTab('maybe')}
-            className={`flex-1 py-2.5 rounded-xl border transition ${tab==='maybe'?'bg-ink text-cream border-ink':'bg-paper border-line text-muted'}`}>
-            <div className="font-serif font-bold text-sm">⌛ 待定 <span className="font-mono">{maybe.length}</span></div>
+            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='maybe'?'bg-ink text-cream border-ink shadow-md':'bg-cream border-line text-ink/60'}`}>
+            <div className="font-serif font-bold text-sm">⌛ 待定 <span className="font-mono ml-1">{maybe.length}</span></div>
           </button>
         </div>
 
@@ -545,8 +545,8 @@ function ShortlistSheet({pois, decisions, onUpdate, onClose, onPlan}){
           <button onClick={onPlan} disabled={total===0}
             className={`w-full py-4 rounded-2xl font-serif font-bold text-base transition flex items-center justify-center gap-2
               ${total===0
-                ? 'bg-paper text-muted border border-line cursor-not-allowed'
-                : 'bg-ink text-cream active:scale-[0.98]'}`}>
+                ? 'bg-paper text-ink/40 border-2 border-line cursor-not-allowed'
+                : 'bg-ink text-cream border-2 border-ink active:scale-[0.98] shadow-md'}`}>
             <span>✨ 一键规划我的行程</span>
             {total>0 && <span className="font-mono text-xs bg-accent text-white rounded-full px-2 py-0.5">{total}</span>}
           </button>
@@ -589,14 +589,14 @@ function ShortlistRow({poi, verb, onMove, onRemove}){
         <div className="border-t border-line bg-cream/60 grid grid-cols-3 divide-x divide-line">
           {verb !== 'like' && (
             <button onClick={()=>{onMove('like'); setShowOps(false);}}
-              className="py-2.5 text-xs font-serif text-accent active:bg-paper">移到想去 ♥</button>
+              className="py-3 text-xs font-serif font-bold text-accent bg-cream active:bg-accent active:text-white">移到想去 ♥</button>
           )}
           {verb !== 'maybe' && (
             <button onClick={()=>{onMove('maybe'); setShowOps(false);}}
-              className="py-2.5 text-xs font-serif text-ink active:bg-paper">移到待定 ⌛</button>
+              className="py-3 text-xs font-serif font-bold text-ink bg-cream active:bg-ink active:text-cream">移到待定 ⌛</button>
           )}
           <button onClick={()=>{onRemove(); setShowOps(false);}}
-            className="py-2.5 text-xs font-serif text-red-600 active:bg-paper">删除</button>
+            className="py-3 text-xs font-serif font-bold text-red-600 bg-cream active:bg-red-600 active:text-white">删除</button>
         </div>
       )}
     </li>
@@ -707,7 +707,7 @@ function StepItinerary({intake,liked,maybe,onRestart}){
           const dCount = d.items.filter(it=>done[it.poi.id]).length;
           return (
             <button key={i} onClick={()=>setTab(i)}
-              className={`shrink-0 px-4 py-2.5 rounded-xl border transition text-left ${active?'bg-ink text-cream border-ink':'bg-paper border-line text-ink'}`}>
+              className={`shrink-0 px-4 py-2.5 rounded-xl border-2 transition text-left ${active?'bg-ink text-cream border-ink shadow-md':'bg-cream border-line text-ink/70'}`}>
               <div className="font-mono text-[10px] opacity-70">DAY</div>
               <div className="font-serif font-bold text-base leading-none">{i+1}</div>
               <div className="font-mono text-[10px] mt-1 opacity-70">{dCount}/{d.items.length}</div>
