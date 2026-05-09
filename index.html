@@ -247,10 +247,16 @@ function StepSwipe({pois,onDone}){
   const onPointerUp = (e)=>{
     if(!startRef.current) return;
     const {x,y} = drag;
+    const moved = Math.hypot(x,y);
     startRef.current = null;
     if(x > 110)      decide('like');
     else if(x < -110) decide('pass');
     else if(y > 110)  decide('maybe');
+    else if(moved < 8) {
+      // 视为点击 → 打开详情
+      setOpenDetail(current);
+      setDrag({x:0,y:0,active:false});
+    }
     else setDrag({x:0,y:0,active:false});
   };
 
@@ -321,7 +327,7 @@ function StepSwipe({pois,onDone}){
           className="w-14 h-14 rounded-full bg-accent text-white grid place-items-center text-xl hover:scale-105 transition shadow-lg" title="右滑：想去">♥</button>
       </div>
 
-      <p className="text-center text-[11px] text-muted mt-4 font-mono">左滑跳过 · 右滑想去 · 下滑待定 · 点卡看详情</p>
+      <p className="text-center text-[11px] text-muted mt-4 font-mono">左滑跳过 · 右滑想去 · 下滑待定 · 点卡查看详情</p>
 
       {openDetail && <PoiDetail poi={openDetail} onClose={()=>setOpenDetail(null)}/>}
     </div>
@@ -383,11 +389,11 @@ function PoiCard({poi,stacked,onTapDetail}){
 
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h3 className="font-serif text-xl font-bold leading-tight">{poi.name_zh}</h3>
             <p className="text-xs text-muted mt-0.5 font-mono truncate">{poi.name_en}</p>
           </div>
-          <button onClick={onTapDetail} className="shrink-0 text-[11px] text-ink underline underline-offset-2 font-mono">详情 →</button>
+          <span className="shrink-0 mt-1 font-mono text-[10px] text-muted tracking-wider">点击 ⓘ</span>
         </div>
 
         <p className="text-sm leading-relaxed mt-3 text-ink/80 line-clamp-3">{poi.short_desc}</p>
