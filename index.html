@@ -180,6 +180,7 @@ function StepSwipe({pois,onDone}){
   const [openDetail,setOpenDetail] = useState(null);
   const [drag,setDrag] = useState({x:0,y:0,active:false});
   const [exiting,setExiting] = useState(null); // {dir, verb}
+  const [skipTransition,setSkipTransition] = useState(false);
   const startRef = useRef(null);
 
   const current = pois[idx];
@@ -191,11 +192,15 @@ function StepSwipe({pois,onDone}){
     const dir = verb==='like'?{x:600,y:-50}:verb==='pass'?{x:-600,y:-50}:{x:0,y:600};
     setExiting({dir,verb});
     setTimeout(()=>{
+      // 标记跳过下一帧的过渡，避免新 current 从飞走位置滑回
+      setSkipTransition(true);
       setDecisions(prev=>({...prev,[current.id]:verb}));
       setIdx(i=>i+1);
       setDrag({x:0,y:0,active:false});
       setExiting(null);
-    },260);
+      // 下一帧再恢复过渡
+      requestAnimationFrame(()=>requestAnimationFrame(()=>setSkipTransition(false)));
+    },220);
   };
 
   const onPointerDown = (e)=>{
@@ -248,8 +253,11 @@ function StepSwipe({pois,onDone}){
   const rot = Math.max(-22,Math.min(22, tx*0.08));
   const cardStyle = {
     transform:`translate(${tx}px, ${ty}px) rotate(${rot}deg)`,
-    transition: drag.active && !exiting ? 'none' : 'transform .26s cubic-bezier(.2,.8,.2,1)',
+    transition: (drag.active && !exiting) || skipTransition ? 'none'
+                : exiting ? 'transform .22s cubic-bezier(.32,.72,.42,1)'
+                : 'transform .22s cubic-bezier(.2,.8,.2,1)',
     touchAction:'none',
+    willChange:'transform',
   };
   const likeOp = Math.max(0,Math.min(1,(drag.x-20)/100));
   const passOp = Math.max(0,Math.min(1,(-drag.x-20)/100));
@@ -268,7 +276,7 @@ function StepSwipe({pois,onDone}){
 
       {/* 卡堆 */}
       <div className="relative select-none" style={{height:'min(560px, calc(100vh - 230px))'}}>
-        {next && <PoiCard poi={next} stacked />}
+        {next && <PoiCard poi={next} stacked/>}
         <div
           className="absolute inset-0"
           style={cardStyle}
@@ -276,7 +284,7 @@ function StepSwipe({pois,onDone}){
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerCancel={onPointerUp}>
-          <PoiCard poi={current} onTapDetail={()=>setOpenDetail(current)} />
+          <PoiCard poi={current} instant={skipTransition} onTapDetail={()=>setOpenDetail(current)} />
           {/* 三个方向的标签 */}
           <div style={{opacity:likeOp}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none">想去 ♥</div>
           <div style={{opacity:passOp}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none">没兴趣</div>
@@ -362,11 +370,16 @@ function PoiCover({poi, h='h-64'}){
   );
 }
 
-function PoiCard({poi,stacked,onTapDetail}){
+function PoiCard({poi,stacked,onTapDetail,instant}){
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
   return (
-    <div className={`absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line ${stacked?'scale-[0.96] opacity-60 translate-y-3':''}`}
-      style={{background:'var(--cream)'}}>
+    <div className="absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line"
+      style={{
+        background:'var(--cream)',
+        transform: stacked ? 'scale(0.94) translateY(14px)' : 'scale(1) translateY(0)',
+        opacity: stacked ? 0.7 : 1,
+        transition: instant ? 'none' : 'transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s ease',
+      }}>
       {/* 顶部图/色块 — 占主导 */}
       <div className="relative h-[62%]">
         <PoiCover poi={poi} h="h-full"/>
