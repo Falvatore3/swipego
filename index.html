@@ -157,10 +157,10 @@ function StepIntake({onDone}){
           const active = days===o.v;
           return (
             <button key={o.v} onClick={()=>choose(o.v)}
-              className={`relative p-5 rounded-2xl border-2 text-left transition ${active?'bg-ink text-cream border-ink scale-[0.98] shadow-md':'bg-paper border-line hover:border-ink/40 active:scale-[0.98]'}`}>
+              className={`relative p-5 rounded-2xl border-2 text-left transition ${active?'bg-ink text-white border-ink scale-[0.98] shadow-md':'bg-cream border-ink/20 text-ink hover:border-ink/50 active:scale-[0.98]'}`}>
               <div className="font-serif font-bold text-2xl">{o.label}</div>
-              <div className={`text-xs mt-1 ${active?'text-cream/85':'text-muted'}`}>{o.sub}</div>
-              {active && <span className="absolute top-3 right-3 text-base tick-in text-cream">✓</span>}
+              <div className={`text-xs mt-1 ${active?'text-white/85':'text-muted'}`}>{o.sub}</div>
+              {active && <span className="absolute top-3 right-3 text-base tick-in text-white">✓</span>}
             </button>
           );
         })}
@@ -354,9 +354,9 @@ function StepSwipe({pois,onDone}){
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}>
               <PoiCard poi={current} onTapDetail={()=>setOpenDetail(current)} />
-              <div ref={labelLikeRef} style={{opacity:0}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none bg-cream/90">想去 ♥</div>
-              <div ref={labelPassRef} style={{opacity:0}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none bg-cream/90">没兴趣</div>
-              <div ref={labelMaybeRef} style={{opacity:0}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-muted text-muted rounded font-serif font-bold pointer-events-none bg-cream/90">待定 ⌛</div>
+              <div ref={labelLikeRef} style={{opacity:0}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none bg-white">想去 ♥</div>
+              <div ref={labelPassRef} style={{opacity:0}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none bg-white">没兴趣</div>
+              <div ref={labelMaybeRef} style={{opacity:0}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold pointer-events-none bg-white">待定 ⌛</div>
             </div>
           </>
         )}
@@ -380,22 +380,22 @@ function StepSwipe({pois,onDone}){
       {/* 按钮操作区 — 带撤销 */}
       <div className="flex items-center justify-around mt-5 px-2">
         <button onClick={undo} disabled={history.length===0}
-          className={`flex flex-col items-center gap-1.5 transition ${history.length===0?'opacity-30 cursor-not-allowed':'active:scale-95'}`} title="撤销上一张">
+          className={`flex flex-col items-center gap-1.5 transition ${history.length===0?'opacity-50 cursor-not-allowed':'active:scale-95'}`} title="撤销上一张">
           <span className="w-12 h-12 rounded-full border-2 border-line grid place-items-center text-base text-muted bg-cream">↶</span>
           <span className="font-serif text-[11px] text-muted">撤销</span>
         </button>
         <button onClick={()=>decide('pass')} disabled={allDone}
-          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-30':'active:scale-95'}`} title="左滑：不感兴趣">
+          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-50':'active:scale-95'}`} title="左滑：不感兴趣">
           <span className="w-14 h-14 rounded-full border-2 border-ink grid place-items-center text-xl bg-cream">✕</span>
           <span className="font-serif text-xs text-ink">没兴趣</span>
         </button>
         <button onClick={()=>decide('maybe')} disabled={allDone}
-          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-30':'active:scale-95'}`} title="下滑：待定">
-          <span className="w-14 h-14 rounded-full border-2 border-line grid place-items-center text-base text-muted bg-cream">⌛</span>
-          <span className="font-serif text-xs text-muted">待定</span>
+          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-50':'active:scale-95'}`} title="下滑：待定">
+          <span className="w-14 h-14 rounded-full border-2 border-line grid place-items-center text-base text-ink/70 bg-cream">⌛</span>
+          <span className="font-serif text-xs text-ink/70">待定</span>
         </button>
         <button onClick={()=>decide('like')} disabled={allDone}
-          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-30':'active:scale-95'}`} title="右滑：想去">
+          className={`flex flex-col items-center gap-1.5 transition ${allDone?'opacity-50':'active:scale-95'}`} title="右滑：想去">
           <span className="w-14 h-14 rounded-full bg-accent text-white grid place-items-center text-xl shadow-lg">♥</span>
           <span className="font-serif text-xs text-accent font-bold">想去</span>
         </button>
@@ -547,11 +547,11 @@ function ShortlistSheet({pois, decisions, onUpdate, onClose, onPlan}){
         {/* Tabs */}
         <div className="flex gap-2 px-5 mb-2 shrink-0">
           <button onClick={()=>setTab('like')}
-            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='like'?'bg-accent text-white border-accent shadow-md':'bg-cream border-line text-ink/60'}`}>
+            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='like'?'bg-accent text-white border-accent shadow-md':'bg-cream border-line text-ink'}`}>
             <div className="font-serif font-bold text-sm">♥ 想去 <span className="font-mono ml-1">{liked.length}</span></div>
           </button>
           <button onClick={()=>setTab('maybe')}
-            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='maybe'?'bg-ink text-cream border-ink shadow-md':'bg-cream border-line text-ink/60'}`}>
+            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='maybe'?'bg-ink text-white border-ink shadow-md':'bg-cream border-line text-ink'}`}>
             <div className="font-serif font-bold text-sm">⌛ 待定 <span className="font-mono ml-1">{maybe.length}</span></div>
           </button>
         </div>
@@ -580,7 +580,7 @@ function ShortlistSheet({pois, decisions, onUpdate, onClose, onPlan}){
             className={`w-full py-4 rounded-2xl font-serif font-bold text-base transition flex items-center justify-center gap-2
               ${total===0
                 ? 'bg-paper text-ink/40 border-2 border-line cursor-not-allowed'
-                : 'bg-ink text-cream border-2 border-ink active:scale-[0.98] shadow-md'}`}>
+                : 'bg-ink text-white border-2 border-ink active:scale-[0.98] shadow-md'}`}>
             <span>✨ 一键规划我的行程</span>
             {total>0 && <span className="font-mono text-xs bg-accent text-white rounded-full px-2 py-0.5">{total}</span>}
           </button>
@@ -627,7 +627,7 @@ function ShortlistRow({poi, verb, onMove, onRemove}){
           )}
           {verb !== 'maybe' && (
             <button onClick={()=>{onMove('maybe'); setShowOps(false);}}
-              className="py-3 text-xs font-serif font-bold text-ink bg-cream active:bg-ink active:text-cream">移到待定 ⌛</button>
+              className="py-3 text-xs font-serif font-bold text-ink bg-cream active:bg-ink active:text-white">移到待定 ⌛</button>
           )}
           <button onClick={()=>{onRemove(); setShowOps(false);}}
             className="py-3 text-xs font-serif font-bold text-red-600 bg-cream active:bg-red-600 active:text-white">删除</button>
@@ -810,7 +810,7 @@ function StepItinerary({intake,liked,maybe,onRestart}){
           const dCount = d.items.filter(it=>done[it.poi.id]).length;
           return (
             <button key={i} onClick={()=>setTab(i)}
-              className={`shrink-0 px-4 py-2.5 rounded-xl border-2 transition text-left ${active?'bg-ink text-cream border-ink shadow-md':'bg-cream border-line text-ink/70'}`}>
+              className={`shrink-0 px-4 py-2.5 rounded-xl border-2 transition text-left ${active?'bg-ink text-white border-ink shadow-md':'bg-cream border-line text-ink'}`}>
               <div className="font-mono text-[10px] opacity-70">DAY</div>
               <div className="font-serif font-bold text-base leading-none">{i+1}</div>
               <div className="font-mono text-[10px] mt-1 opacity-70">{dCount}/{d.items.length}</div>
@@ -860,12 +860,12 @@ function TimelineItem({item,checked,onToggle}){
   return (
     <div className="relative pl-10">
       <div className="absolute left-[13px] top-4 w-2.5 h-2.5 rounded-full border-2 border-ink bg-cream"/>
-      <div className={`rounded-2xl border transition ${checked?'bg-paper border-line opacity-60':'bg-cream border-line card-shadow'}`}>
+      <div className={`rounded-2xl border transition ${checked?'bg-paper border-accent/40':'bg-cream border-line card-shadow'}`}>
         <div className="flex">
-          <div className="w-20 shrink-0 bg-ink text-cream p-3 rounded-l-2xl flex flex-col items-center justify-center">
-            <div className="font-mono text-[10px] opacity-70">{start}</div>
+          <div className="w-20 shrink-0 bg-ink text-white p-3 rounded-l-2xl flex flex-col items-center justify-center">
+            <div className="font-mono text-[10px] opacity-80">{start}</div>
             <div className="font-serif font-bold text-xs">↓</div>
-            <div className="font-mono text-[10px] opacity-70">{end}</div>
+            <div className="font-mono text-[10px] opacity-80">{end}</div>
           </div>
           <div className="flex-1 p-3 flex gap-3 items-start">
             <div className="w-14 h-14 rounded-lg shrink-0 overflow-hidden relative" style={{background:poi.color||'#0F3D2E'}}>
@@ -879,11 +879,11 @@ function TimelineItem({item,checked,onToggle}){
                 <span className="font-mono text-[10px] text-muted">{meta?.icon} {meta?.label}</span>
                 <span className="font-mono text-[10px] text-muted">· {poi.duration_hr}h</span>
               </div>
-              <div className={`font-serif font-bold text-sm mt-0.5 truncate ${checked?'line-through':''}`}>{poi.name_zh}</div>
+              <div className={`font-serif font-bold text-sm mt-0.5 truncate ${checked?'line-through text-muted':'text-ink'}`}>{poi.name_zh}</div>
               <div className="text-[11px] text-muted truncate">{poi.district_zh||poi.district}</div>
             </div>
             <button onClick={onToggle}
-              className={`shrink-0 w-7 h-7 rounded-md border-2 grid place-items-center transition ${checked?'bg-accent border-accent text-white':'border-ink/30 hover:border-ink'}`}>
+              className={`shrink-0 w-7 h-7 rounded-md border-2 grid place-items-center transition ${checked?'bg-accent border-accent text-white':'border-ink bg-cream hover:bg-paper'}`}>
               {checked && <span className="tick-in text-sm">✓</span>}
             </button>
           </div>
