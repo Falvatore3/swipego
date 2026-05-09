@@ -306,7 +306,7 @@ function StepSwipe({pois,onDone}){
       </div>
 
       {/* 卡堆 / 完成态 */}
-      <div className="relative select-none" style={{height:'min(560px, calc(100vh - 230px))'}}>
+      <div className="relative select-none" style={{height:'min(640px, calc(100vh - 220px))'}}>
         {!allDone && (
           <>
             {next && <PoiCard poi={next} stacked/>}
@@ -405,12 +405,6 @@ function PoiCover({poi, h='h-64'}){
           loading="lazy"
           onError={()=>setFailed(true)}/>
       )}
-      {/* 渐变叠层让文字清晰（更轻，避免灰蒙蒙） */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{background: showImage
-          ? 'linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 70%, rgba(0,0,0,.45) 100%)'
-          : 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.25) 100%)'
-        }}/>
       {!showImage && (
         <>
           {/* 装饰网格 */}
@@ -427,41 +421,56 @@ function PoiCover({poi, h='h-64'}){
 function PoiCard({poi,stacked,onTapDetail,instant}){
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
   return (
-    <div className="absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line"
+    <div className="absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line bg-ink"
       style={{
-        background:'var(--cream)',
         transform: stacked ? 'scale(0.94) translateY(14px)' : 'scale(1) translateY(0)',
         opacity: stacked ? 0.7 : 1,
         transition: instant ? 'none' : 'transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s ease',
       }}>
-      {/* 顶部图/色块 — 占主导 */}
-      <div className="relative h-[62%]">
-        <PoiCover poi={poi} h="h-full"/>
-        <div className="absolute inset-0 p-4 flex flex-col justify-between text-white pointer-events-none">
-          <div className="flex items-start justify-between">
-            <span className="px-2.5 py-1 bg-black/35 backdrop-blur rounded-full font-mono text-[10px] tracking-wider">
-              {meta.icon} {meta.label}
-            </span>
-          </div>
-          <div className="font-mono text-[10px] opacity-85 tracking-widest drop-shadow">{poi.id?.toUpperCase()} · {poi.district_zh||poi.district}</div>
-        </div>
+      {/* 整张大图作为背景 */}
+      <PoiCover poi={poi} h="h-full"/>
+
+      {/* 强渐变压暗下半部分，让文字清晰 */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{background:'linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 45%, rgba(0,0,0,.85) 100%)'}}/>
+
+      {/* 顶部品类 chip */}
+      <div className="absolute top-4 left-4 right-4 flex items-start justify-between text-white pointer-events-none">
+        <span className="px-3 py-1.5 bg-black/45 backdrop-blur-sm rounded-full font-mono text-[11px] tracking-wider">
+          {meta.icon} {meta.label}
+        </span>
+        <span className="px-3 py-1.5 bg-black/45 backdrop-blur-sm rounded-full font-mono text-[11px]">
+          {poi.id?.toUpperCase()}
+        </span>
       </div>
 
-      {/* 底部信息区 — 元信息醒目 */}
-      <div className="px-4 py-3 h-[38%] flex flex-col justify-between">
-        <div>
-          <h3 className="font-serif text-lg font-bold leading-tight truncate">{poi.name_zh}</h3>
-          <p className="text-[11px] text-muted font-mono truncate">{poi.name_en}</p>
-          <p className="text-[12px] leading-snug mt-1.5 text-ink/75 line-clamp-2">{poi.short_desc}</p>
+      {/* 底部信息层 — 大标题、描述、元信息 */}
+      <div className="absolute left-0 right-0 bottom-0 p-5 text-white pointer-events-none">
+        <div className="font-mono text-[10px] opacity-80 tracking-widest mb-1.5">
+          {poi.district_zh||poi.district}
         </div>
+        <h3 className="font-serif text-3xl font-bold leading-tight drop-shadow-lg">{poi.name_zh}</h3>
+        <p className="text-[11px] opacity-80 font-mono mt-0.5">{poi.name_en}</p>
 
-        {/* 三大元信息：醒目排列 */}
-        <div className="grid grid-cols-3 gap-2 mt-2">
-          <MetaCell icon="⏱" label="停留" value={`${poi.duration_hr}h`}/>
-          <MetaCell icon="☀️" label="时段" value={(poi.best_time||[]).map(t=>TIME_META[t]?.label||t)[0]||'-'}/>
-          <MetaCell icon="💰" label="人均" value={poi.price_thb?`฿${poi.price_thb}`:'免费'}/>
+        <p className="text-[13px] leading-snug mt-3 opacity-95 line-clamp-2 drop-shadow">{poi.short_desc}</p>
+
+        {/* 三栏元信息：背景半透明放在图上 */}
+        <div className="grid grid-cols-3 gap-2 mt-4 bg-black/30 backdrop-blur-sm rounded-2xl px-3 py-2.5 border border-white/10">
+          <BigMetaCell icon="⏱" label="停留" value={`${poi.duration_hr}h`}/>
+          <BigMetaCell icon="☀️" label="时段" value={(poi.best_time||[]).map(t=>TIME_META[t]?.label||t)[0]||'-'}/>
+          <BigMetaCell icon="💰" label="人均" value={poi.price_thb?`฿${poi.price_thb}`:'免费'}/>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BigMetaCell({icon,label,value}){
+  return (
+    <div className="flex flex-col items-center text-center">
+      <div className="text-base leading-none mb-0.5">{icon}</div>
+      <div className="font-serif text-[15px] font-bold leading-tight text-white">{value}</div>
+      <div className="font-mono text-[9px] opacity-70 mt-0.5 tracking-wider">{label}</div>
     </div>
   );
 }

@@ -1,8 +1,18 @@
 #!/usr/bin/env python3
 """
 Fetch and verify gallery images for Bangkok POIs from Wikimedia Commons.
+
+Strategy:
+  1. Query Commons search API by keyword (name_en + Bangkok + alts).
+  2. For each File: title, use imageinfo to confirm existence + mime.
+  3. Build the 1280px thumbnail URL on upload.wikimedia.org CDN.
+  4. Verify each candidate URL via HTTP GET (image/*) with:
+     - Browser-like headers + Referer
+     - 1.2s throttle between img requests
+     - 429 backoff: wait 30s then retry up to 3 times
 """
 
+import hashlib
 import json
 import os
 import sys
@@ -13,27 +23,20 @@ from typing import List, Dict, Optional
 
 POI_FILE = "/Users/frankie/WorkBuddy/2026-05-08-task-2/swipego/data/bangkok-pois.json"
 
-# UA for Wikimedia API (must identify the bot per their policy)
 UA_API = "SwipeGoBot/1.0 (https://swipego.local/; contact@swipego.local) python-urllib/3.9"
-# UA for upload.wikimedia.org image CDN (browser-like works best)
 UA_IMG = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
-SLEEP_API = 0.5
-SLEEP_VERIFY = 0.2
 
-# Keywords to skip when they appear in filename
+SLEEP_API = 0.6
+SLEEP_IMG = 1.2
+
 SKIP_KEYWORDS = [
     "logo", "coat_of_arms", "map_of", "satellite", "seal_of",
-    "flag_of", "location_map", "coat of arms", "svg",
+    "flag_of", "location_map", "coat of arms",
+    "seal ", "crest_", "stamp_of",
 ]
-
-
-def strip_query(u: str) -> str:
-    """Wikimedia adds utm params that cause 403 on upload.wikimedia.org; strip."""
-    if "?" in u:
-        return u.split("?", 1)[0]
-    return u
+ALLOWED_EXT = (".jpg", ".jpeg", ".png", ".webp")
 
 
 def http_json(params: dict, retries: int = 3) -> Optional[dict]:
@@ -44,48 +47,36 @@ def http_json(params: dict, retries: int = 3) -> Optional[dict]:
                 "User-Agent": UA_API,
                 "Accept": "application/json",
             })
-            with urllib.request.urlopen(req, timeout=15) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 return json.loads(r.read().decode("utf-8"))
         except Exception as e:
             if attempt == retries - 1:
-                print(f"    !! API failed: {e}", file=sys.stderr)
+                print(f"    !! API err: {e}", file=sys.stderr, flush=True)
                 return None
-            time.sleep(1.5 * (attempt + 1))
+            time.sleep(3.0 * (attempt + 1))
     return None
 
 
-def verify_image(url: str, timeout: int = 12) -> bool:
-    """HEAD then fallback to GET range. Accept only 2xx + image/*."""
-    url = strip_query(url)
-    # HEAD
-    try:
-        req = urllib.request.Request(url, headers={
-            "User-Agent": UA_IMG, "Accept": "image/*",
-        }, method="HEAD")
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            if 200 <= r.status < 300:
-                ct = (r.headers.get("Content-Type") or "").lower()
-                if ct.startswith("image/"):
-                    return True
-    except Exception:
-        pass
-    # GET small range fallback
-    try:
-        req = urllib.request.Request(url, headers={
-            "User-Agent": UA_IMG, "Accept": "image/*",
-            "Range": "bytes=0-2047",
-        })
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            if 200 <= r.status < 300:
-                ct = (r.headers.get("Content-Type") or "").lower()
-                if ct.startswith("image/"):
-                    return True
-    except Exception:
-        pass
-    return False
+def filename_from_title(title: str) -> str:
+    s = title[5:] if title.startswith("File:") else title
+    return s.replace(" ", "_")
 
 
-def search_commons(keyword: str, limit: int = 20) -> List[str]:
+def build_thumb_url(filename: str, width: int = 1280) -> str:
+    h = hashlib.md5(filename.encode("utf-8")).hexdigest()
+    a, ab = h[0], h[:2]
+    enc = urllib.parse.quote(filename)
+    return f"https://upload.wikimedia.org/wikipedia/commons/thumb/{a}/{ab}/{enc}/{width}px-{enc}"
+
+
+def build_original_url(filename: str) -> str:
+    h = hashlib.md5(filename.encode("utf-8")).hexdigest()
+    a, ab = h[0], h[:2]
+    enc = urllib.parse.quote(filename)
+    return f"https://upload.wikimedia.org/wikipedia/commons/{a}/{ab}/{enc}"
+
+
+def search_commons(keyword: str, limit: int = 18) -> List[str]:
     data = http_json({
         "action": "query",
         "list": "search",
@@ -96,11 +87,10 @@ def search_commons(keyword: str, limit: int = 20) -> List[str]:
     })
     if not data:
         return []
-    hits = data.get("query", {}).get("search", []) or []
-    return [h["title"] for h in hits]
+    return [h["title"] for h in (data.get("query", {}).get("search") or [])]
 
 
-def get_image_url(title: str) -> Optional[str]:
+def get_image_info(title: str) -> Optional[Dict]:
     data = http_json({
         "action": "query",
         "titles": title,
@@ -110,29 +100,65 @@ def get_image_url(title: str) -> Optional[str]:
     })
     if not data:
         return None
-    pages = data.get("query", {}).get("pages", {})
-    for _, page in pages.items():
+    for _, page in (data.get("query", {}).get("pages") or {}).items():
         infos = page.get("imageinfo") or []
         if not infos:
             continue
         info = infos[0]
         mime = (info.get("mime") or "").lower()
-        url = info.get("url")
-        if not url or not mime.startswith("image/"):
+        if not mime.startswith("image/"):
             continue
-        url = strip_query(url)
-        low = url.lower()
-        # skip svg/gif/tiff
-        if any(low.endswith(ext) for ext in [".svg", ".tif", ".tiff", ".gif"]):
-            continue
-        return url
+        return {
+            "mime": mime,
+            "width": info.get("width", 0),
+            "height": info.get("height", 0),
+        }
     return None
 
 
-def collect_for_poi(poi: Dict, target_min: int = 6, target_max: int = 7) -> List[str]:
+def verify_url(url: str, max_retries: int = 3) -> bool:
+    for attempt in range(max_retries):
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": UA_IMG,
+                "Accept": "image/avif,image/webp,image/*,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Referer": "https://commons.wikimedia.org/",
+            })
+            with urllib.request.urlopen(req, timeout=20) as r:
+                if 200 <= r.status < 300:
+                    ct = (r.headers.get("Content-Type") or "").lower()
+                    if ct.startswith("image/"):
+                        # Read a couple KB to confirm the body starts
+                        r.read(256)
+                        return True
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait = 20 * (attempt + 1)
+                print(f"    ! 429 backoff {wait}s", flush=True)
+                time.sleep(wait)
+                continue
+            if e.code in (404, 400):
+                return False
+        except Exception:
+            pass
+        time.sleep(2.0 * (attempt + 1))
+    return False
+
+
+def is_good_filename(title: str) -> bool:
+    low = title.lower()
+    if any(k in low for k in SKIP_KEYWORDS):
+        return False
+    if not any(low.endswith(ext) for ext in ALLOWED_EXT):
+        return False
+    return True
+
+
+def collect_for_poi(poi: Dict, target_max: int = 7, target_min: int = 5) -> List[str]:
     name_en = poi["name_en"]
     category = poi.get("category", "")
-    # Keyword candidates
+
     keywords: List[str] = []
     keywords.append(f"{name_en} Bangkok")
     if "(" in name_en:
@@ -140,8 +166,6 @@ def collect_for_poi(poi: Dict, target_min: int = 6, target_max: int = 7) -> List
         if base and base != name_en:
             keywords.append(f"{base} Bangkok")
     keywords.append(name_en)
-
-    # Category-specific seeding
     if category in ("hidden", "market"):
         dist = poi.get("district", "")
         if dist:
@@ -153,37 +177,42 @@ def collect_for_poi(poi: Dict, target_min: int = 6, target_max: int = 7) -> List
         if kw in seen:
             continue
         seen.add(kw)
-        for t in search_commons(kw, limit=18):
+        ts = search_commons(kw, limit=15)
+        for t in ts:
             if t not in titles:
                 titles.append(t)
         time.sleep(SLEEP_API)
-        if len(titles) >= 28:
+        if len(titles) >= 22:
             break
 
-    print(f"    candidates: {len(titles)}")
-    if not titles:
-        return []
+    print(f"    raw: {len(titles)}", flush=True)
+    good_titles = [t for t in titles if is_good_filename(t)]
 
     verified: List[str] = []
-    seen_urls = set()
-    for title in titles:
+    for title in good_titles:
         if len(verified) >= target_max:
             break
-        # Skip obvious non-content
-        low_title = title.lower()
-        if any(kw in low_title for kw in SKIP_KEYWORDS):
-            continue
-        url = get_image_url(title)
+        info = get_image_info(title)
         time.sleep(SLEEP_API)
-        if not url or url in seen_urls:
+        if not info:
             continue
-        seen_urls.add(url)
-        # Extra filter on URL path
-        if any(kw in url.lower() for kw in SKIP_KEYWORDS):
+        if info.get("width", 0) and info["width"] < 800:
             continue
-        if verify_image(url):
+        fname = filename_from_title(title)
+        url = build_thumb_url(fname, 1280)
+        if verify_url(url):
             verified.append(url)
-            time.sleep(SLEEP_VERIFY)
+            print(f"    OK  {fname[:70]}", flush=True)
+        else:
+            # Try original URL as fallback
+            orig = build_original_url(fname)
+            if verify_url(orig):
+                verified.append(orig)
+                print(f"    OK* {fname[:70]}", flush=True)
+            else:
+                print(f"    XX  {fname[:70]}", flush=True)
+        time.sleep(SLEEP_IMG)
+
     return verified[:target_max]
 
 
@@ -200,38 +229,38 @@ def main():
     total = len(pois)
     start_idx = int(os.environ.get("START_IDX", "0"))
     end_idx = int(os.environ.get("END_IDX", str(total)))
-    force = os.environ.get("FORCE", "0") == "1"
+    force = os.environ.get("FORCE", "1") == "1"
 
     for idx in range(start_idx, end_idx):
         poi = pois[idx]
         existing = poi.get("gallery") or []
         if not force and len(existing) >= 5:
-            print(f"[{idx+1}/{total}] {poi['id']} {poi['name_en']} -- has {len(existing)}, skip")
+            print(f"[{idx+1}/{total}] {poi['id']} skip (has {len(existing)})", flush=True)
             continue
-        print(f"[{idx+1}/{total}] {poi['id']} {poi['name_en']}")
+        print(f"\n[{idx+1}/{total}] {poi['id']} {poi['name_en']}", flush=True)
         try:
             urls = collect_for_poi(poi)
         except Exception as e:
-            print(f"    !! exception: {e}", file=sys.stderr)
+            print(f"    !! exception: {e}", file=sys.stderr, flush=True)
             urls = []
-        print(f"    -> verified {len(urls)} URLs")
+        print(f"    => {len(urls)} verified", flush=True)
         poi["gallery"] = urls
 
         if (idx + 1 - start_idx) % 5 == 0:
             write_checkpoint(doc)
-            print(f"    >> checkpoint at {idx+1}")
+            print(f"    >> checkpoint @ {idx+1}", flush=True)
 
     write_checkpoint(doc)
 
-    print("\n===== SUMMARY =====")
+    print("\n===== SUMMARY =====", flush=True)
     ok = 0
     for poi in pois:
         n = len(poi.get("gallery") or [])
         status = "OK " if n >= 5 else "LOW"
         if n >= 5:
             ok += 1
-        print(f"{poi['id']:8}  {n:2}  {status}  {poi['name_en'][:40]}")
-    print(f"\n{ok}/{len(pois)} POIs have >=5 images")
+        print(f"{poi['id']:8}  {n:2}  {status}  {poi['name_en'][:40]}", flush=True)
+    print(f"\n{ok}/{len(pois)} POIs have >=5 images", flush=True)
 
 
 if __name__ == "__main__":
