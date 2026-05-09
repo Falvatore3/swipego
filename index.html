@@ -123,85 +123,49 @@ function Header({step,total,onBack}){
   );
 }
 
-/* ---------- STEP 0: 开场问卷 ---------- */
+/* ---------- STEP 0: 开场问卷（仅天数） ---------- */
 function StepIntake({onDone}){
   const [days,setDays] = useState(null);
-  const [wake,setWake] = useState(null);
-  const [pace,setPace] = useState(null);
-  const canNext = days && wake && pace;
-  const pick = (setter,val,next)=>{
-    setter(val);
-    if(next) setTimeout(()=>next(),180);
+
+  const choose = (v)=>{
+    setDays(v);
+    // 点完直接进入下一步，默认 09:00 / standard 强度（清单页可后续调整）
+    setTimeout(()=>onDone({days:v, wake:'09:00', pace:'standard'}), 220);
   };
 
-  const Group = ({title, hint, options, value, onPick})=>(
-    <div className="mb-8">
-      <div className="flex items-baseline justify-between mb-3">
-        <h3 className="font-serif text-base font-bold">{title}</h3>
-        <span className="font-mono text-[10px] text-muted uppercase">{hint}</span>
+  const options = [
+    {v:2,label:'2 天',sub:'极限周末'},
+    {v:3,label:'3 天',sub:'黄金节奏'},
+    {v:4,label:'4 天',sub:'推荐'},
+    {v:5,label:'5 天',sub:'深度'},
+    {v:6,label:'6 天',sub:'慢游'},
+    {v:7,label:'7 天+',sub:'定居感'},
+  ];
+
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-6 pb-10">
+      <div className="mb-8">
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// 01 INTAKE</div>
+        <h2 className="font-serif text-3xl font-bold leading-tight">你打算待几天？</h2>
+        <p className="text-sm text-muted mt-2">SwipeGo 会按天给你排出小时级清单</p>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+
+      <div className="grid grid-cols-2 gap-3">
         {options.map(o=>{
-          const active = value===o.v;
+          const active = days===o.v;
           return (
-            <button key={o.v} onClick={()=>onPick(o.v)}
-              className={`relative p-3 rounded-xl border text-left transition ${active?'bg-ink text-cream border-ink':'bg-paper border-line hover:border-ink/40'}`}>
-              <div className="font-serif font-bold text-sm">{o.label}</div>
-              <div className={`text-[11px] mt-0.5 ${active?'text-cream/70':'text-muted'}`}>{o.sub}</div>
-              {active && <span className="absolute top-2 right-2 text-xs tick-in">✓</span>}
+            <button key={o.v} onClick={()=>choose(o.v)}
+              className={`relative p-5 rounded-2xl border text-left transition ${active?'bg-ink text-cream border-ink scale-[0.98]':'bg-paper border-line hover:border-ink/40 active:scale-[0.98]'}`}>
+              <div className="font-serif font-bold text-2xl">{o.label}</div>
+              <div className={`text-xs mt-1 ${active?'text-cream/70':'text-muted'}`}>{o.sub}</div>
+              {active && <span className="absolute top-3 right-3 text-base tick-in">✓</span>}
             </button>
           );
         })}
       </div>
-    </div>
-  );
 
-  return (
-    <div className="max-w-xl mx-auto px-5 pt-6 pb-10">
-      <div className="mb-6">
-        <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// 01 INTAKE</div>
-        <h2 className="font-serif text-2xl font-bold leading-tight">开始规划你的曼谷</h2>
-        <p className="text-sm text-muted mt-1">3 个问题 · 每一小时都给你排明白</p>
-      </div>
-
-      <Group title="你打算待几天？" hint="days"
-        value={days}
-        onPick={v=>pick(setDays,v)}
-        options={[
-          {v:2,label:'2 天',sub:'极限周末'},
-          {v:3,label:'3 天',sub:'黄金节奏'},
-          {v:4,label:'4 天',sub:'推荐'},
-          {v:5,label:'5 天',sub:'深度'},
-          {v:6,label:'6 天',sub:'慢游'},
-          {v:7,label:'7 天+',sub:'定居感'},
-        ]}/>
-
-      <Group title="每天几点起？" hint="wake-up"
-        value={wake}
-        onPick={v=>pick(setWake,v)}
-        options={[
-          {v:'07:00',label:'07:00',sub:'早鸟型'},
-          {v:'09:00',label:'09:00',sub:'标准'},
-          {v:'10:30',label:'10:30',sub:'躺平型'},
-        ]}/>
-
-      <Group title="行程强度？" hint="pace"
-        value={pace}
-        onPick={v=>pick(setPace,v)}
-        options={[
-          {v:'intense',label:'暴走拉满',sub:'每天 7-8 项'},
-          {v:'standard',label:'标准',sub:'每天 5-6 项'},
-          {v:'chill',label:'留白',sub:'每天 3-4 项'},
-        ]}/>
-
-      <button disabled={!canNext}
-        onClick={()=>onDone({days,wake,pace})}
-        className={`w-full mt-4 py-4 rounded-2xl font-serif font-bold text-base transition ${canNext?'btn-primary':'bg-paper text-muted cursor-not-allowed'}`}>
-        开始刷卡 →
-      </button>
-
-      <p className="font-mono text-[10px] text-muted text-center mt-4 tracking-wider">
-        SWIPE TO PLAN · DOWN = SAVE FOR LATER
+      <p className="font-mono text-[10px] text-muted text-center mt-8 tracking-wider">
+        SWIPE TO PLAN · 左滑跳过 · 右滑想去 · 下滑待定
       </p>
     </div>
   );
@@ -523,7 +487,7 @@ function StepItinerary({intake,liked,maybe,onRestart}){
           <h2 className="font-serif text-2xl font-bold">你的曼谷清单</h2>
           <button onClick={regenerate} className="font-mono text-[11px] text-ink underline underline-offset-2">↻ 重新排程</button>
         </div>
-        <p className="text-xs text-muted mt-1">{intake.days} 天 · {intake.wake} 起床 · {({intense:'暴走',standard:'标准',chill:'留白'})[intake.pace]}强度 · 共 {liked.length} 个想去点</p>
+        <p className="text-xs text-muted mt-1">{intake.days} 天行程 · 共 {liked.length} 个想去点{maybe.length>0?` · ${maybe.length} 待定`:''}</p>
       </div>
 
       {/* 总进度 */}
