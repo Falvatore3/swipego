@@ -87,6 +87,11 @@ const CAT_META = {
   niche:     {label:'小众文艺', icon:'🛕'},
   spa:       {label:'SPA体验',  icon:'💆'},
   nature:    {label:'自然公园', icon:'🌳'},
+  art:       {label:'文艺艺术', icon:'🎨'},
+  cafe:      {label:'咖啡甜品', icon:'☕'},
+  mall:      {label:'商场购物', icon:'🏬'},
+  hidden:    {label:'小众秘境', icon:'🗺'},
+  family:    {label:'亲子游乐', icon:'🦁'},
 };
 const TIME_META = {
   morning:{label:'清晨',range:'06-11'},
@@ -323,32 +328,56 @@ function StepSwipe({pois,onDone}){
   );
 }
 
+function PoiCover({poi, h='h-64'}){
+  const [failed,setFailed] = useState(false);
+  const url = poi.cover_url;
+  const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
+  const showImage = url && !failed;
+  return (
+    <div className={`relative ${h} overflow-hidden`} style={{background:poi.color||'#0F3D2E'}}>
+      {showImage && (
+        <img src={url} alt={poi.name_zh}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          onError={()=>setFailed(true)}/>
+      )}
+      {/* 渐变叠层让文字清晰 */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{background: showImage
+          ? 'linear-gradient(180deg, rgba(15,61,46,.55) 0%, rgba(15,61,46,.05) 35%, rgba(15,61,46,.6) 100%)'
+          : 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.25) 100%)'
+        }}/>
+      {!showImage && (
+        <>
+          {/* 装饰网格 */}
+          <div className="absolute inset-0 opacity-15"
+            style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'28px 28px'}}/>
+          {/* 大 emoji 当装饰 */}
+          <div className="absolute -right-4 -bottom-6 text-[180px] leading-none opacity-25 select-none">{poi.icon||meta.icon}</div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function PoiCard({poi,stacked,onTapDetail}){
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
-  const bg = poi.color || '#0F3D2E';
   return (
     <div className={`absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line ${stacked?'scale-[0.96] opacity-60 translate-y-3':''}`}
       style={{background:'var(--cream)'}}>
-      {/* 顶部色块（替代图片） */}
-      <div className="relative h-64 overflow-hidden flex flex-col justify-between p-5"
-        style={{background:bg,color:'#FAF7F0'}}>
-        {/* 装饰网格 */}
-        <div className="absolute inset-0 opacity-15"
-          style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'28px 28px'}}/>
-        {/* 大 emoji 背景 */}
-        <div className="absolute -right-4 -bottom-6 text-[180px] leading-none opacity-20 select-none">{poi.icon||meta.icon}</div>
-        {/* 顶部标签行 */}
-        <div className="relative flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <span className="px-2.5 py-1 bg-white/15 backdrop-blur rounded-full font-mono text-[10px] tracking-wider">
+      {/* 顶部图/色块 */}
+      <div className="relative h-64">
+        <PoiCover poi={poi}/>
+        <div className="absolute inset-0 p-5 flex flex-col justify-between text-white pointer-events-none">
+          {/* 顶部标签行 */}
+          <div className="flex items-start justify-between">
+            <span className="px-2.5 py-1 bg-black/30 backdrop-blur rounded-full font-mono text-[10px] tracking-wider">
               {meta.icon} {meta.label}
             </span>
+            <span className="px-2.5 py-1 bg-black/30 backdrop-blur rounded-full font-mono text-[10px]">{poi.price_level||'¥¥'}</span>
           </div>
-          <span className="px-2.5 py-1 bg-white/15 rounded-full font-mono text-[10px]">{poi.price_level||'¥¥'}</span>
-        </div>
-        {/* ID 编号 */}
-        <div className="relative">
-          <div className="font-mono text-[10px] opacity-60 tracking-widest">{poi.id?.toUpperCase()} · {poi.district_zh||poi.district}</div>
+          {/* ID 编号 */}
+          <div className="font-mono text-[10px] opacity-80 tracking-widest drop-shadow">{poi.id?.toUpperCase()} · {poi.district_zh||poi.district}</div>
         </div>
       </div>
 
@@ -393,16 +422,18 @@ function PoiDetail({poi,onClose}){
       <div className="absolute inset-x-0 bottom-0 bg-cream rounded-t-3xl max-h-[90vh] overflow-y-auto no-scrollbar sheet-up"
         onClick={(e)=>e.stopPropagation()}>
         <div className="w-10 h-1 bg-line rounded-full mx-auto mt-3"/>
-        <div className="relative h-48 mt-3 flex items-center justify-center overflow-hidden"
-          style={{background:poi.color||'#0F3D2E',color:'#FAF7F0'}}>
-          <div className="absolute inset-0 opacity-10"
-            style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'32px 32px'}}/>
-          <div className="text-[120px] leading-none opacity-90">{poi.icon||'📍'}</div>
+        <div className="relative h-56 mt-3">
+          <PoiCover poi={poi} h="h-full"/>
+          <div className="absolute inset-0 flex items-end p-5 pointer-events-none">
+            <div className="text-white">
+              <div className="font-mono text-[10px] opacity-80 tracking-widest">{poi.id?.toUpperCase()}</div>
+              <div className="font-serif text-2xl font-bold drop-shadow">{poi.name_zh}</div>
+            </div>
+          </div>
         </div>
         <div className="p-5 pb-10">
           <div className="font-mono text-[10px] text-accent tracking-widest">{CAT_META[poi.category]?.label}</div>
-          <h3 className="font-serif text-2xl font-bold mt-1">{poi.name_zh}</h3>
-          <p className="text-xs text-muted font-mono mt-0.5">{poi.name_en} {poi.name_th && `· ${poi.name_th}`}</p>
+          <p className="text-xs text-muted font-mono mt-1">{poi.name_en} {poi.name_th && `· ${poi.name_th}`}</p>
 
           <div className="grid grid-cols-2 gap-2 mt-4">
             <InfoChip label="推荐停留" value={`${poi.duration_hr} 小时`}/>
@@ -539,9 +570,11 @@ function TimelineItem({item,checked,onToggle}){
             <div className="font-mono text-[10px] opacity-70">{end}</div>
           </div>
           <div className="flex-1 p-3 flex gap-3 items-start">
-            <div className="w-14 h-14 rounded-lg shrink-0 grid place-items-center text-2xl"
-              style={{background:poi.color||'#0F3D2E',color:'#FAF7F0'}}>
-              {poi.icon || meta?.icon || '📍'}
+            <div className="w-14 h-14 rounded-lg shrink-0 overflow-hidden relative" style={{background:poi.color||'#0F3D2E'}}>
+              {poi.cover_url
+                ? <img src={poi.cover_url} className="w-full h-full object-cover" loading="lazy"
+                    onError={(e)=>{e.currentTarget.style.display='none'}}/>
+                : <div className="w-full h-full grid place-items-center text-2xl text-white/95">{poi.icon||meta?.icon||'📍'}</div>}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
