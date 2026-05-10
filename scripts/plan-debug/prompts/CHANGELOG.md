@@ -24,14 +24,15 @@
 - **设计**：拆成"AI 排顺序 → Google Maps 算时间 → 后端拼时间轴"两步法
 - **新增字段**：`slot` / `duration_min` / `preferred_transport_to_next` / `meal_slots[]`
 - **配套**：Mapbox 地图模块 + 「保存为图片」分享功能（详见 `../DESIGN.md`）
+- **2026-05-10 23:44 增量**：分享图加二维码（`qrcode` 库）+ utm 追踪，形成自传播闭环
 - **草稿**：[`v2-no-time-with-meal.md`](./v2-no-time-with-meal.md)
 - **前置依赖**（按顺序）：
-  1. POI 数据补 `open_hours_summary`
+  1. POI 数据补 `open_hours_summary`（依赖 Google key 到位）
   2. CF Worker 加地图代理路由
   3. 前端 `fillRealTimeline()` 拼装器
   4. 餐位选择抽屉 UI
-  5. Mapbox 地图组件 + 「保存为图片」
-- **状态**：待上述依赖就位后实施
+  5. Mapbox 地图组件 + 「保存为图片」+ 二维码
+- **状态**：等用户确认 Google key + 注册 Mapbox 账号后开工
 
 ---
 

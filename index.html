@@ -124,10 +124,9 @@ const TIME_META = {
 function createRecommender(allPois){
   const seen = new Set();         // 已抽过的 poi.id
   const recent = [];              // 最近抽过的 category，最长 5
-  const tasteCount = {};          // category -> 右滑次数（用于 exploit）
+  const tasteCount = {};          // category -> 用户右滑次数（用于 exploit）
   const seenCount = {};           // category -> 已展示次数（用于 explore）
-  let total = 0;                  // 已抽过的卡数（含餐饮）
-  let lastMealAt = -1;            // 上次塞餐饮卡的位置，用于"每 5 张必有吃的"
+  let total = 0;                  // 已抽过的卡数
 
   // 把"非餐饮"和"餐饮"分开池
   const isMeal = (p)=> MEAL_CATS.has(p.category);
@@ -146,11 +145,9 @@ function createRecommender(allPois){
       return score;
     }
 
-    // 用户兴趣（exploit）— 餐饮不参与
-    if(!isMeal(p)){
-      const interest = (tasteCount[cat]||0);
-      score += interest * 1.8;
-    }
+    // 用户兴趣（exploit）— 包含餐饮，全部品类都参与个性化
+    const interest = (tasteCount[cat]||0);
+    score += interest * 1.8;
     // 同品类连发惩罚（diversity）
     const sameInRecent = recent.filter(c=>c===cat).length;
     score += -sameInRecent * 8;
@@ -166,23 +163,17 @@ function createRecommender(allPois){
   // 每次记录用户对当前卡的决定（决定影响后续推荐）
   const recordDecision = (poi, verb)=>{
     if(verb === 'like'){
-      // 用户右滑想去 → 这个 category 加权（餐饮不参与个性化）
-      if(!isMeal(poi)){
-        tasteCount[poi.category] = (tasteCount[poi.category]||0) + 2;
-      }
+      tasteCount[poi.category] = (tasteCount[poi.category]||0) + 2;
     } else if(verb === 'maybe'){
-      if(!isMeal(poi)){
-        tasteCount[poi.category] = (tasteCount[poi.category]||0) + 1;
-      }
+      tasteCount[poi.category] = (tasteCount[poi.category]||0) + 1;
     }
-    // pass 不调整
   };
 
   // 撤销时回滚
   const undoDecision = (poi, verb)=>{
-    if(verb === 'like' && !isMeal(poi)){
+    if(verb === 'like'){
       tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0) - 2);
-    } else if(verb === 'maybe' && !isMeal(poi)){
+    } else if(verb === 'maybe'){
       tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0) - 1);
     }
   };
@@ -208,22 +199,10 @@ function createRecommender(allPois){
     const remaining = allPois.filter(p=>!seen.has(p.id));
     if(!remaining.length) return null;
 
-    // 餐饮节奏：每 5 张必塞 1 张餐饮（如果已经超过 5 张没塞）
-    const mealsRemaining = remaining.filter(isMeal);
-    const since = total - lastMealAt;
-    const forceMeal = since >= 5 && mealsRemaining.length > 0;
-
-    let chosen;
-    if(forceMeal){
-      chosen = pickFromPool(mealsRemaining, {coldStart: total<6});
-      lastMealAt = total;
-    } else {
-      // 自然抽取：前 8 张冷启动，之后自适应
-      chosen = pickFromPool(remaining, {coldStart: total<8});
-      if(chosen && isMeal(chosen)) lastMealAt = total;
-    }
-
+    // 全品类自然抽取（餐饮也走偏好策略，无固定节奏）
+    let chosen = pickFromPool(remaining, {coldStart: total<8});
     if(!chosen) chosen = remaining[0];
+
     seen.add(chosen.id);
     seenCount[chosen.category] = (seenCount[chosen.category]||0)+1;
     recent.push(chosen.category);
@@ -348,6 +327,18 @@ function StepSwipe({pois,onDone}){
 
   const current = queue[0];
   const next = queue[1];
+
+  // 预加载 queue 里下一张 / 下下张的封面，让滑卡几乎瞬间显示
+  useEffect(()=>{
+    queue.slice(1, 4).forEach(p=>{
+      if(!p) return;
+      const url = p.cover_url;
+      if(!url) return;
+      const im = new Image();
+      im.decoding = 'async';
+      im.src = url;
+    });
+  }, [queue]);
 
   // 应用 transform 到 DOM
   const applyTransform = (x,y,withTransition=false)=>{
@@ -627,19 +618,41 @@ function getPoiImages(poi){
 
 function PoiCover({poi, h='h-64', imgIdx=0, showIndicator=false}){
   const [failed,setFailed] = useState({});
+  const [loaded,setLoaded] = useState({}); // url -> true 表示已经触发过 onLoad
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
   const images = getPoiImages(poi);
   const total = images.length;
   const safeIdx = total ? ((imgIdx % total) + total) % total : 0;
   const url = images[safeIdx];
   const showImage = url && !failed[url];
+  const isLoading = url && !loaded[url] && !failed[url];
+
+  // 预加载相邻图（下一张优先）
+  useEffect(()=>{
+    if(total<=1) return;
+    const nexts = [
+      images[(safeIdx+1)%total],
+      images[(safeIdx-1+total)%total],
+    ];
+    nexts.forEach(u=>{
+      if(!u || loaded[u] || failed[u]) return;
+      const im = new Image();
+      im.onload = ()=> setLoaded(s=> s[u] ? s : ({...s,[u]:true}));
+      im.onerror = ()=> setFailed(s=> s[u] ? s : ({...s,[u]:true}));
+      im.src = u;
+    });
+  },[safeIdx,total,url]);
 
   return (
     <div className={`relative ${h} overflow-hidden`} style={{background:poi.color||'#0F3D2E'}}>
       {showImage && (
         <img src={url} alt={poi.name_zh}
+          key={url}
           className="absolute inset-0 w-full h-full object-cover"
-          loading="lazy"
+          style={{opacity: loaded[url] ? 1 : 0, transition:'opacity .18s ease'}}
+          loading="eager"
+          decoding="async"
+          onLoad={()=>setLoaded(s=>({...s,[url]:true}))}
           onError={()=>setFailed(f=>({...f, [url]:true}))}/>
       )}
       {!showImage && (
@@ -648,6 +661,13 @@ function PoiCover({poi, h='h-64', imgIdx=0, showIndicator=false}){
             style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'28px 28px'}}/>
           <div className="absolute -right-4 -bottom-6 text-[180px] leading-none opacity-25 select-none">{poi.icon||meta.icon}</div>
         </>
+      )}
+      {/* loading 兜底：图未加载完时盖一层暗色 + spinner，避免视觉残留为上一张 */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[5]"
+          style={{background:'rgba(0,0,0,0.35)', backdropFilter:'blur(2px)'}}>
+          <div className="w-7 h-7 rounded-full border-2 border-white/30 border-t-white animate-spin"/>
+        </div>
       )}
 
       {/* 顶部分段 indicator（Story 风格） */}
