@@ -25,6 +25,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-001.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-001_1.jpg",
         "./assets/pois/gallery/bkk-001_2.jpg",
         "./assets/pois/gallery/bkk-001_3.jpg",
         "./assets/pois/gallery/bkk-001_4.jpg",
@@ -72,6 +73,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-002.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-002_1.jpg",
         "./assets/pois/gallery/bkk-002_2.jpg",
         "./assets/pois/gallery/bkk-002_3.jpg",
         "./assets/pois/gallery/bkk-002_4.jpg",
@@ -118,6 +120,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-003.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-003_1.jpg",
         "./assets/pois/gallery/bkk-003_2.jpg",
         "./assets/pois/gallery/bkk-003_3.jpg",
         "./assets/pois/gallery/bkk-003_4.jpg",
@@ -165,6 +168,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-004.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-004_1.jpg",
         "./assets/pois/gallery/bkk-004_2.jpg",
         "./assets/pois/gallery/bkk-004_3.jpg",
         "./assets/pois/gallery/bkk-004_4.jpg",
@@ -212,6 +216,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-005.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-005_1.jpg",
         "./assets/pois/gallery/bkk-005_2.jpg",
         "./assets/pois/gallery/bkk-005_3.jpg",
         "./assets/pois/gallery/bkk-005_4.jpg",
@@ -259,6 +264,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-006.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-006_1.jpg",
         "./assets/pois/gallery/bkk-006_2.jpg",
         "./assets/pois/gallery/bkk-006_3.jpg",
         "./assets/pois/gallery/bkk-006_4.jpg",
@@ -307,6 +313,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-007.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-007_1.jpg",
         "./assets/pois/gallery/bkk-007_2.jpg",
         "./assets/pois/gallery/bkk-007_3.jpg",
         "./assets/pois/gallery/bkk-007_4.jpg",
@@ -354,6 +361,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-008.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-008_1.jpg",
         "./assets/pois/gallery/bkk-008_2.jpg",
         "./assets/pois/gallery/bkk-008_3.jpg",
         "./assets/pois/gallery/bkk-008_4.jpg",
@@ -401,6 +409,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-009.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-009_1.jpg",
         "./assets/pois/gallery/bkk-009_2.jpg",
         "./assets/pois/gallery/bkk-009_3.jpg",
         "./assets/pois/gallery/bkk-009_4.jpg",
@@ -447,6 +456,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-010.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-010_1.jpg",
         "./assets/pois/gallery/bkk-010_2.jpg",
         "./assets/pois/gallery/bkk-010_3.jpg",
         "./assets/pois/gallery/bkk-010_4.jpg",
@@ -493,6 +503,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-011.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-011_1.jpg",
         "./assets/pois/gallery/bkk-011_2.jpg",
         "./assets/pois/gallery/bkk-011_3.jpg",
         "./assets/pois/gallery/bkk-011_4.jpg",
@@ -539,6 +550,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-012.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-012_1.jpg",
         "./assets/pois/gallery/bkk-012_2.jpg",
         "./assets/pois/gallery/bkk-012_3.jpg",
         "./assets/pois/gallery/bkk-012_4.jpg",
@@ -586,6 +598,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-013.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-013_1.jpg",
         "./assets/pois/gallery/bkk-013_2.jpg",
         "./assets/pois/gallery/bkk-013_3.jpg",
         "./assets/pois/gallery/bkk-013_4.jpg",
@@ -632,6 +645,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-014.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-014_1.jpg",
         "./assets/pois/gallery/bkk-014_2.jpg",
         "./assets/pois/gallery/bkk-014_3.jpg",
         "./assets/pois/gallery/bkk-014_4.jpg",
@@ -679,6 +693,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-015.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-015_1.jpg",
         "./assets/pois/gallery/bkk-015_2.jpg",
         "./assets/pois/gallery/bkk-015_3.jpg",
         "./assets/pois/gallery/bkk-015_4.jpg",
@@ -725,6 +740,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-016.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-016_1.jpg",
         "./assets/pois/gallery/bkk-016_2.jpg",
         "./assets/pois/gallery/bkk-016_3.jpg",
         "./assets/pois/gallery/bkk-016_4.jpg",
@@ -772,6 +788,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-017.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-017_1.jpg",
         "./assets/pois/gallery/bkk-017_2.jpg",
         "./assets/pois/gallery/bkk-017_3.jpg",
         "./assets/pois/gallery/bkk-017_4.jpg",
@@ -819,6 +836,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-018.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-018_1.jpg",
         "./assets/pois/gallery/bkk-018_2.jpg",
         "./assets/pois/gallery/bkk-018_3.jpg",
         "./assets/pois/gallery/bkk-018_4.jpg",
@@ -865,6 +883,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-019.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-019_1.jpg",
         "./assets/pois/gallery/bkk-019_2.jpg",
         "./assets/pois/gallery/bkk-019_3.jpg",
         "./assets/pois/gallery/bkk-019_4.jpg",
@@ -912,6 +931,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-020.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-020_1.jpg",
         "./assets/pois/gallery/bkk-020_2.jpg",
         "./assets/pois/gallery/bkk-020_3.jpg",
         "./assets/pois/gallery/bkk-020_4.jpg",
@@ -959,6 +979,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-021.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-021_1.jpg",
         "./assets/pois/gallery/bkk-021_2.jpg",
         "./assets/pois/gallery/bkk-021_3.jpg",
         "./assets/pois/gallery/bkk-021_4.jpg",
@@ -1005,6 +1026,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-022.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-022_1.jpg",
         "./assets/pois/gallery/bkk-022_2.jpg",
         "./assets/pois/gallery/bkk-022_3.jpg",
         "./assets/pois/gallery/bkk-022_4.jpg",
@@ -1051,6 +1073,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-023.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-023_1.jpg",
         "./assets/pois/gallery/bkk-023_2.jpg",
         "./assets/pois/gallery/bkk-023_3.jpg",
         "./assets/pois/gallery/bkk-023_4.jpg",
@@ -1097,6 +1120,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-024.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-024_1.jpg",
         "./assets/pois/gallery/bkk-024_2.jpg",
         "./assets/pois/gallery/bkk-024_3.jpg",
         "./assets/pois/gallery/bkk-024_4.jpg",
@@ -1144,6 +1168,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-025.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-025_1.jpg",
         "./assets/pois/gallery/bkk-025_2.jpg",
         "./assets/pois/gallery/bkk-025_3.jpg",
         "./assets/pois/gallery/bkk-025_4.jpg",
@@ -1191,8 +1216,10 @@
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-026.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-026_1.jpg",
         "./assets/pois/gallery/bkk-026_2.jpg",
         "./assets/pois/gallery/bkk-026_3.jpg",
+        "./assets/pois/gallery/bkk-026_4.jpg",
         "./assets/pois/gallery/bkk-026_5.jpg",
         "./assets/pois/gallery/bkk-026_6.jpg",
         "./assets/pois/gallery/bkk-026_7.jpg"
@@ -1237,6 +1264,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-027.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-027_1.jpg",
         "./assets/pois/gallery/bkk-027_2.jpg",
         "./assets/pois/gallery/bkk-027_3.jpg",
         "./assets/pois/gallery/bkk-027_4.jpg",
@@ -1284,6 +1312,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-028.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-028_1.jpg",
         "./assets/pois/gallery/bkk-028_2.jpg",
         "./assets/pois/gallery/bkk-028_3.jpg",
         "./assets/pois/gallery/bkk-028_4.jpg",
@@ -1331,6 +1360,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-029.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-029_1.jpg",
         "./assets/pois/gallery/bkk-029_2.jpg",
         "./assets/pois/gallery/bkk-029_3.jpg",
         "./assets/pois/gallery/bkk-029_4.jpg",
@@ -1378,6 +1408,7 @@
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-030.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-030_1.jpg",
         "./assets/pois/gallery/bkk-030_2.jpg",
         "./assets/pois/gallery/bkk-030_3.jpg",
         "./assets/pois/gallery/bkk-030_4.jpg",
@@ -1425,6 +1456,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-031.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-031_1.jpg",
         "./assets/pois/gallery/bkk-031_2.jpg",
         "./assets/pois/gallery/bkk-031_3.jpg",
         "./assets/pois/gallery/bkk-031_4.jpg",
@@ -1472,6 +1504,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-032.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-032_1.jpg",
         "./assets/pois/gallery/bkk-032_2.jpg",
         "./assets/pois/gallery/bkk-032_3.jpg",
         "./assets/pois/gallery/bkk-032_4.jpg",
@@ -1522,7 +1555,9 @@
         "./assets/pois/gallery/bkk-033_2.jpg",
         "./assets/pois/gallery/bkk-033_3.jpg",
         "./assets/pois/gallery/bkk-033_4.jpg",
-        "./assets/pois/gallery/bkk-033_5.jpg"
+        "./assets/pois/gallery/bkk-033_5.jpg",
+        "./assets/pois/gallery/bkk-033_6.jpg",
+        "./assets/pois/gallery/bkk-033_7.jpg"
       ],
       "short_desc": "招牌涩谷蜜糖吐司，泰国甜品天花板连锁。",
       "long_desc": "After You 2007 年由两位泰国姑娘创立，至今曼谷 30+ 家店，是泰国年轻人最爱的甜品连锁。招牌 Shibuya Honey Toast（涩谷蜜糖吐司）从 165 铢起，整块吐司挖空中心烤到外脆内软，配冰淇淋 + 蜂蜜，必点。其他爆款：Kakigori 日式刨冰 295 铢、Mango Sticky Rice Toast 245 铢。Siam Paragon 店在 G/F 美食大堂，没有过分排队。Tripadvisor 4.5/5，「价格比 Pad Thai 贵但值得吃一次」「分量够 2 人」。",
@@ -1564,6 +1599,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-034.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-034_1.jpg",
         "./assets/pois/gallery/bkk-034_2.jpg",
         "./assets/pois/gallery/bkk-034_3.jpg",
         "./assets/pois/gallery/bkk-034_4.jpg",
@@ -1611,6 +1647,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-035.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-035_1.jpg",
         "./assets/pois/gallery/bkk-035_2.jpg",
         "./assets/pois/gallery/bkk-035_3.jpg",
         "./assets/pois/gallery/bkk-035_4.jpg",
@@ -1657,6 +1694,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-036.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-036_1.jpg",
         "./assets/pois/gallery/bkk-036_2.jpg",
         "./assets/pois/gallery/bkk-036_3.jpg",
         "./assets/pois/gallery/bkk-036_4.jpg",
@@ -1704,6 +1742,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-037.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-037_1.jpg",
         "./assets/pois/gallery/bkk-037_2.jpg",
         "./assets/pois/gallery/bkk-037_3.jpg",
         "./assets/pois/gallery/bkk-037_4.jpg",
@@ -1801,6 +1840,7 @@
         "./assets/pois/gallery/bkk-039_1.jpg",
         "./assets/pois/gallery/bkk-039_2.jpg",
         "./assets/pois/gallery/bkk-039_3.jpg",
+        "./assets/pois/gallery/bkk-039_4.jpg",
         "./assets/pois/gallery/bkk-039_5.jpg",
         "./assets/pois/gallery/bkk-039_6.jpg",
         "./assets/pois/gallery/bkk-039_7.jpg"
@@ -1992,6 +2032,7 @@
         "./assets/pois/gallery/bkk-043_3.jpg",
         "./assets/pois/gallery/bkk-043_4.jpg",
         "./assets/pois/gallery/bkk-043_5.jpg",
+        "./assets/pois/gallery/bkk-043_6.jpg",
         "./assets/pois/gallery/bkk-043_7.jpg"
       ],
       "short_desc": "曼谷东郊野生动物乐园，自驾游车看狮虎+海洋表演。",
@@ -2080,6 +2121,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-045.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-045_1.jpg",
         "./assets/pois/gallery/bkk-045_2.jpg",
         "./assets/pois/gallery/bkk-045_3.jpg",
         "./assets/pois/gallery/bkk-045_4.jpg",
@@ -2130,7 +2172,9 @@
         "./assets/pois/gallery/bkk-046_1.jpg",
         "./assets/pois/gallery/bkk-046_2.jpg",
         "./assets/pois/gallery/bkk-046_3.jpg",
+        "./assets/pois/gallery/bkk-046_4.jpg",
         "./assets/pois/gallery/bkk-046_5.jpg",
+        "./assets/pois/gallery/bkk-046_6.jpg",
         "./assets/pois/gallery/bkk-046_7.jpg"
       ],
       "short_desc": "唐人街边小巷涂鸦+汽车零件街，复古迷宫感拍照圣地。",
@@ -2267,6 +2311,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-049.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-049_1.jpg",
         "./assets/pois/gallery/bkk-049_2.jpg",
         "./assets/pois/gallery/bkk-049_3.jpg",
         "./assets/pois/gallery/bkk-049_4.jpg",
@@ -2361,6 +2406,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-051.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-051_1.jpg",
         "./assets/pois/gallery/bkk-051_2.jpg",
         "./assets/pois/gallery/bkk-051_3.jpg",
         "./assets/pois/gallery/bkk-051_4.jpg",
@@ -2408,6 +2454,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-052.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-052_1.jpg",
         "./assets/pois/gallery/bkk-052_2.jpg",
         "./assets/pois/gallery/bkk-052_3.jpg",
         "./assets/pois/gallery/bkk-052_4.jpg",
@@ -2454,6 +2501,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-053.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-053_1.jpg",
         "./assets/pois/gallery/bkk-053_2.jpg",
         "./assets/pois/gallery/bkk-053_3.jpg",
         "./assets/pois/gallery/bkk-053_4.jpg",
@@ -2501,6 +2549,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-054.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-054_1.jpg",
         "./assets/pois/gallery/bkk-054_2.jpg",
         "./assets/pois/gallery/bkk-054_3.jpg",
         "./assets/pois/gallery/bkk-054_4.jpg",
@@ -2547,6 +2596,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-055.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-055_1.jpg",
         "./assets/pois/gallery/bkk-055_2.jpg",
         "./assets/pois/gallery/bkk-055_3.jpg",
         "./assets/pois/gallery/bkk-055_4.jpg",
@@ -2593,6 +2643,7 @@
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-056.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-056_1.jpg",
         "./assets/pois/gallery/bkk-056_2.jpg",
         "./assets/pois/gallery/bkk-056_3.jpg",
         "./assets/pois/gallery/bkk-056_4.jpg",
@@ -2639,6 +2690,7 @@
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-057.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-057_1.jpg",
         "./assets/pois/gallery/bkk-057_2.jpg",
         "./assets/pois/gallery/bkk-057_3.jpg",
         "./assets/pois/gallery/bkk-057_4.jpg",
@@ -2686,6 +2738,7 @@
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-058.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-058_1.jpg",
         "./assets/pois/gallery/bkk-058_2.jpg",
         "./assets/pois/gallery/bkk-058_3.jpg",
         "./assets/pois/gallery/bkk-058_4.jpg",
@@ -2732,6 +2785,7 @@
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-059.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-059_1.jpg",
         "./assets/pois/gallery/bkk-059_2.jpg",
         "./assets/pois/gallery/bkk-059_3.jpg",
         "./assets/pois/gallery/bkk-059_4.jpg",
@@ -2778,6 +2832,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-060.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-060_1.jpg",
         "./assets/pois/gallery/bkk-060_2.jpg",
         "./assets/pois/gallery/bkk-060_3.jpg",
         "./assets/pois/gallery/bkk-060_4.jpg",
@@ -2825,6 +2880,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-061.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-061_1.jpg",
         "./assets/pois/gallery/bkk-061_2.jpg",
         "./assets/pois/gallery/bkk-061_3.jpg",
         "./assets/pois/gallery/bkk-061_4.jpg",
@@ -2872,9 +2928,11 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-062.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-062_1.jpg",
         "./assets/pois/gallery/bkk-062_2.jpg",
         "./assets/pois/gallery/bkk-062_3.jpg",
         "./assets/pois/gallery/bkk-062_4.jpg",
+        "./assets/pois/gallery/bkk-062_5.jpg",
         "./assets/pois/gallery/bkk-062_6.jpg",
         "./assets/pois/gallery/bkk-062_7.jpg"
       ],
@@ -2918,6 +2976,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-063.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-063_1.jpg",
         "./assets/pois/gallery/bkk-063_2.jpg",
         "./assets/pois/gallery/bkk-063_3.jpg",
         "./assets/pois/gallery/bkk-063_4.jpg",
@@ -2964,6 +3023,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-064.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-064_1.jpg",
         "./assets/pois/gallery/bkk-064_2.jpg",
         "./assets/pois/gallery/bkk-064_3.jpg",
         "./assets/pois/gallery/bkk-064_4.jpg",
@@ -3011,6 +3071,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-065.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-065_1.jpg",
         "./assets/pois/gallery/bkk-065_2.jpg",
         "./assets/pois/gallery/bkk-065_3.jpg",
         "./assets/pois/gallery/bkk-065_4.jpg",
@@ -3058,6 +3119,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-066.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-066_1.jpg",
         "./assets/pois/gallery/bkk-066_2.jpg",
         "./assets/pois/gallery/bkk-066_3.jpg",
         "./assets/pois/gallery/bkk-066_4.jpg",
@@ -3105,6 +3167,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-067.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-067_1.jpg",
         "./assets/pois/gallery/bkk-067_2.jpg",
         "./assets/pois/gallery/bkk-067_3.jpg",
         "./assets/pois/gallery/bkk-067_4.jpg",
@@ -3152,9 +3215,11 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-068.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-068_1.jpg",
         "./assets/pois/gallery/bkk-068_2.jpg",
         "./assets/pois/gallery/bkk-068_3.jpg",
         "./assets/pois/gallery/bkk-068_4.jpg",
+        "./assets/pois/gallery/bkk-068_5.jpg",
         "./assets/pois/gallery/bkk-068_6.jpg",
         "./assets/pois/gallery/bkk-068_7.jpg"
       ],
@@ -3198,6 +3263,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-069.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-069_1.jpg",
         "./assets/pois/gallery/bkk-069_2.jpg",
         "./assets/pois/gallery/bkk-069_3.jpg",
         "./assets/pois/gallery/bkk-069_4.jpg",
@@ -3244,6 +3310,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-070.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-070_1.jpg",
         "./assets/pois/gallery/bkk-070_2.jpg",
         "./assets/pois/gallery/bkk-070_3.jpg",
         "./assets/pois/gallery/bkk-070_4.jpg",
@@ -3290,6 +3357,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-071.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-071_1.jpg",
         "./assets/pois/gallery/bkk-071_2.jpg",
         "./assets/pois/gallery/bkk-071_3.jpg",
         "./assets/pois/gallery/bkk-071_4.jpg",
@@ -3336,6 +3404,7 @@
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-072.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-072_1.jpg",
         "./assets/pois/gallery/bkk-072_2.jpg",
         "./assets/pois/gallery/bkk-072_3.jpg",
         "./assets/pois/gallery/bkk-072_4.jpg",
@@ -3382,6 +3451,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-073.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-073_1.jpg",
         "./assets/pois/gallery/bkk-073_2.jpg",
         "./assets/pois/gallery/bkk-073_3.jpg",
         "./assets/pois/gallery/bkk-073_4.jpg",
@@ -3429,6 +3499,7 @@
       "price_level": "免费",
       "cover_url": "./assets/pois/bkk-074.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-074_1.jpg",
         "./assets/pois/gallery/bkk-074_2.jpg",
         "./assets/pois/gallery/bkk-074_3.jpg",
         "./assets/pois/gallery/bkk-074_4.jpg",
@@ -3475,6 +3546,7 @@
       "price_level": "免费",
       "cover_url": "./assets/pois/bkk-075.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-075_1.jpg",
         "./assets/pois/gallery/bkk-075_2.jpg",
         "./assets/pois/gallery/bkk-075_3.jpg",
         "./assets/pois/gallery/bkk-075_4.jpg",
@@ -3521,6 +3593,7 @@
       "price_level": "免费",
       "cover_url": "./assets/pois/bkk-076.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-076_1.jpg",
         "./assets/pois/gallery/bkk-076_2.jpg",
         "./assets/pois/gallery/bkk-076_3.jpg",
         "./assets/pois/gallery/bkk-076_4.jpg",
@@ -3568,6 +3641,7 @@
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-077.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-077_1.jpg",
         "./assets/pois/gallery/bkk-077_2.jpg",
         "./assets/pois/gallery/bkk-077_3.jpg",
         "./assets/pois/gallery/bkk-077_4.jpg",
@@ -3615,6 +3689,7 @@
       "price_level": "免费",
       "cover_url": "./assets/pois/bkk-078.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-078_1.jpg",
         "./assets/pois/gallery/bkk-078_2.jpg",
         "./assets/pois/gallery/bkk-078_3.jpg",
         "./assets/pois/gallery/bkk-078_4.jpg",
@@ -3662,6 +3737,7 @@
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-079.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-079_1.jpg",
         "./assets/pois/gallery/bkk-079_2.jpg",
         "./assets/pois/gallery/bkk-079_3.jpg",
         "./assets/pois/gallery/bkk-079_4.jpg",
@@ -3709,6 +3785,7 @@
       "price_level": "免费",
       "cover_url": "./assets/pois/bkk-080.jpg",
       "gallery": [
+        "./assets/pois/gallery/bkk-080_1.jpg",
         "./assets/pois/gallery/bkk-080_2.jpg",
         "./assets/pois/gallery/bkk-080_3.jpg",
         "./assets/pois/gallery/bkk-080_4.jpg",

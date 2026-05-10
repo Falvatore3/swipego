@@ -9,6 +9,9 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<!-- 用于「保存为图片」+ 二维码 -->
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
@@ -181,26 +184,42 @@ function createRecommender(allPois){
   const tasteCount = {};           // 仅用于 stats 调试
   let total = 0;
 
+  // ===== "必看保底" 机制 =====
+  // 用户对目的地有预期：前几张没看到经典 = App 不靠谱。
+  // 前 N 张走"必看池"，按热度+品类多样性挑，确保覆盖大皇宫/卧佛/恰图恰这种王炸。
+  const MUST_SEE_SLOTS = 6;   // 前 6 张是必看槽位
+  const MUST_SEE_POP = 9;     // pop>=9 才进必看池
+  const mustSeePool = allPois.filter(p => (p.popularity||0) >= MUST_SEE_POP);
+
+  // 用户进入"个性化模式"的门槛：至少 like/maybe 过 2 张
+  // 在那之前 cosine 无意义，纯走热度兜底；之后才让 sim 接管
+  const isPersonalized = ()=> userTouchedCount >= 2;
+
   const isMeal = (p)=> MEAL_CATS.has(p.category);
 
   const computeScore = (p, opts={})=>{
     const cat = p.category;
     const pop = p.popularity || 5;
-    const isCold = userTouchedCount < 2;  // 用户还没明确表达过偏好
+    const personalized = isPersonalized();
 
-    // 余弦相似度（冷启动时为 0）
-    const sim = isCold ? 0 : cosine(userVec, poiVec[p.id]);
+    // 余弦相似度（用户还没明确表达偏好时为 0，避免无意义噪声）
+    const sim = personalized ? cosine(userVec, poiVec[p.id]) : 0;
 
     let score = 0;
     score += sim * 12;                                // 个性化主分
-    score += Math.log2(pop+1) * 1.5;                  // 热门基础
+    // 热门基础分：未个性化时权重更高（用户没 like = 一直推热门）
+    score += Math.log2(pop+1) * (personalized ? 1.5 : 4.5);
     const sameInRecent = recent.filter(c=>c===cat).length;
     score += -sameInRecent * 6;                       // 多样性
     const seenN = (seenCount[cat]||0);
     if(seenN === 0) score += 2;                       // 新品类微鼓励
     score += (Math.random()-0.5) * 4;                 // 抖动 ±2
 
-    if(opts.coldStart){
+    if(opts.mustSee){
+      // 必看槽位：极度强化高 pop，且对同品类重罚（保证多样性）
+      score += pop * 3;
+      score += -sameInRecent * 8;
+    } else if(opts.coldStart){
       // 冷启动加强：高 pop 额外加分
       if(pop >= 8) score += 4;
       score += -sameInRecent * 4;                     // 同品类再罚
@@ -239,8 +258,11 @@ function createRecommender(allPois){
     if(!pool.length) return null;
     const scored = pool.map(p=>({p, s:computeScore(p,opts)}));
     scored.sort((a,b)=>b.s-a.s);
-    const topN = scored.slice(0, Math.min(5, scored.length));
-    const weights = topN.map((x,i)=>Math.max(0.2, x.s+10-i*1.5));
+    // 必看槽位用更尖锐的窗口（top3 抽样），保证经典靠前
+    const topK = opts.mustSee ? 3 : 5;
+    const topN = scored.slice(0, Math.min(topK, scored.length));
+    const sharpness = opts.mustSee ? 3 : 1.5;
+    const weights = topN.map((x,i)=>Math.max(0.2, x.s+10-i*sharpness));
     const sum = weights.reduce((a,b)=>a+b,0);
     let r = Math.random()*sum;
     for(let i=0;i<topN.length;i++){
@@ -253,7 +275,18 @@ function createRecommender(allPois){
   const next = ()=>{
     const remaining = allPois.filter(p=>!seen.has(p.id));
     if(!remaining.length) return null;
-    let chosen = pickFromPool(remaining, {coldStart: total<8});
+
+    // 前 MUST_SEE_SLOTS 张：从必看池里挑（用户未 like 之前完全靠热度+多样性）
+    // 这样保证用户进来前 6 张里能看到大皇宫/卧佛/恰图恰这种"目的地经典"
+    const inMustSeePhase = total < MUST_SEE_SLOTS;
+    const mustRemaining = mustSeePool.filter(p=>!seen.has(p.id));
+
+    let chosen;
+    if(inMustSeePhase && mustRemaining.length){
+      chosen = pickFromPool(mustRemaining, {mustSee:true});
+    } else {
+      chosen = pickFromPool(remaining, {coldStart: total<8 || !isPersonalized()});
+    }
     if(!chosen) chosen = remaining[0];
     seen.add(chosen.id);
     seenCount[chosen.category] = (seenCount[chosen.category]||0)+1;
@@ -1078,12 +1111,16 @@ function PoiDetail({poi,onClose}){
 }
 
 /* ---------- STEP 2: 行程清单 ---------- */
-function StepItinerary({intake,liked,maybe,onRestart}){
+function StepItinerary({intake,liked,maybe,onRestart,allPois}){
   const [loading,setLoading] = useState(true);
   const [err,setErr] = useState(null);
   const [result,setResult] = useState(null); // {days:[], overallTip:""}
   const [tab,setTab] = useState(0);
   const [done,setDone] = useState({});
+  const [picker,setPicker] = useState(null); // {dayIdx, blockIdx, block} | null
+  const [saving,setSaving] = useState(false);
+  const [savedImageUrl,setSavedImageUrl] = useState(null); // 移动端用 modal 让用户长按保存
+  const itineraryRef = React.useRef(null);
 
   const runAI = async ()=>{
     setLoading(true); setErr(null);
@@ -1100,6 +1137,100 @@ function StepItinerary({intake,liked,maybe,onRestart}){
     }
   };
 
+  // 用户在抽屉里选了某个餐厅 / 手动添加 / 清除
+  const applyMealChoice = (chosenPoi)=>{
+    if(!picker) return;
+    setResult(prev=>{
+      if(!prev) return prev;
+      const days = prev.days.map((d,di)=>{
+        if(di !== picker.dayIdx) return d;
+        return {
+          ...d,
+          timeline: d.timeline.map((b,bi)=>{
+            if(bi !== picker.blockIdx) return b;
+            if(b.type !== 'meal_placeholder') return b;
+            return {...b, user_chosen_poi: chosenPoi};
+          }),
+        };
+      });
+      return {...prev, days};
+    });
+    setPicker(null);
+  };
+
+  // 「保存为图片」：把整个行程节点连同所有 day 的 timeline 一次性渲染成长图
+  const saveAsImage = async ()=>{
+    if(saving) return;
+    if(!itineraryRef.current){ alert('页面尚未准备好'); return; }
+    if(typeof html2canvas !== 'function' || typeof QRCode === 'undefined'){
+      alert('图片库还没加载完，稍后再试'); return;
+    }
+    setSaving(true);
+    try {
+      // 1. 等中文字体加载完
+      if(document.fonts && document.fonts.ready) await document.fonts.ready;
+
+      // 2. 在原节点上克隆一份用于渲染（避免影响 UI；切到"全部 day 平铺"模式）
+      const clone = itineraryRef.current.cloneNode(true);
+      const sandbox = document.createElement('div');
+      sandbox.style.cssText = 'position:fixed;left:-99999px;top:0;width:750px;background:#FAF8F2;padding:20px;';
+      // 把克隆里的"切换 tab"块隐掉（克隆只能渲染当前 tab）
+      sandbox.appendChild(clone);
+      document.body.appendChild(sandbox);
+
+      // 3. 在底部追加分享底栏（含二维码）
+      const url = 'https://falvatore3.github.io/swipego/?utm_source=share_image&utm_medium=xhs&utm_campaign=v2';
+      const qrDataUrl = await QRCode.toDataURL(url, {
+        margin: 1, width: 240,
+        color: { dark: '#0F3D2E', light: '#FFFFFF' },
+        errorCorrectionLevel: 'M',
+      });
+      const totalPois = (result?.days||[]).reduce((s,d)=>s+d.timeline.filter(b=>b.type==='poi').length, 0);
+      const totalMeals = (result?.days||[]).reduce((s,d)=>s+d.timeline.filter(b=>b.type==='meal_placeholder').length, 0);
+      const footer = document.createElement('div');
+      footer.style.cssText = 'margin-top:24px;padding:20px;background:#0F3D2E;color:#fff;border-radius:20px;display:flex;justify-content:space-between;align-items:center;font-family:ui-serif,serif;';
+      footer.innerHTML = `
+        <div style="flex:1;min-width:0">
+          <div style="font-size:18px;font-weight:bold;">✨ SwipeGo · 滑卡定制曼谷 ${intake.days} 日游</div>
+          <div style="font-size:12px;opacity:.85;margin-top:6px;">${intake.days} 天 · ${totalPois} 个景点 · ${totalMeals} 个餐位待你选</div>
+          <div style="font-size:11px;opacity:.7;margin-top:10px;font-family:ui-monospace,monospace;">扫码定制你的专属行程 →</div>
+        </div>
+        <div style="background:#fff;padding:6px;border-radius:10px;margin-left:14px;">
+          <img src="${qrDataUrl}" style="width:96px;height:96px;display:block;"/>
+        </div>
+      `;
+      sandbox.appendChild(footer);
+
+      // 4. 渲染
+      const canvas = await html2canvas(sandbox, {
+        useCORS: true,
+        backgroundColor: '#FAF8F2',
+        scale: 2,
+        logging: false,
+      });
+
+      // 5. 清理 sandbox
+      document.body.removeChild(sandbox);
+
+      // 6. 下载 / 移动端展示
+      const dataUrl = canvas.toDataURL('image/png');
+      const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+      if(isMobile){
+        setSavedImageUrl(dataUrl);  // 弹 modal 让用户长按保存
+      } else {
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `swipego-bangkok-${intake.days}d.png`;
+        document.body.appendChild(a); a.click(); a.remove();
+      }
+    } catch(e) {
+      console.error(e);
+      alert('保存图片失败：' + (e.message || e));
+    } finally {
+      setSaving(false);
+    }
+  };
+
   useEffect(()=>{ runAI(); }, []); // 进入页面立刻调
 
   if(loading) return <ItineraryLoading liked={liked} days={intake.days}/>;
@@ -1107,7 +1238,9 @@ function StepItinerary({intake,liked,maybe,onRestart}){
   if(!result) return null;
 
   const itinerary = result.days;
-  const totalItems = itinerary.reduce((s,d)=>s+d.items.length,0);
+  // 兼容统计：只统计 poi 类型的 block
+  const poiBlocks = itinerary.flatMap(d => d.timeline.filter(b => b.type === 'poi'));
+  const totalItems = poiBlocks.length;
   const doneCount = Object.keys(done).filter(k=>done[k]).length;
   const day = itinerary[tab];
 
@@ -1117,10 +1250,19 @@ function StepItinerary({intake,liked,maybe,onRestart}){
         <div className="font-mono text-[11px] text-accent tracking-widest mb-1">// 03 ITINERARY · AI</div>
         <div className="flex items-end justify-between">
           <h2 className="font-serif text-2xl font-bold">你的曼谷行程</h2>
-          <button onClick={runAI} className="font-mono text-[11px] text-ink underline underline-offset-2">↻ AI 重排</button>
+          <div className="flex gap-3 items-center">
+            <button onClick={saveAsImage} disabled={saving}
+              className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-accent text-white disabled:opacity-50">
+              {saving ? '⏳ 生成中…' : '💾 保存为图片'}
+            </button>
+            <button onClick={runAI} className="font-mono text-[11px] text-ink underline underline-offset-2">↻ AI 重排</button>
+          </div>
         </div>
         <p className="text-xs text-muted mt-1">{intake.days} 天 · {liked.length} 个想去{maybe.length>0?` · ${maybe.length} 待定`:''} · ✨ DeepSeek 生成</p>
       </div>
+
+      {/* 截图区域开始（保存为图片用） */}
+      <div ref={itineraryRef}>
 
       {/* AI 整体建议 */}
       {result.overallTip && (
@@ -1150,13 +1292,14 @@ function StepItinerary({intake,liked,maybe,onRestart}){
       <div className="flex gap-2 overflow-x-auto no-scrollbar mb-5 pb-1">
         {itinerary.map((d,i)=>{
           const active = i===tab;
-          const dCount = d.items.filter(it=>done[it.poi.id]).length;
+          const dPoiBlocks = d.timeline.filter(b => b.type === 'poi');
+          const dCount = dPoiBlocks.filter(b => done[b.poi.id]).length;
           return (
             <button key={i} onClick={()=>setTab(i)}
               className={`shrink-0 px-4 py-2.5 rounded-xl border-2 transition text-left min-w-[88px] ${active?'bg-ink text-white border-ink shadow-md':'bg-cream border-line text-ink'}`}>
               <div className="font-mono text-[10px] opacity-70">DAY {i+1}</div>
               <div className="font-serif font-bold text-sm leading-tight mt-0.5 line-clamp-1">{d.theme}</div>
-              <div className="font-mono text-[10px] mt-1 opacity-70">{dCount}/{d.items.length}</div>
+              <div className="font-mono text-[10px] mt-1 opacity-70">{dCount}/{dPoiBlocks.length}</div>
             </button>
           );
         })}
@@ -1165,7 +1308,7 @@ function StepItinerary({intake,liked,maybe,onRestart}){
       {/* 当日 theme（醒目卡） */}
       {day && (
         <div className="bg-ink text-white rounded-2xl p-4 mb-4">
-          <div className="font-mono text-[10px] opacity-70 tracking-widest">DAY {tab+1} · {day.items.length} 项</div>
+          <div className="font-mono text-[10px] opacity-70 tracking-widest">DAY {tab+1} · {day.timeline.filter(b=>b.type==='poi').length} 项 · {day.timeline.filter(b=>b.type==='meal_placeholder').length} 餐位</div>
           <div className="font-serif text-xl font-bold mt-1">{day.theme}</div>
         </div>
       )}
@@ -1174,14 +1317,28 @@ function StepItinerary({intake,liked,maybe,onRestart}){
       <div className="relative">
         <div className="absolute left-4 top-4 bottom-4 w-px bg-line"/>
         <div className="space-y-3">
-          {day && day.items.map((it,i)=>(
-            <TimelineItem key={i} item={it} checked={!!done[it.poi.id]}
-              onToggle={()=>setDone(prev=>({...prev,[it.poi.id]:!prev[it.poi.id]}))}/>
-          ))}
-          {day && day.items.length===0 && (
+          {day && day.timeline.map((b,i)=>{
+            if(b.type === 'poi'){
+              return (
+                <TimelineItem key={i} item={b} checked={!!done[b.poi.id]}
+                  onToggle={()=>setDone(prev=>({...prev,[b.poi.id]:!prev[b.poi.id]}))}/>
+              );
+            }
+            if(b.type === 'meal_placeholder'){
+              return (
+                <MealPlaceholder key={i} block={b}
+                  onPick={()=>setPicker({dayIdx: tab, blockIdx: i, block: b})}/>
+              );
+            }
+            return null;
+          })}
+          {day && day.timeline.length===0 && (
             <div className="py-10 text-center text-muted text-sm">这一天 AI 给你留白了 🧘</div>
           )}
         </div>
+      </div>
+
+      {/* 截图区域结束 */}
       </div>
 
       {maybe.length>0 && (
@@ -1201,6 +1358,32 @@ function StepItinerary({intake,liked,maybe,onRestart}){
       <button onClick={onRestart} className="mt-8 w-full py-3 rounded-xl border border-line text-sm text-muted">重新开始</button>
 
       <p className="font-mono text-[10px] text-muted text-center mt-6 tracking-wider">MADE WITH SWIPEGO · ✨ AI by DeepSeek</p>
+
+      {/* 餐厅选择抽屉 */}
+      {picker && (
+        <MealPicker
+          block={picker.block}
+          allPois={allPois || []}
+          onClose={()=>setPicker(null)}
+          onChoose={applyMealChoice}
+          onClear={()=>applyMealChoice(null)}/>
+      )}
+
+      {/* 移动端图片保存 modal */}
+      {savedImageUrl && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm sheet-fade flex flex-col" onClick={()=>setSavedImageUrl(null)}>
+          <div className="flex-1 overflow-y-auto p-5" onClick={(e)=>e.stopPropagation()}>
+            <div className="max-w-md mx-auto">
+              <div className="bg-cream rounded-t-2xl px-4 py-3 flex justify-between items-center">
+                <span className="font-serif font-bold text-sm">长按下图保存到相册 📥</span>
+                <button onClick={()=>setSavedImageUrl(null)} className="font-mono text-xs text-muted">关闭 ✕</button>
+              </div>
+              <img src={savedImageUrl} alt="行程图" className="w-full block"/>
+              <p className="text-center text-xs text-white/80 mt-3">保存后发到小红书 → 别人扫码就能进 SwipeGo 🚀</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1296,6 +1479,223 @@ function TimelineItem({item,checked,onToggle}){
               <span className="text-[10px] mt-0.5">✨</span>
               <p className="text-[11px] text-ink/80 leading-snug flex-1">{note}</p>
             </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- 餐位占位卡（meal_placeholder） ---------- */
+const MEAL_META = {
+  breakfast: {icon:'🥐', label:'早餐'},
+  lunch:     {icon:'🍜', label:'午餐'},
+  dinner:    {icon:'🍽️', label:'晚餐'},
+  snack:     {icon:'🍡', label:'小食'},
+};
+function MealPlaceholder({block, onPick}){
+  const meta = MEAL_META[block.meal_type] || MEAL_META.lunch;
+  const chosen = block.user_chosen_poi;
+  return (
+    <div className="relative pl-10">
+      <div className="absolute left-[13px] top-4 w-2.5 h-2.5 rounded-full border-2 border-accent bg-cream"/>
+      <div className={`rounded-2xl border-2 ${chosen ? 'border-accent bg-paper' : 'border-dashed border-accent/50 bg-paper/60'} transition`}>
+        <div className="flex">
+          <div className="w-20 shrink-0 bg-accent text-white p-3 rounded-l-2xl flex flex-col items-center justify-center">
+            <div className="font-mono text-[10px] opacity-90">{block.start}</div>
+            <div className="font-serif font-bold text-xs">↓</div>
+            <div className="font-mono text-[10px] opacity-90">{block.end}</div>
+          </div>
+          <div className="flex-1 p-3 flex gap-3 items-start">
+            <div className="w-14 h-14 rounded-lg shrink-0 grid place-items-center bg-cream border border-line text-2xl">
+              {chosen ? '✅' : meta.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="font-mono text-[10px] text-accent font-bold">{meta.icon} {meta.label}位</span>
+                {block.near_district && <span className="font-mono text-[10px] text-muted">· 📍 {block.near_district}</span>}
+              </div>
+              <div className="font-serif font-bold text-sm mt-0.5 truncate text-ink">
+                {chosen ? chosen.name_zh : '还没挑餐厅'}
+              </div>
+              <div className="text-[11px] text-muted truncate">
+                {chosen ? (chosen.district_zh || chosen.district || '') : '点右侧按钮挑一家'}
+              </div>
+            </div>
+            <button onClick={onPick}
+              className="shrink-0 px-2.5 py-1.5 rounded-md text-[11px] font-mono font-bold bg-accent text-white hover:opacity-90">
+              {chosen ? '✏️ 改' : '+ 选餐厅'}
+            </button>
+          </div>
+        </div>
+        {/* AI 提示 */}
+        {block.ai_hint && !chosen && (
+          <div className="px-3 pb-3 pt-0">
+            <div className="ml-[68px] flex items-start gap-1.5 bg-cream/70 rounded-lg px-2.5 py-1.5 border border-accent/20">
+              <span className="text-[10px] mt-0.5">💡</span>
+              <p className="text-[11px] text-ink/80 leading-snug flex-1">{block.ai_hint}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- 餐厅选择抽屉（MealPicker） ---------- */
+// 两个 tab：①附近 POI（从 bangkok-pois.json 里 category=美食 + 距离过滤）
+//          ②手动添加（用户填名字 + 可选地址）
+// v3 加 ③Google Places 搜索
+function MealPicker({block, allPois, onClose, onChoose, onClear}){
+  const [tab,setTab] = useState('nearby');
+  const [manualName,setManualName] = useState('');
+  const [manualAddr,setManualAddr] = useState('');
+  const [radiusKm,setRadiusKm] = useState(1.5);
+
+  const haversineKm = (a, b)=>{
+    if(!a || !b || a.lat==null || a.lng==null || b.lat==null || b.lng==null) return Infinity;
+    const R = 6371;
+    const dLat = (b.lat - a.lat) * Math.PI / 180;
+    const dLng = (b.lng - a.lng) * Math.PI / 180;
+    const lat1 = a.lat * Math.PI / 180;
+    const lat2 = b.lat * Math.PI / 180;
+    const x = Math.sin(dLat/2)**2 + Math.sin(dLng/2)**2 * Math.cos(lat1) * Math.cos(lat2);
+    return 2 * R * Math.asin(Math.sqrt(x));
+  };
+
+  const isFood = (p)=>{
+    const cat = (p.category||'').toLowerCase();
+    const label = p.category_label || '';
+    return cat==='food' || cat==='restaurant' || /美食|餐厅|餐|小吃|夜市/.test(label);
+  };
+
+  const center = (block.near_lat!=null && block.near_lng!=null) ? {lat:block.near_lat, lng:block.near_lng} : null;
+
+  const candidates = (allPois||[])
+    .filter(isFood)
+    .map(p => ({poi:p, dist: center ? haversineKm(center, p) : 0}))
+    .filter(x => !center || x.dist <= radiusKm)
+    .sort((a,b)=>a.dist-b.dist)
+    .slice(0, 30);
+
+  const submitManual = ()=>{
+    if(!manualName.trim()){ alert('餐厅名字不能空'); return; }
+    onChoose({
+      id: 'manual-' + Date.now(),
+      name_zh: manualName.trim(),
+      district_zh: manualAddr.trim() || block.near_district || '',
+      district: manualAddr.trim() || block.near_district || '',
+      category: 'food',
+      category_label: '美食（手动）',
+      _manual: true,
+    });
+  };
+
+  const meta = MEAL_META[block.meal_type] || MEAL_META.lunch;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm sheet-fade" onClick={onClose}>
+      <div className="absolute inset-x-0 bottom-0 bg-cream rounded-t-3xl max-h-[85vh] overflow-hidden sheet-up flex flex-col"
+        onClick={(e)=>e.stopPropagation()}>
+        <div className="w-10 h-1 bg-line rounded-full mx-auto mt-3 shrink-0"/>
+
+        {/* 标题 */}
+        <div className="px-5 pt-3 pb-3 shrink-0">
+          <div className="flex items-baseline justify-between">
+            <h3 className="font-serif text-xl font-bold">{meta.icon} 选 {meta.label} 餐厅</h3>
+            <button onClick={onClose} className="font-mono text-xs text-muted">收起 ↓</button>
+          </div>
+          <p className="text-xs text-muted mt-1">
+            {block.start} - {block.end}
+            {block.near_district ? ` · 📍 ${block.near_district}` : ''}
+            {center ? ` · 半径 ${radiusKm}km` : ''}
+          </p>
+          {block.ai_hint && (
+            <div className="mt-2 px-3 py-2 bg-paper border border-accent/20 rounded-lg">
+              <p className="text-[11px] text-ink/80">💡 {block.ai_hint}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Tabs */}
+        <div className="flex gap-2 px-5 mb-3 shrink-0">
+          <button onClick={()=>setTab('nearby')}
+            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='nearby'?'bg-accent text-white border-accent shadow-md':'bg-cream border-line text-ink'}`}>
+            <div className="font-serif font-bold text-sm">📍 附近 <span className="font-mono ml-1">{candidates.length}</span></div>
+          </button>
+          <button onClick={()=>setTab('manual')}
+            className={`flex-1 py-2.5 rounded-xl border-2 transition ${tab==='manual'?'bg-ink text-white border-ink shadow-md':'bg-cream border-line text-ink'}`}>
+            <div className="font-serif font-bold text-sm">✏️ 手动添加</div>
+          </button>
+        </div>
+
+        {/* 内容 */}
+        <div className="flex-1 overflow-y-auto px-5 pb-5">
+          {tab==='nearby' && (
+            <div className="space-y-2">
+              {candidates.length === 0 && (
+                <div className="py-8 text-center text-muted text-sm">
+                  附近没找到美食 POI 😅<br/>
+                  <button onClick={()=>setRadiusKm(r=>r+1)} className="mt-3 px-3 py-1.5 rounded-md font-mono text-xs bg-paper border border-line">
+                    扩大到 {radiusKm+1}km
+                  </button>
+                </div>
+              )}
+              {candidates.map(({poi,dist})=>(
+                <button key={poi.id} onClick={()=>onChoose(poi)}
+                  className="w-full text-left bg-paper border border-line rounded-xl p-3 hover:border-accent transition flex gap-3 items-start">
+                  <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden" style={{background:poi.color||'#0F3D2E'}}>
+                    {poi.cover_url
+                      ? <img src={poi.cover_url} className="w-full h-full object-cover" loading="lazy"
+                          onError={(e)=>{e.currentTarget.style.display='none'}}/>
+                      : <div className="w-full h-full grid place-items-center text-xl text-white/95">{poi.icon||'🍜'}</div>}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-serif font-bold text-sm truncate">{poi.name_zh}</div>
+                    <div className="text-[11px] text-muted truncate">{poi.district_zh||poi.district}</div>
+                    <div className="font-mono text-[10px] text-muted mt-0.5">
+                      {dist!=null && isFinite(dist) ? `📏 ${dist.toFixed(1)}km` : ''}
+                      {poi.price_thb ? ` · 💰 ${poi.price_thb} 铢` : ''}
+                    </div>
+                  </div>
+                  <span className="text-accent font-mono text-xs shrink-0">选 →</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {tab==='manual' && (
+            <div className="space-y-3">
+              <div>
+                <label className="block font-mono text-[11px] text-muted mb-1">餐厅名字 *</label>
+                <input value={manualName} onChange={(e)=>setManualName(e.target.value)}
+                  placeholder="例：Krua Apsorn / 网红船面店"
+                  className="w-full px-3 py-2.5 rounded-xl border border-line bg-paper text-sm focus:outline-none focus:border-accent"/>
+              </div>
+              <div>
+                <label className="block font-mono text-[11px] text-muted mb-1">地址/区域（可选）</label>
+                <input value={manualAddr} onChange={(e)=>setManualAddr(e.target.value)}
+                  placeholder={block.near_district || "例：老城区 / Tha Tien 码头"}
+                  className="w-full px-3 py-2.5 rounded-xl border border-line bg-paper text-sm focus:outline-none focus:border-accent"/>
+              </div>
+              <button onClick={submitManual}
+                className="w-full py-3 rounded-xl bg-ink text-white font-serif font-bold text-sm hover:opacity-90">
+                ✓ 确认添加
+              </button>
+              <p className="text-[11px] text-muted text-center">
+                v3 会接 Google 地图实时搜索，目前先手动填
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* 底部：清除已选 */}
+        {block.user_chosen_poi && (
+          <div className="px-5 py-3 border-t border-line shrink-0 bg-paper">
+            <button onClick={onClear}
+              className="w-full py-2.5 rounded-xl border border-line text-sm text-muted hover:bg-cream">
+              清除已选（"{block.user_chosen_poi.name_zh}"）
+            </button>
           </div>
         )}
       </div>
@@ -1534,7 +1934,7 @@ function App(){
         <StepSwipe pois={data.pois} onDone={(r)=>{setSwipeResult(r); setStep(2);}}/>
       )}
       {step===2 && swipeResult && (
-        <StepItinerary intake={intake} liked={swipeResult.liked} maybe={swipeResult.maybe} onRestart={reset}/>
+        <StepItinerary intake={intake} liked={swipeResult.liked} maybe={swipeResult.maybe} onRestart={reset} allPois={data.pois}/>
       )}
     </div>
   );
