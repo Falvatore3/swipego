@@ -118,6 +118,75 @@ export default {
       });
     }
 
+    // ==================== 调试日志 KV 路由 ====================
+    // POST /log/upload  — 前端上传日志（Origin 白名单 + 限大小）
+    // GET  /log/list    — 拉取最近日志（需 ?token=xxx 验证）
+    // GET  /log/get?key=xxx — 拉取单条
+    // ==========================================================
+
+    // 上传日志：手机 🐞 浮窗调用
+    if (request.method === "POST" && url.pathname === "/log/upload") {
+      // CORS 预检上面已统一处理（这里如果是浏览器先发 OPTIONS 会走到下面）
+      if (!isOriginAllowed(origin, allowedOrigins)) {
+        return jsonError(403, "Origin not allowed", null);
+      }
+      if (!env.LOGS) {
+        return jsonError(500, "KV not bound (set [[kv_namespaces]] in wrangler.toml)", origin);
+      }
+      let raw;
+      try { raw = await request.text(); } catch { return jsonError(400, "read body failed", origin); }
+      if (raw.length > 1024 * 200) return jsonError(413, "log too large (>200KB)", origin); // 单条 200KB 上限
+      // 简单合法性检查
+      try { JSON.parse(raw); } catch { return jsonError(400, "log must be JSON", origin); }
+      // key = 时间戳_随机后缀；TTL 7 天后自动删
+      const ts = new Date().toISOString().replace(/[:.]/g, "-");
+      const key = `${ts}_${Math.random().toString(36).slice(2, 8)}`;
+      try {
+        await env.LOGS.put(key, raw, { expirationTtl: 60 * 60 * 24 * 7 });
+      } catch (e) {
+        return jsonError(500, "KV put failed: " + (e.message || e), origin);
+      }
+      return new Response(JSON.stringify({ ok: true, key, size: raw.length }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+      });
+    }
+
+    // 列出日志（仅本人查看，token 校验）
+    if (request.method === "GET" && url.pathname === "/log/list") {
+      if (!env.LOGS) return new Response("KV not bound", { status: 500 });
+      const token = url.searchParams.get("token") || "";
+      if (!env.DEBUG_TOKEN || token !== env.DEBUG_TOKEN) {
+        return new Response("forbidden (need ?token=xxx)", { status: 403 });
+      }
+      const limit = Math.min(parseInt(url.searchParams.get("limit") || "20", 10), 100);
+      const list = await env.LOGS.list({ limit });
+      // 默认 KV list 升序，反一下让最新在前
+      const keys = list.keys.map(k => k.name).sort().reverse();
+      return new Response(JSON.stringify({ count: keys.length, keys }, null, 2), {
+        status: 200,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+      });
+    }
+
+    // 取单条
+    if (request.method === "GET" && url.pathname === "/log/get") {
+      if (!env.LOGS) return new Response("KV not bound", { status: 500 });
+      const token = url.searchParams.get("token") || "";
+      if (!env.DEBUG_TOKEN || token !== env.DEBUG_TOKEN) {
+        return new Response("forbidden", { status: 403 });
+      }
+      const key = url.searchParams.get("key") || "";
+      if (!key) return new Response("need ?key=xxx", { status: 400 });
+      const v = await env.LOGS.get(key);
+      if (!v) return new Response("not found", { status: 404 });
+      return new Response(v, {
+        status: 200,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+      });
+    }
+    // ==========================================================
+
     // CORS 预检
     if (request.method === "OPTIONS") {
       if (!isOriginAllowed(origin, allowedOrigins)) {

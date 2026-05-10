@@ -1749,6 +1749,11 @@ const DIRECT_API = "https://api.deepseek.com/chat/completions";
 const DIRECT_KEY = "sk-20f35588deac4e1ca10ab9e28a714d23"; // ← demo key，限额 ¥10
 const API_URL = PROXY_URL || DIRECT_API;
 
+// 调试日志上传：CF Worker 的 base URL（不带 /log/upload 后缀），与 PROXY_URL 同源
+// 示例：https://swipego-deepseek-proxy.frankiezou.workers.dev
+// 没填就走"复制到剪贴板"降级方案
+const DEBUG_UPLOAD_BASE = "";  // ← 部署完 worker 改 KV 路由后，把 worker base URL 填这里
+
 async function aiBuildItinerary(liked, maybe, intake){
   // 配置自检
   if(!PROXY_URL && !DIRECT_KEY){
@@ -2079,6 +2084,39 @@ function DebugPanel(){
   };
   const clearAll = ()=>{ window.__SWIPEGO_DEBUG__.logs = []; force(x=>x+1); };
 
+  // 上传到云端 KV
+  const [uploading,setUploading] = useState(false);
+  const uploadCloud = async ()=>{
+    if(!DEBUG_UPLOAD_BASE){
+      alert('❌ 还没配置云端日志地址（DEBUG_UPLOAD_BASE 变量为空）。先用"📋 复制全部"将就一下。');
+      return;
+    }
+    setUploading(true);
+    try {
+      const payload = {
+        ua: navigator.userAgent,
+        url: location.href,
+        ts: new Date().toISOString(),
+        logs: window.__SWIPEGO_DEBUG__.logs,
+      };
+      const res = await fetch(DEBUG_UPLOAD_BASE.replace(/\/$/,'') + '/log/upload', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+      });
+      const j = await res.json().catch(()=>({}));
+      if(!res.ok){
+        alert('❌ 上传失败 ' + res.status + ': ' + (j.error?.message || ''));
+      } else {
+        alert('✅ 已上传到云端\n\nkey: ' + j.key + '\n大小: ' + j.size + ' bytes\n\n把这个 key 发给我，我立刻去拉取看现场');
+      }
+    } catch(e){
+      alert('❌ 上传异常：' + (e.message || e));
+    } finally {
+      setUploading(false);
+    }
+  };
+
   // 红点提示：有"漏排"或"丢弃"时
   const hasIssue = lastParsed && (
     (lastParsed.liked_not_used||[]).length>0 ||
@@ -2106,11 +2144,14 @@ function DebugPanel(){
       <div onClick={e=>e.stopPropagation()} style={{
         width:'min(560px,92vw)',background:'#FAF7F0',height:'100%',overflow:'auto',
         padding:18,fontFamily:'ui-monospace,monospace',fontSize:11,color:'#0F3D2E'}}>
-        <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:14}}>
+        <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:14,flexWrap:'wrap'}}>
           <strong style={{fontSize:14,fontFamily:'ui-serif,serif'}}>🐞 调试日志</strong>
           <span style={{color:'#6B7A70'}}>{logs.length} 条</span>
           <span style={{flex:1}}/>
-          <button onClick={copyAll} style={{background:'#0F3D2E',color:'#fff',border:'none',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>📋 复制全部</button>
+          <button onClick={uploadCloud} disabled={uploading} style={{background:'#FF6B35',color:'#fff',border:'none',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11,fontWeight:700}}>
+            {uploading ? '上传中…' : '☁️ 上传到云端'}
+          </button>
+          <button onClick={copyAll} style={{background:'#0F3D2E',color:'#fff',border:'none',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>📋 复制</button>
           <button onClick={clearAll} style={{background:'#fff',border:'1px solid #D9D2BF',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>清空</button>
           <button onClick={()=>setOpen(false)} style={{background:'#fff',border:'1px solid #D9D2BF',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>×</button>
         </div>

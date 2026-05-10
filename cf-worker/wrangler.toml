@@ -32,3 +32,20 @@ MAX_BODY_BYTES = "10240"
 # 可选：观测性（出问题时方便在 CF Dashboard 看日志）
 [observability]
 enabled = true
+
+# ----------------------------------------------------------------------
+# KV 存储：用来收手机端上传的调试日志
+# 步骤：
+#   1. CF Dashboard → Workers & Pages → KV → Create namespace
+#   2. 名字写 swipego-logs
+#   3. 创建后会有一个 Namespace ID（一长串字母数字）
+#   4. 把下面 id 的 "REPLACE_WITH_KV_ID" 替换成那个 ID
+#   5. 重新 wrangler deploy 即可
+# ----------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "LOGS"
+id = "REPLACE_WITH_KV_ID"
+
+# 调试日志的访问 token（防止陌生人 GET 你的日志）
+# 用 `wrangler secret put DEBUG_TOKEN` 设置一个随机字符串
+# 拉取时带 ?token=xxx 才能看到日志
