@@ -181,6 +181,7 @@ function StepSwipe({pois,onDone}){
   const [openDetail,setOpenDetail] = useState(null);
   const [openShortlist,setOpenShortlist] = useState(false);
   const [exiting,setExiting] = useState(null);
+  const [imgIdx,setImgIdx] = useState(0);  // 当前卡片的图片索引
 
   // 拖拽用 ref，不走 state，避免 60fps re-render 卡顿
   const cardRef = useRef(null);
@@ -224,6 +225,7 @@ function StepSwipe({pois,onDone}){
       setDecisions(prev=>({...prev, [snapshotPoi.id]:verb}));
       setHistory(h=>[...h, {idx:snapshotIdx, poiId:snapshotPoi.id, verb}]);
       setIdx(i=>i+1);
+      setImgIdx(0);  // 新卡从第一张开始
       setExiting(null);
       // 重置 ref 卡片：先无 transition 归零，再恢复完整 opacity
       requestAnimationFrame(()=>{
@@ -251,6 +253,7 @@ function StepSwipe({pois,onDone}){
       return n;
     });
     setIdx(last.idx);
+    setImgIdx(0);  // 撤销也回到第一张
     setExiting(null);
     requestAnimationFrame(()=>{
       const el = cardRef.current;
@@ -293,8 +296,28 @@ function StepSwipe({pois,onDone}){
     else if(x < -110) decide('pass');
     else if(y > 110)  decide('maybe');
     else if(moved < 8){
-      setOpenDetail(current);
-      applyTransform(0, 0, true);
+      // 点击：按横向位置分 3 段（左/中/右）
+      const el = cardRef.current;
+      if(el && current){
+        const rect = el.getBoundingClientRect();
+        const ratio = (e.clientX - rect.left) / rect.width;
+        const total = getPoiImages(current).length;
+        if(total > 1 && ratio < 0.32){
+          // 左侧：上一张
+          setImgIdx(i => (i - 1 + total) % total);
+          applyTransform(0, 0, true);
+        } else if(total > 1 && ratio > 0.68){
+          // 右侧：下一张
+          setImgIdx(i => (i + 1) % total);
+          applyTransform(0, 0, true);
+        } else {
+          // 中间：打开详情
+          setOpenDetail(current);
+          applyTransform(0, 0, true);
+        }
+      } else {
+        applyTransform(0, 0, true);
+      }
     }
     else {
       // 弹回
@@ -353,7 +376,7 @@ function StepSwipe({pois,onDone}){
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}>
-              <PoiCard poi={current} onTapDetail={()=>setOpenDetail(current)} />
+              <PoiCard poi={current} onTapDetail={()=>setOpenDetail(current)} imgIdx={imgIdx} />
               <div ref={labelLikeRef} style={{opacity:0}} className="absolute top-8 right-6 px-3 py-1 border-2 border-accent text-accent rounded font-serif font-bold rotate-12 pointer-events-none bg-white">想去 ♥</div>
               <div ref={labelPassRef} style={{opacity:0}} className="absolute top-8 left-6 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold -rotate-12 pointer-events-none bg-white">没兴趣</div>
               <div ref={labelMaybeRef} style={{opacity:0}} className="absolute bottom-24 left-1/2 -translate-x-1/2 px-3 py-1 border-2 border-ink text-ink rounded font-serif font-bold pointer-events-none bg-white">待定 ⌛</div>
@@ -432,33 +455,54 @@ function StepSwipe({pois,onDone}){
   );
 }
 
-function PoiCover({poi, h='h-64'}){
-  const [failed,setFailed] = useState(false);
-  const url = poi.cover_url;
+function getPoiImages(poi){
+  // gallery 优先，其次 cover_url；去重
+  const list = [];
+  (poi.gallery||[]).forEach(u=>{ if(u && !list.includes(u)) list.push(u); });
+  if(poi.cover_url && !list.includes(poi.cover_url)) list.unshift(poi.cover_url);
+  return list;
+}
+
+function PoiCover({poi, h='h-64', imgIdx=0, showIndicator=false}){
+  const [failed,setFailed] = useState({});
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
-  const showImage = url && !failed;
+  const images = getPoiImages(poi);
+  const total = images.length;
+  const safeIdx = total ? ((imgIdx % total) + total) % total : 0;
+  const url = images[safeIdx];
+  const showImage = url && !failed[url];
+
   return (
     <div className={`relative ${h} overflow-hidden`} style={{background:poi.color||'#0F3D2E'}}>
       {showImage && (
         <img src={url} alt={poi.name_zh}
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
-          onError={()=>setFailed(true)}/>
+          onError={()=>setFailed(f=>({...f, [url]:true}))}/>
       )}
       {!showImage && (
         <>
-          {/* 装饰网格 */}
           <div className="absolute inset-0 opacity-15"
             style={{backgroundImage:'linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',backgroundSize:'28px 28px'}}/>
-          {/* 大 emoji 当装饰 */}
           <div className="absolute -right-4 -bottom-6 text-[180px] leading-none opacity-25 select-none">{poi.icon||meta.icon}</div>
         </>
+      )}
+
+      {/* 顶部分段 indicator（Story 风格） */}
+      {showIndicator && total > 1 && (
+        <div className="absolute top-2 left-2 right-2 flex gap-1 pointer-events-none z-10">
+          {images.map((_,i)=>(
+            <div key={i} className="flex-1 h-[3px] rounded-full bg-white/30 overflow-hidden">
+              <div className="h-full bg-white transition-all" style={{width: i===safeIdx?'100%':(i<safeIdx?'100%':'0%'), opacity: i===safeIdx?1:(i<safeIdx?0.55:0)}}/>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
 }
 
-function PoiCard({poi,stacked,onTapDetail}){
+function PoiCard({poi,stacked,onTapDetail,imgIdx=0}){
   const meta = CAT_META[poi.category] || {label:poi.category,icon:'📍'};
   return (
     <div className="absolute inset-0 rounded-3xl card-shadow overflow-hidden border border-line bg-ink"
@@ -467,8 +511,8 @@ function PoiCard({poi,stacked,onTapDetail}){
         opacity: stacked ? 0.7 : 1,
         transition: 'transform .28s cubic-bezier(.2,.8,.2,1), opacity .28s ease',
       }}>
-      {/* 整张大图作为背景 */}
-      <PoiCover poi={poi} h="h-full"/>
+      {/* 整张大图作为背景，支持多图 + 顶部分段 indicator */}
+      <PoiCover poi={poi} h="h-full" imgIdx={imgIdx} showIndicator={!stacked}/>
 
       {/* 顶部品类 chip — 仅一个 */}
       <div className="absolute top-4 left-4 right-4 flex items-start text-white pointer-events-none">
@@ -650,6 +694,20 @@ function PoiDetail({poi,onClose}){
   const bgRef = useRef(null);
   const scrollerRef = useRef(null);
   const dragRef = useRef({active:false,startY:0,y:0});
+  const [imgIdx,setImgIdx] = useState(0);
+  const images = getPoiImages(poi);
+  const total = images.length;
+
+  const goPrev = (e)=>{
+    e.stopPropagation();
+    if(total<=1) return;
+    setImgIdx(i=>(i-1+total)%total);
+  };
+  const goNext = (e)=>{
+    e.stopPropagation();
+    if(total<=1) return;
+    setImgIdx(i=>(i+1)%total);
+  };
 
   const apply = (y, withTransition=false)=>{
     const el = sheetRef.current;
@@ -710,19 +768,35 @@ function PoiDetail({poi,onClose}){
           <div className="w-12 h-1.5 bg-line rounded-full mx-auto"/>
         </div>
 
-        {/* 顶部大图也作拖拽区 */}
+        {/* 顶部大图也作拖拽区 + 支持左右点切图 */}
         <div data-detail-handle className="relative h-56 shrink-0">
-          <PoiCover poi={poi} h="h-full"/>
+          <PoiCover poi={poi} h="h-full" imgIdx={imgIdx} showIndicator={total>1}/>
+          {/* 左右半屏触控区，仅多图时显示 */}
+          {total>1 && (
+            <>
+              <button onClick={goPrev}
+                className="absolute left-0 top-0 bottom-0 w-[35%] z-20 flex items-center justify-start pl-3"
+                style={{background:'transparent', WebkitTapHighlightColor:'transparent'}}>
+                <span className="w-9 h-9 rounded-full bg-black/35 backdrop-blur text-white grid place-items-center text-base opacity-0 hover:opacity-100">‹</span>
+              </button>
+              <button onClick={goNext}
+                className="absolute right-0 top-0 bottom-0 w-[35%] z-20 flex items-center justify-end pr-3"
+                style={{background:'transparent', WebkitTapHighlightColor:'transparent'}}>
+                <span className="w-9 h-9 rounded-full bg-black/35 backdrop-blur text-white grid place-items-center text-base opacity-0 hover:opacity-100">›</span>
+              </button>
+            </>
+          )}
           <div className="absolute inset-0 pointer-events-none"
             style={{background:'linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 100%)'}}/>
           <div className="absolute inset-0 flex items-end p-5 pointer-events-none">
             <div className="text-white">
               <div className="font-mono text-[10px] opacity-85 tracking-widest">{CAT_META[poi.category]?.label}</div>
               <div className="font-serif text-2xl font-bold mt-0.5" style={{textShadow:'0 2px 8px rgba(0,0,0,.5)'}}>{poi.name_zh}</div>
+              {total>1 && <div className="font-mono text-[10px] opacity-70 mt-1">{imgIdx+1}/{total}</div>}
             </div>
           </div>
           <button onClick={close}
-            className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center text-base active:scale-95">✕</button>
+            className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center text-base active:scale-95 z-30">✕</button>
         </div>
 
         {/* 内容可滚动区 */}
@@ -771,12 +845,34 @@ function PoiDetail({poi,onClose}){
 
 /* ---------- STEP 2: 行程清单 ---------- */
 function StepItinerary({intake,liked,maybe,onRestart}){
-  const [itinerary,setItinerary] = useState(()=>buildItinerary(liked,intake));
+  const [loading,setLoading] = useState(true);
+  const [err,setErr] = useState(null);
+  const [result,setResult] = useState(null); // {days:[], overallTip:""}
   const [tab,setTab] = useState(0);
-  const [done,setDone] = useState({}); // poiId => true
+  const [done,setDone] = useState({});
 
-  const regenerate = ()=>{ setItinerary(buildItinerary(liked,intake)); setDone({}); };
+  const runAI = async ()=>{
+    setLoading(true); setErr(null);
+    try {
+      const r = await aiBuildItinerary(liked, maybe, intake);
+      setResult(r);
+      setTab(0);
+      setDone({});
+    } catch(e){
+      console.error(e);
+      setErr(e.message || String(e));
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(()=>{ runAI(); }, []); // 进入页面立刻调
+
+  if(loading) return <ItineraryLoading liked={liked} days={intake.days}/>;
+  if(err) return <ItineraryError err={err} onRetry={runAI} onBack={onRestart}/>;
+  if(!result) return null;
+
+  const itinerary = result.days;
   const totalItems = itinerary.reduce((s,d)=>s+d.items.length,0);
   const doneCount = Object.keys(done).filter(k=>done[k]).length;
   const day = itinerary[tab];
@@ -784,13 +880,26 @@ function StepItinerary({intake,liked,maybe,onRestart}){
   return (
     <div className="max-w-xl mx-auto px-5 pt-4 pb-24">
       <div className="mb-5">
-        <div className="font-mono text-[11px] text-accent tracking-widest mb-1">// 03 ITINERARY</div>
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-1">// 03 ITINERARY · AI</div>
         <div className="flex items-end justify-between">
-          <h2 className="font-serif text-2xl font-bold">你的曼谷清单</h2>
-          <button onClick={regenerate} className="font-mono text-[11px] text-ink underline underline-offset-2">↻ 重新排程</button>
+          <h2 className="font-serif text-2xl font-bold">你的曼谷行程</h2>
+          <button onClick={runAI} className="font-mono text-[11px] text-ink underline underline-offset-2">↻ AI 重排</button>
         </div>
-        <p className="text-xs text-muted mt-1">{intake.days} 天行程 · 共 {liked.length} 个想去点{maybe.length>0?` · ${maybe.length} 待定`:''}</p>
+        <p className="text-xs text-muted mt-1">{intake.days} 天 · {liked.length} 个想去{maybe.length>0?` · ${maybe.length} 待定`:''} · ✨ DeepSeek 生成</p>
       </div>
+
+      {/* AI 整体建议 */}
+      {result.overallTip && (
+        <div className="bg-paper border border-accent/30 rounded-2xl p-4 mb-5">
+          <div className="flex items-start gap-2">
+            <span className="text-base shrink-0">✨</span>
+            <div className="flex-1">
+              <div className="font-mono text-[10px] text-accent tracking-widest mb-1">AI 旅行贴士</div>
+              <p className="text-[13px] text-ink/85 leading-relaxed">{result.overallTip}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 总进度 */}
       <div className="bg-paper border border-line rounded-2xl p-4 mb-5">
@@ -810,25 +919,33 @@ function StepItinerary({intake,liked,maybe,onRestart}){
           const dCount = d.items.filter(it=>done[it.poi.id]).length;
           return (
             <button key={i} onClick={()=>setTab(i)}
-              className={`shrink-0 px-4 py-2.5 rounded-xl border-2 transition text-left ${active?'bg-ink text-white border-ink shadow-md':'bg-cream border-line text-ink'}`}>
-              <div className="font-mono text-[10px] opacity-70">DAY</div>
-              <div className="font-serif font-bold text-base leading-none">{i+1}</div>
+              className={`shrink-0 px-4 py-2.5 rounded-xl border-2 transition text-left min-w-[88px] ${active?'bg-ink text-white border-ink shadow-md':'bg-cream border-line text-ink'}`}>
+              <div className="font-mono text-[10px] opacity-70">DAY {i+1}</div>
+              <div className="font-serif font-bold text-sm leading-tight mt-0.5 line-clamp-1">{d.theme}</div>
               <div className="font-mono text-[10px] mt-1 opacity-70">{dCount}/{d.items.length}</div>
             </button>
           );
         })}
       </div>
 
-      {/* 某天的时间轴 */}
+      {/* 当日 theme（醒目卡） */}
+      {day && (
+        <div className="bg-ink text-white rounded-2xl p-4 mb-4">
+          <div className="font-mono text-[10px] opacity-70 tracking-widest">DAY {tab+1} · {day.items.length} 项</div>
+          <div className="font-serif text-xl font-bold mt-1">{day.theme}</div>
+        </div>
+      )}
+
+      {/* 当天的时间轴 */}
       <div className="relative">
         <div className="absolute left-4 top-4 bottom-4 w-px bg-line"/>
         <div className="space-y-3">
-          {day.items.map((it,i)=>(
+          {day && day.items.map((it,i)=>(
             <TimelineItem key={i} item={it} checked={!!done[it.poi.id]}
               onToggle={()=>setDone(prev=>({...prev,[it.poi.id]:!prev[it.poi.id]}))}/>
           ))}
-          {day.items.length===0 && (
-            <div className="py-10 text-center text-muted text-sm">这一天没有安排，去刷几个点吧</div>
+          {day && day.items.length===0 && (
+            <div className="py-10 text-center text-muted text-sm">这一天 AI 给你留白了 🧘</div>
           )}
         </div>
       </div>
@@ -849,13 +966,63 @@ function StepItinerary({intake,liked,maybe,onRestart}){
 
       <button onClick={onRestart} className="mt-8 w-full py-3 rounded-xl border border-line text-sm text-muted">重新开始</button>
 
-      <p className="font-mono text-[10px] text-muted text-center mt-6 tracking-wider">MADE WITH SWIPEGO · v0.1</p>
+      <p className="font-mono text-[10px] text-muted text-center mt-6 tracking-wider">MADE WITH SWIPEGO · ✨ AI by DeepSeek</p>
+    </div>
+  );
+}
+
+/* ---------- AI 加载态 ---------- */
+function ItineraryLoading({liked, days}){
+  const [step,setStep] = useState(0);
+  const phases = [
+    `分析你选的 ${liked.length} 个景点`,
+    "按地理位置聚类...",
+    "匹配每个景点的最佳时段...",
+    `排出 ${days} 天小时级清单...`,
+    "撰写每日主题与贴士...",
+  ];
+  useEffect(()=>{
+    const t = setInterval(()=>setStep(s=>(s+1)%phases.length), 1400);
+    return ()=>clearInterval(t);
+  },[]);
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-12 pb-20 text-center">
+      <div className="text-6xl mb-5 select-none animate-pulse">✨</div>
+      <div className="font-mono text-[11px] text-accent tracking-widest mb-2">AI GENERATING</div>
+      <h2 className="font-serif text-2xl font-bold">DeepSeek 正在为你排程</h2>
+      <p className="text-sm text-muted mt-3">通常需要 5-15 秒</p>
+      <div className="mt-10 space-y-2">
+        {phases.map((p,i)=>(
+          <div key={i} className={`flex items-center gap-3 transition ${i<=step?'opacity-100':'opacity-30'}`}>
+            <div className={`w-2 h-2 rounded-full ${i<step?'bg-accent':i===step?'bg-ink animate-pulse':'bg-line'}`}/>
+            <span className={`text-[13px] font-mono ${i===step?'text-ink font-bold':'text-muted'}`}>{p}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- AI 失败态 ---------- */
+function ItineraryError({err, onRetry, onBack}){
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-16 pb-10 text-center">
+      <div className="text-5xl mb-4">😢</div>
+      <h2 className="font-serif text-2xl font-bold">AI 暂时罢工了</h2>
+      <p className="text-sm text-muted mt-2">网络或服务问题，再试一次通常就好</p>
+      <div className="mt-4 p-3 bg-paper border border-line rounded-xl text-[11px] font-mono text-ink/70 text-left break-all">
+        {err}
+      </div>
+      <div className="flex gap-3 mt-8">
+        <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-line text-sm text-ink">回去重选</button>
+        <button onClick={onRetry} className="flex-1 py-3 rounded-xl bg-ink text-white border-2 border-ink font-bold text-sm shadow-md">重试 AI ↻</button>
+      </div>
     </div>
   );
 }
 
 function TimelineItem({item,checked,onToggle}){
-  const {poi,start,end} = item;
+  const {poi,start,end,note} = item;
   const meta = CAT_META[poi.category];
   return (
     <div className="relative pl-10">
@@ -888,75 +1055,117 @@ function TimelineItem({item,checked,onToggle}){
             </button>
           </div>
         </div>
+        {/* AI note */}
+        {note && (
+          <div className="px-3 pb-3 pt-0">
+            <div className="ml-[68px] flex items-start gap-1.5 bg-cream/70 rounded-lg px-2.5 py-1.5 border border-accent/20">
+              <span className="text-[10px] mt-0.5">✨</span>
+              <p className="text-[11px] text-ink/80 leading-snug flex-1">{note}</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-/* ---------- 排程规则引擎 ---------- */
-function buildItinerary(liked,intake){
-  const days = intake.days;
-  const wake = intake.wake; // "07:00"
-  const pace = intake.pace; // intense/standard/chill
-  const itemsPerDay = {intense:8,standard:6,chill:4}[pace] || 6;
+/* ---------- AI 行程生成（DeepSeek） ---------- */
+const DEEPSEEK_KEY = "sk-20f35588deac4e1ca10ab9e28a714d23"; // 临时直前端，限额 ¥10
+const DEEPSEEK_API = "https://api.deepseek.com/chat/completions";
 
-  // 按品类/区域分组，做点简单均衡
-  const byDistrict = {};
-  liked.forEach(p=>{
-    const k = p.district || '_';
-    (byDistrict[k] = byDistrict[k] || []).push(p);
+async function aiBuildItinerary(liked, maybe, intake){
+  // 收缩 POI 信息只保留 AI 排程必需字段，省 tokens
+  const slim = (p)=>({
+    id: p.id,
+    name: p.name_zh,
+    category: p.category_label || p.category,
+    district: p.district_zh || p.district,
+    duration_hr: p.duration_hr,
+    best_time: p.best_time,
+    price_thb: p.price_thb,
+    lat: p.lat, lng: p.lng,
+    tips: (p.tips||[]).slice(0,2),
   });
-  const districtList = Object.values(byDistrict).sort((a,b)=>b.length-a.length);
+  const likedSlim = liked.map(slim);
+  const maybeSlim = maybe.map(slim);
 
-  // 分配到每天：尽量同区域扎堆
-  const buckets = Array.from({length:days},()=>[]);
-  let cursor = 0;
-  districtList.flat().forEach(p=>{
-    // 找一个还能装的桶
-    let attempts = 0;
-    while(buckets[cursor].length >= itemsPerDay && attempts < days){
-      cursor = (cursor+1)%days;
-      attempts++;
+  const sys = "你是资深曼谷旅行规划师，擅长为 J 人型用户生成小时级精确行程。";
+  const user = `用户想用 ${intake.days} 天玩曼谷，每天 09:00 起床，标准强度（每天 5-6 项）。
+
+他**右滑想去**了 ${likedSlim.length} 个 POI：
+${JSON.stringify(likedSlim, null, 2)}
+
+${maybeSlim.length>0 ? `他还**下滑待定**了 ${maybeSlim.length} 个，如果想去的不够填满天数可以补充使用：
+${JSON.stringify(maybeSlim, null, 2)}` : ''}
+
+要求：
+1. 按地理位置就近聚类（用 lat/lng），同一天尽量同区域
+2. 尊重每个 POI 的 best_time（早上的去早上、傍晚的去傍晚）
+3. 每个时段 24h 制起止时刻（如 "09:30"）
+4. 中间留 60-90 分钟用餐（12:00-13:30 / 18:30-20:00 高峰）、20-30 分钟通勤
+5. 每天起一个有"项目管理感、J 人爽点"的 day_theme（短促有力，<= 12 字，可加 emoji）
+6. 每个安排写一句 AI 贴士 note（why this time / what to watch out for / 通勤建议）
+7. 如果想去的 POI 不够填满 ${intake.days} 天，可以从待定清单里挑 1-2 个补充；仍然不够就让那一天为"留白日"，items 为空数组
+8. POI 不要重复出现
+
+**严格输出 JSON**（不要 markdown 代码块）：
+{
+  "days": [
+    {
+      "day": 1,
+      "theme": "老城寺庙暴走 ☀️",
+      "items": [
+        {"poi_id":"bkk-001","start":"08:30","end":"11:00","note":"开门即到，避开团客高峰"}
+      ]
     }
-    if(attempts>=days) buckets[cursor].push(p); // 都满了也塞进去
-    else buckets[cursor].push(p);
-    cursor = (cursor+1)%days;
-  });
+  ],
+  "overall_tip": "整体建议（雨季穿搭/打车/支付等）"
+}`;
 
-  // 每个桶内按 best_time 排序
-  const timeRank = {morning:1,noon:2,afternoon:3,evening:4,night:5};
-  buckets.forEach(arr=>{
-    arr.sort((a,b)=>{
-      const ra = Math.min(...(a.best_time||['afternoon']).map(t=>timeRank[t]||3));
-      const rb = Math.min(...(b.best_time||['afternoon']).map(t=>timeRank[t]||3));
-      return ra-rb;
-    });
+  const res = await fetch(DEEPSEEK_API, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${DEEPSEEK_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      messages: [
+        {role:'system', content: sys},
+        {role:'user', content: user},
+      ],
+      temperature: 0.6,
+      response_format: {type:'json_object'},
+    }),
   });
+  if(!res.ok){
+    const t = await res.text();
+    throw new Error(`DeepSeek ${res.status}: ${t.slice(0,200)}`);
+  }
+  const data = await res.json();
+  const content = data?.choices?.[0]?.message?.content;
+  if(!content) throw new Error('AI 没有返回内容');
 
-  // 生成带时间戳的 schedule
-  return buckets.map((arr,dayIdx)=>{
-    const [wh,wm] = wake.split(':').map(Number);
-    let cursorMin = wh*60 + wm;
-    const items = [];
-    arr.forEach((poi,i)=>{
-      // 开餐时间留白：第一个后加 30min 早餐；午饭/晚饭窗口插空
-      const start = cursorMin;
-      const dur = Math.round((poi.duration_hr||1.5)*60);
-      const end = start + dur;
-      items.push({poi, start:fmt(start), end:fmt(end)});
-      // 间隔：通勤 30min + 必要时加用餐
-      let gap = 30;
-      if((start<=13*60 && end>=12*60)) gap += 0; // 刚好吃
-      cursorMin = end + gap;
-    });
-    return {dayIdx, items};
-  });
+  let parsed;
+  try { parsed = JSON.parse(content); }
+  catch(e){ throw new Error('AI 返回的不是 JSON: ' + content.slice(0,150)); }
+
+  // 把 poi_id 还原成完整 POI 对象，方便渲染
+  const poiMap = {};
+  [...liked, ...maybe].forEach(p=>poiMap[p.id]=p);
+  const days = (parsed.days||[]).map((d,i)=>({
+    dayIdx: i,
+    theme: d.theme || `Day ${i+1}`,
+    items: (d.items||[]).map(it=>({
+      poi: poiMap[it.poi_id],
+      start: it.start,
+      end: it.end,
+      note: it.note || '',
+    })).filter(it=>it.poi),
+  }));
+  return { days, overallTip: parsed.overall_tip || '' };
 }
-function fmt(min){
-  const h = Math.floor(min/60)%24;
-  const m = min%60;
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
-}
+
 
 /* ---------- 空态：等数据 ---------- */
 function DataPending({err}){
