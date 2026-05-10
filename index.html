@@ -77,6 +77,23 @@
 <script type="text/babel" data-presets="react">
 const { useState, useEffect, useMemo, useRef, useCallback } = React;
 
+/* ---------- DEBUG 日志系统 ---------- */
+// 全局收集每一次 AI 行程调用的"完整现场"，用户可在右下角浮窗里查看 + 一键复制
+// 浏览器 Console 里也能直接看：window.__SWIPEGO_DEBUG__
+window.__SWIPEGO_DEBUG__ = window.__SWIPEGO_DEBUG__ || { logs: [], current: null };
+function dbgPush(entry){
+  const e = {ts: new Date().toISOString(), ...entry};
+  window.__SWIPEGO_DEBUG__.logs.push(e);
+  if(window.__SWIPEGO_DEBUG__.logs.length > 30) window.__SWIPEGO_DEBUG__.logs.shift();
+  // 触发浮窗刷新
+  window.dispatchEvent(new CustomEvent('swipego-debug-update'));
+  console.log('[swipego-debug]', e.kind, e);
+}
+function dbgSetCurrent(c){
+  window.__SWIPEGO_DEBUG__.current = c;
+  window.dispatchEvent(new CustomEvent('swipego-debug-update'));
+}
+
 /* ---------- 数据加载 ---------- */
 function usePois(){
   const [data,setData] = useState(null);
@@ -1770,7 +1787,7 @@ async function aiBuildItinerary(liked, maybe, intake){
   const paceLabel = intake.pace === 'chill' ? '轻松' : intake.pace === 'intense' ? '高强度' : '标准';
   const paceCount = intake.pace === 'chill' ? '3-4' : intake.pace === 'intense' ? '6-8' : '5-6';
 
-  const user = `用户用 ${intake.days} 天玩曼谷，每天 ${intake.wake || '09:00'} 起床，${paceLabel}强度（每天 ${paceCount} 项）。
+  const user = `用户用 ${intake.days} 天玩曼谷，每天 ${intake.wake || '09:00'} 起床，${paceLabel}强度（每天 ${paceCount} 个 **POI**，不含吃饭）。
 
 ${seasonLine}
 ${rainyTip}
@@ -1778,13 +1795,14 @@ ${rainyTip}
 ${arriveLine}
 ${departLine}
 
-他**右滑想去**了 ${likedSlim.length} 个 POI：
+他**右滑想去**了 ${likedSlim.length} 个 POI（**这些是用户亲手挑的，必须全部排进 ${intake.days} 天行程，不允许砍掉任何一个**）：
 ${JSON.stringify(likedSlim, null, 2)}
 
-${maybeSlim.length>0 ? `他还**下滑待定**了 ${maybeSlim.length} 个，可以补充使用：
+${maybeSlim.length>0 ? `他还**下滑待定**了 ${maybeSlim.length} 个，仅在 liked 不够填满时作为补充：
 ${JSON.stringify(maybeSlim, null, 2)}` : ''}
 
 排程要求：
+0. **最重要**：上面 ${likedSlim.length} 个 liked POI **每一个都必须出现**在 days[].items 里，**poi_id 总数 == ${likedSlim.length}**，不能多也不能少（如果 liked 多到一天放不下，可以一天放 5-7 个，强度可以稍微突破上限，宁可一天满一点也要全排上）
 1. 按地理位置就近聚类（用 lat/lng），同一天尽量同区域，避免横跨曼谷
 2. 尊重每个 POI 的 best_time（早上的去早上、傍晚的去傍晚）
 3. 每个时段 24h 制起止时刻（如 "09:30"）
@@ -1800,14 +1818,15 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
    - meal_slot 用 after_poi_id 挂在某个 POI 之后，表示"逛完 X 后吃饭"
    - 不要推荐具体餐厅，只给 near_district + ai_hint（一句话提示哪类美食/方向）
    - meal_slot 的 start/end 也要写好，和 POI items 共用一条时间线，不能与 POI 时刻重叠
+   - **meal_slot 不算在每日 POI 强度里**（每日 ${paceCount} 个 POI 是不含吃饭的）
 6. 每天起一个有"项目管理感、J 人爽点"的 day_theme（短促有力，<= 12 字，可加 emoji）
 7. **note 强约束**：每个 POI 的 note 必须包含至少一项：
    - 具体数字（票价/排队时间/开门时间/历史年份）
    - 具体动作（"右手边台阶上去"/"在 X 出口换乘"）
    ❌ 禁止"记得带相机"、"注意防晒"、"准备好心情"这类废话
-8. 如果想去的 POI 不够填满 ${intake.days} 天，可以从待定清单里挑 1-2 个补充；
-   仍然不够就让那一天为"留白日"，items 为空数组（meal_slots 也为空）
-9. POI 不要重复出现
+8. 只在 liked POI 数量 < ${intake.days * 3} 时（即一天还排不满 3 个）才从待定清单里挑补充；否则只用 liked
+9. 每个 liked POI 在 items 里**只能出现 1 次**（不要重复）
+10. **poi_id 必须严格使用上方 liked / maybe 数据里的 id 字段原样输出**（如 "bkk-001"，不要写成 "bkk-1" 或 "BKK-001"）
 
 **严格输出 JSON**（不要 markdown 代码块）：
 {
@@ -1833,6 +1852,8 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
   // 超时控制：60s 还没回就抛错（DeepSeek 偶尔卡 worker 冷启动 + 长上下文）
   const ctrl = new AbortController();
   const timeoutId = setTimeout(()=>ctrl.abort(), 60000);
+  const t0 = Date.now();
+  dbgPush({kind:'ai_request_start', liked_count: liked.length, maybe_count: maybe.length, intake, prompt_chars: user.length});
   let res;
   try {
     res = await fetch(API_URL, {
@@ -1851,12 +1872,15 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
     });
   } catch(e){
     clearTimeout(timeoutId);
+    dbgPush({kind:'ai_request_fail', elapsed_ms: Date.now()-t0, err: e.message, name: e.name});
     if(e.name === 'AbortError') throw new Error('AI 服务超时（60s 未响应），请重试或检查代理');
     throw new Error('网络错误：' + (e.message || String(e)));
   }
   clearTimeout(timeoutId);
+  dbgPush({kind:'ai_request_done', elapsed_ms: Date.now()-t0, status: res.status});
   if(!res.ok){
     const t = await res.text();
+    dbgPush({kind:'ai_http_error', status: res.status, body: t.slice(0,500)});
     throw new Error(`DeepSeek ${res.status}: ${t.slice(0,200)}`);
   }
   const data = await res.json();
@@ -1865,11 +1889,25 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
 
   let parsed;
   try { parsed = JSON.parse(content); }
-  catch(e){ throw new Error('AI 返回的不是 JSON: ' + content.slice(0,150)); }
+  catch(e){
+    dbgPush({kind:'ai_parse_fail', raw_content: content, err: e.message});
+    throw new Error('AI 返回的不是 JSON: ' + content.slice(0,150));
+  }
 
   // 把 items + meal_slots 合并为按时刻排序的 timeline，区分 type
   const poiMap = {};
   [...liked, ...maybe].forEach(p=>poiMap[p.id]=p);
+
+  // 解析阶段调试缓冲
+  const _dbg = {
+    liked_ids: liked.map(p=>p.id),
+    maybe_ids: maybe.map(p=>p.id),
+    ai_returned_poi_ids: [],
+    ai_returned_meal_after_ids: [],
+    dropped_poi_ids: [],     // AI 返了但我们这边找不到 → 真正"被吃掉"
+    invalid_time_items: [],
+    invalid_time_meals: [],
+  };
 
   const parseHHMM = (s) => {
     if(!s || typeof s !== 'string') return -1;
@@ -1883,9 +1921,18 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
 
     // POI items
     for(const it of (d.items||[])){
+      _dbg.ai_returned_poi_ids.push(it.poi_id);
       const poi = poiMap[it.poi_id];
-      if(!poi) { console.warn('[itinerary] 找不到 poi_id', it.poi_id); continue; }
-      if(!validTime(it.start) || !validTime(it.end)) { console.warn('[itinerary] 时刻非法', it); continue; }
+      if(!poi) {
+        console.warn('[itinerary] 找不到 poi_id', it.poi_id);
+        _dbg.dropped_poi_ids.push(it.poi_id);
+        continue;
+      }
+      if(!validTime(it.start) || !validTime(it.end)) {
+        console.warn('[itinerary] 时刻非法', it);
+        _dbg.invalid_time_items.push(it);
+        continue;
+      }
       blocks.push({
         type: 'poi',
         poi,
@@ -1897,7 +1944,12 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
 
     // Meal slots
     for(const m of (d.meal_slots||[])){
-      if(!validTime(m.start) || !validTime(m.end)) { console.warn('[itinerary] meal 时刻非法', m); continue; }
+      _dbg.ai_returned_meal_after_ids.push(m.after_poi_id);
+      if(!validTime(m.start) || !validTime(m.end)) {
+        console.warn('[itinerary] meal 时刻非法', m);
+        _dbg.invalid_time_meals.push(m);
+        continue;
+      }
       const afterPoi = poiMap[m.after_poi_id];
       blocks.push({
         type: 'meal_placeholder',
@@ -1921,6 +1973,31 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
       timeline: blocks,
     };
   });
+
+  // 落库 debug
+  const liked_set = new Set(_dbg.liked_ids);
+  const used_set = new Set(_dbg.ai_returned_poi_ids);
+  const liked_not_used = _dbg.liked_ids.filter(id => !used_set.has(id));   // 用户挑了 AI 没排
+  const total_poi_in_plan = days.reduce((s,d)=>s + d.timeline.filter(b=>b.type==='poi').length, 0);
+  const total_meal_in_plan = days.reduce((s,d)=>s + d.timeline.filter(b=>b.type==='meal_placeholder').length, 0);
+  dbgPush({
+    kind: 'ai_itinerary_parsed',
+    intake,
+    liked_count: liked.length,
+    maybe_count: maybe.length,
+    days_returned: (parsed.days||[]).length,
+    ai_returned_poi_count: _dbg.ai_returned_poi_ids.length,
+    poi_in_plan_after_parse: total_poi_in_plan,
+    meal_in_plan: total_meal_in_plan,
+    liked_not_used,                              // ★ 用户挑了但 AI 没排进去的
+    dropped_poi_ids: _dbg.dropped_poi_ids,        // ★ AI 返了但 id 对不上被丢弃的
+    invalid_time_items: _dbg.invalid_time_items,
+    invalid_time_meals: _dbg.invalid_time_meals,
+    overall_tip: parsed.overall_tip,
+    raw_ai_response: parsed,                     // 完整 AI JSON
+    request_user_prompt: user,                   // 完整 prompt（方便对照）
+  });
+
   return { days, overallTip: parsed.overall_tip || '' };
 }
 
@@ -1950,7 +2027,7 @@ function App(){
 
   const reset = ()=>{setStep(0); setIntake(null); setSwipeResult(null);};
 
-  if(!data) return <><Header step={0} total={3}/><DataPending err={err}/></>;
+  if(!data) return <><Header step={0} total={3}/><DataPending err={err}/><DebugPanel/></>;
 
   return (
     <div className="min-h-screen">
@@ -1969,6 +2046,111 @@ function App(){
       {step===2 && swipeResult && (
         <StepItinerary intake={intake} liked={swipeResult.liked} maybe={swipeResult.maybe} onRestart={reset} allPois={data.pois}/>
       )}
+      <DebugPanel/>
+    </div>
+  );
+}
+
+/* ---------- DEBUG 浮窗 ---------- */
+function DebugPanel(){
+  const [open,setOpen] = useState(false);
+  const [, force] = useState(0);
+  useEffect(()=>{
+    const h = ()=>force(x=>x+1);
+    window.addEventListener('swipego-debug-update', h);
+    return ()=>window.removeEventListener('swipego-debug-update', h);
+  },[]);
+  const logs = window.__SWIPEGO_DEBUG__.logs;
+  const last = logs[logs.length-1];
+  // 找最近一次 ai_itinerary_parsed 用于亮指标
+  const lastParsed = [...logs].reverse().find(l=>l.kind==='ai_itinerary_parsed');
+
+  const copyAll = async ()=>{
+    try {
+      const text = JSON.stringify(window.__SWIPEGO_DEBUG__.logs, null, 2);
+      await navigator.clipboard.writeText(text);
+      alert('✅ 已复制 ' + logs.length + ' 条日志到剪贴板（粘贴到对话窗口给我看）');
+    } catch(e){
+      // 降级：弹窗显示
+      const w = window.open('','_blank');
+      w.document.write('<pre style="font:12px monospace;padding:20px;white-space:pre-wrap;">'+
+        JSON.stringify(window.__SWIPEGO_DEBUG__.logs,null,2).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))+'</pre>');
+    }
+  };
+  const clearAll = ()=>{ window.__SWIPEGO_DEBUG__.logs = []; force(x=>x+1); };
+
+  // 红点提示：有"漏排"或"丢弃"时
+  const hasIssue = lastParsed && (
+    (lastParsed.liked_not_used||[]).length>0 ||
+    (lastParsed.dropped_poi_ids||[]).length>0
+  );
+
+  if(!open){
+    return (
+      <button onClick={()=>setOpen(true)}
+        style={{position:'fixed',right:14,bottom:14,zIndex:9999,
+          width:48,height:48,borderRadius:24,background:hasIssue?'#FF6B35':'#0F3D2E',
+          color:'#fff',border:'none',boxShadow:'0 4px 14px rgba(0,0,0,.25)',
+          fontSize:20,cursor:'pointer'}}>
+        🐞{logs.length>0 && <span style={{
+          position:'absolute',top:-2,right:-2,minWidth:18,height:18,padding:'0 4px',
+          background:'#fff',color:'#0F3D2E',borderRadius:9,fontSize:10,fontWeight:700,
+          lineHeight:'18px',display:'inline-block'}}>{logs.length}</span>}
+      </button>
+    );
+  }
+
+  return (
+    <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,.5)',zIndex:9999,
+      display:'flex',justifyContent:'flex-end'}} onClick={()=>setOpen(false)}>
+      <div onClick={e=>e.stopPropagation()} style={{
+        width:'min(560px,92vw)',background:'#FAF7F0',height:'100%',overflow:'auto',
+        padding:18,fontFamily:'ui-monospace,monospace',fontSize:11,color:'#0F3D2E'}}>
+        <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:14}}>
+          <strong style={{fontSize:14,fontFamily:'ui-serif,serif'}}>🐞 调试日志</strong>
+          <span style={{color:'#6B7A70'}}>{logs.length} 条</span>
+          <span style={{flex:1}}/>
+          <button onClick={copyAll} style={{background:'#0F3D2E',color:'#fff',border:'none',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>📋 复制全部</button>
+          <button onClick={clearAll} style={{background:'#fff',border:'1px solid #D9D2BF',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>清空</button>
+          <button onClick={()=>setOpen(false)} style={{background:'#fff',border:'1px solid #D9D2BF',padding:'6px 10px',borderRadius:6,cursor:'pointer',fontSize:11}}>×</button>
+        </div>
+
+        {lastParsed && (
+          <div style={{padding:12,background:'#fff',border:'2px solid '+(hasIssue?'#FF6B35':'#0F3D2E'),borderRadius:10,marginBottom:14}}>
+            <div style={{fontWeight:700,marginBottom:6,fontSize:12}}>📊 最近一次行程生成</div>
+            <div>用户挑了 (liked): <b>{lastParsed.liked_count}</b></div>
+            <div>AI 返回 POI 总数: <b>{lastParsed.ai_returned_poi_count}</b></div>
+            <div>解析后真正进入行程: <b>{lastParsed.poi_in_plan_after_parse}</b></div>
+            <div>AI 排了几天: <b>{lastParsed.days_returned}</b></div>
+            <div>吃饭坑位: <b>{lastParsed.meal_in_plan}</b></div>
+            {(lastParsed.liked_not_used||[]).length>0 && (
+              <div style={{marginTop:8,padding:8,background:'#FFF3E0',borderRadius:6,color:'#FF6B35'}}>
+                ⚠️ 用户挑了 AI 没排（{lastParsed.liked_not_used.length}）：<br/>
+                {lastParsed.liked_not_used.join(', ')}
+              </div>
+            )}
+            {(lastParsed.dropped_poi_ids||[]).length>0 && (
+              <div style={{marginTop:8,padding:8,background:'#FFE0E0',borderRadius:6,color:'#C00'}}>
+                ❌ AI 返回但 id 对不上被丢弃（{lastParsed.dropped_poi_ids.length}）：<br/>
+                {lastParsed.dropped_poi_ids.join(', ')}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div style={{marginTop:8}}>
+          {[...logs].reverse().map((l,i)=>(
+            <details key={i} style={{marginBottom:6,padding:8,background:'#fff',borderRadius:6,border:'1px solid #D9D2BF'}}>
+              <summary style={{cursor:'pointer',fontWeight:700}}>
+                <span style={{color:'#FF6B35'}}>{l.kind}</span>
+                <span style={{color:'#6B7A70',marginLeft:8,fontWeight:400}}>{(l.ts||'').slice(11,19)}</span>
+              </summary>
+              <pre style={{whiteSpace:'pre-wrap',wordBreak:'break-all',marginTop:6,fontSize:10,color:'#3a4a40'}}>{JSON.stringify(l,null,2)}</pre>
+            </details>
+          ))}
+          {logs.length===0 && <div style={{color:'#6B7A70',padding:20,textAlign:'center'}}>暂无日志，跑一次行程就有了</div>}
+        </div>
+      </div>
     </div>
   );
 }
