@@ -1070,10 +1070,19 @@ function TimelineItem({item,checked,onToggle}){
 }
 
 /* ---------- AI 行程生成（DeepSeek） ---------- */
-const DEEPSEEK_KEY = "sk-20f35588deac4e1ca10ab9e28a714d23"; // 临时直前端，限额 ¥10
-const DEEPSEEK_API = "https://api.deepseek.com/chat/completions";
+// ⚠️ 临时 demo 方案：key 写在前端（公开仓库会被扒）
+// 缓解：DeepSeek 后台给这个 key 设了 ¥10 上限，被刷也只损失这点
+// TODO 上线前：部署 cf-worker/ 把 key 藏到代理，详见 cf-worker/README.md
+const PROXY_URL = ""; // ← 部署完代理后填这里（如 https://swipego-deepseek-proxy.xxx.workers.dev/v1/chat/completions）
+const DIRECT_API = "https://api.deepseek.com/chat/completions";
+const DIRECT_KEY = "sk-20f35588deac4e1ca10ab9e28a714d23"; // ← demo key，限额 ¥10
+const API_URL = PROXY_URL || DIRECT_API;
 
 async function aiBuildItinerary(liked, maybe, intake){
+  // 配置自检
+  if(!PROXY_URL && !DIRECT_KEY){
+    throw new Error('AI 服务未配置。请部署 CF Worker 代理后填入 PROXY_URL（见 cf-worker/README.md）');
+  }
   // 收缩 POI 信息只保留 AI 排程必需字段，省 tokens
   const slim = (p)=>({
     id: p.id,
@@ -1122,12 +1131,12 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
   "overall_tip": "整体建议（雨季穿搭/打车/支付等）"
 }`;
 
-  const res = await fetch(DEEPSEEK_API, {
+  const headers = {'Content-Type': 'application/json'};
+  // 走代理时不需要 Authorization；只在直连模式下加
+  if(!PROXY_URL && DIRECT_KEY) headers['Authorization'] = `Bearer ${DIRECT_KEY}`;
+  const res = await fetch(API_URL, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${DEEPSEEK_KEY}`,
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({
       model: 'deepseek-chat',
       messages: [

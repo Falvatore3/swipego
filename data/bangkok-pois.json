@@ -1,9 +1,9 @@
 {
   "city": "Bangkok",
   "city_zh": "曼谷",
-  "updated_at": "2026-05-09",
-  "version": "1.5.0",
-  "total": 50,
+  "updated_at": "2026-05-10",
+  "version": "2.0.0",
+  "total": 80,
   "pois": [
     {
       "id": "bkk-001",
@@ -2199,6 +2199,1163 @@
       "color": "#5F4E3D",
       "icon": "🚶",
       "thumb_url": "./assets/pois/bkk-050.jpg"
+    },
+    {
+      "id": "bkk-051",
+      "name_zh": "Jay Fai 痣姐蟹肉煎蛋",
+      "name_en": "Raan Jay Fai",
+      "name_th": "ร้านเจ๊ไฝ",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Phra Nakhon",
+      "district_zh": "Banglamphu 老城区",
+      "address": "327 Maha Chai Rd, Samran Rat, Phra Nakhon, Bangkok 10200",
+      "lat": 13.7522,
+      "lng": 100.5047,
+      "duration_hr": 2.0,
+      "best_time": [
+        "evening"
+      ],
+      "price_thb": 1500,
+      "price_level": "¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "戴滑雪镜炒锅的米其林一星街边传奇。",
+      "long_desc": "Jay Fai 是曼谷最难订的街边店，老板娘「痣姐」七十多岁戴着滑雪镜在门口炒菜已经三十多年，2018 年拿下米其林一星至今年年蝉联。招牌蟹肉欧姆蛋（Crab Omelette）1000 铢一份——整整 200 克新鲜蟹肉裹在金黄蛋皮里，外焦内嫩；海鲜冬阴功 600 铢、干咖喱炒蟹肉（Drunken Crab）1200 铢也是必点。现场不接受预订，早 9:00 店门口就开始排号，傍晚 6 点营业后排 2-3 小时起跳。Netflix《街头美食》播出后更是每天爆满。Google 评 4.4/5，两极分化：「一辈子吃过最好的欧姆蛋」对「街边价格吃出星级店价」。",
+      "tips": [
+        "早 9:00 门口领号最稳，否则要干等 3 小时",
+        "现金 only，一桌消费至少 1500-2000 铢起",
+        "周日周一休息，周三至周六开到凌晨 2 点",
+        "坐 Grab/出租车直达，无 BTS/MRT 附近"
+      ],
+      "tags": [
+        "米其林",
+        "街边传奇",
+        "必打卡"
+      ],
+      "xhs_keyword": "曼谷jay fai痣姐",
+      "color": "#C94A3B",
+      "icon": "🦀",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-052",
+      "name_zh": "Krua Apsorn 阿婆泰菜",
+      "name_en": "Krua Apsorn",
+      "name_th": "ครัวอัปษร",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Dusit",
+      "district_zh": "Banglamphu 老城区",
+      "address": "503-505 Samsen Rd, Wachirapayaban, Dusit, Bangkok 10300",
+      "lat": 13.7708,
+      "lng": 100.507,
+      "duration_hr": 1.5,
+      "best_time": [
+        "lunch",
+        "evening"
+      ],
+      "price_thb": 600,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "皇室御厨传人开的家常泰菜，连续米其林必比登。",
+      "long_desc": "Krua Apsorn 由皇室御厨家族传人 Daranee 阿婆 2005 年创办，菜单改编自泰皇室家宴菜谱，连续多年拿下米其林必比登推荐。招牌：蟹肉炒蛋（Crab Meat with Yellow Curry）450 铢，蛋液里满是虎掌蟹拆肉；炸鱼配芒果沙拉（Catfish with Green Mango Salad）350 铢外酥里嫩；虾酱炒空心菜 180 铢也是神来之笔。环境就是普通老店但座无虚席，12:00-13:00 午市和 18:30 后晚市要排 30 分钟。Google 评 4.5/5，当地白领和老饕的食堂。",
+      "tips": [
+        "Samsen Road 本店环境最地道，Sukhumvit Ratchadamri 分店更新",
+        "避开 12:30-13:30 和 19:00-20:30 高峰",
+        "现金+银联卡均可，人均 500-700 铢吃很好",
+        "蟹肉炒蛋必点，配香米饭才正宗"
+      ],
+      "tags": [
+        "米其林必比登",
+        "皇家菜",
+        "本地人推荐"
+      ],
+      "xhs_keyword": "曼谷krua apsorn",
+      "color": "#D9A441",
+      "icon": "🍛",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-053",
+      "name_zh": "Jeh O Chula 妈妈面火锅",
+      "name_en": "Jeh O Chula",
+      "name_th": "เจ๊โอว จุฬา",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Pathum Wan",
+      "district_zh": "朱拉大学周边",
+      "address": "113 Soi Charat Mueang, Rong Mueang, Pathum Wan, Bangkok 10330",
+      "lat": 13.7413,
+      "lng": 100.528,
+      "duration_hr": 1.5,
+      "best_time": [
+        "night"
+      ],
+      "price_thb": 600,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "凌晨排 3 小时的妈妈面海鲜火锅，米其林必比登。",
+      "long_desc": "Jeh O 只在晚上开门（17:00-次日 01:00），招牌妈妈面冬阴功（Mama Tom Yum）必须点——900 铢一大锅，里面装满大虾、猪肉碎、鱿鱼、煎蛋、猪血和一整包脆爽的 Mama 方便面，酸辣到冒汗。配菜推荐咸蛋黄炸软壳蟹 400 铢、猪脑咖喱 350 铢，连续多年米其林必比登。20:30 后才是高峰，需要在店门口扫码取号，平均等 2-3 小时，周五周六排 4 小时不夸张。中国游客经常 23:00 去等到凌晨 1 点开吃。Google 评 4.5/5，「锅底惊艳但排队时间劝退」。",
+      "tips": [
+        "17:00 开门直接去排第一轮最划算",
+        "提前用 QueQ App 线上取号可省 1 小时",
+        "人均 500-700 铢，现金最稳",
+        "周日休息，周一-周六营业"
+      ],
+      "tags": [
+        "米其林必比登",
+        "深夜必去",
+        "排队传奇"
+      ],
+      "xhs_keyword": "曼谷jeh o妈妈面",
+      "color": "#8B2635",
+      "icon": "🍜",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-054",
+      "name_zh": "Soei 苏伊泰菜",
+      "name_en": "Soei Restaurant",
+      "name_th": "ร้านเสย",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Bang Sue",
+      "district_zh": "Bang Sue 老社区",
+      "address": "1 Soi Tani, Pracha Rat Sai 1 Rd, Bang Sue, Bangkok 10800",
+      "lat": 13.8138,
+      "lng": 100.5345,
+      "duration_hr": 1.5,
+      "best_time": [
+        "lunch",
+        "evening"
+      ],
+      "price_thb": 500,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "本地老饕藏的鱼鲜泰菜，米其林必比登常客。",
+      "long_desc": "Soei 是藏在 Bang Sue 居民区里的本地人食堂，门面普通但多年拿下米其林必比登。主打渔港直送的杂鱼料理，招牌是「炸鱼杂煮酸辣汤」（Tom Som Pla）380 铢——用十几种小鱼熬汤，酸中带甜；鱼肚沙拉（Yum Plakapong）280 铢、椰浆咖喱炸鱼 320 铢也是必点。店面只有 10 几张桌子，11:30 开门到 14:00 午市，18:00 再开到 22:00。本地人中午多，没太多游客，氛围原生态。人均 400-600 铢吃饱。Google 评 4.6/5。",
+      "tips": [
+        "远离市中心，建议 Grab 打车去，打车费另算",
+        "下午 14:00 关门休息，晚餐 18:00 再开",
+        "强烈推荐 Tom Som Pla 招牌汤",
+        "英文菜单不全，可用翻译软件点"
+      ],
+      "tags": [
+        "米其林必比登",
+        "本地老饕",
+        "鱼鲜"
+      ],
+      "xhs_keyword": "曼谷soei泰菜",
+      "color": "#4A6B8A",
+      "icon": "🐟",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-055",
+      "name_zh": "Soul Food Mahanakorn",
+      "name_en": "Soul Food Mahanakorn",
+      "name_th": "โซล ฟู้ด มหานคร",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Watthana",
+      "district_zh": "Thonglor",
+      "address": "56/10 Thonglor Soi 55, Khlong Tan Nuea, Watthana, Bangkok 10110",
+      "lat": 13.7374,
+      "lng": 100.5792,
+      "duration_hr": 1.5,
+      "best_time": [
+        "evening"
+      ],
+      "price_thb": 700,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "复古小酒馆风的东北菜，手工鸡尾酒出圈。",
+      "long_desc": "Soul Food Mahanakorn 是美籍作家 Jarrett Wrisley 2010 年开的，把泰国东北伊善菜放在纽约式小酒馆里，环境昏黄木质拥挤又温馨。招牌：伊善烤鸡（Gai Yang）380 铢配青木瓜沙拉、烤牛肉沙拉（Nuea Yang Nam Tok）420 铢、糯米饭搭自制辣酱不限量。手工鸡尾酒 300-380 铢也是特色，调酒师会用南姜、香茅做基酒。Thonglor BTS 步行 8 分钟，晚 19:00-21:00 客满，周五周六建议提前 3 天电话订位。人均 700-900 铢。Google 评 4.4/5。",
+      "tips": [
+        "提前 2-3 天电话订位（尤其周末）",
+        "试试南姜香茅鸡尾酒，配东北菜绝妙",
+        "BTS Thonglor 1 号出口步行 8 分钟",
+        "晚 22:00 打烊，点菜别太晚"
+      ],
+      "tags": [
+        "伊善菜",
+        "小酒馆",
+        "鸡尾酒"
+      ],
+      "xhs_keyword": "曼谷soul food",
+      "color": "#6B4423",
+      "icon": "🍹",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-056",
+      "name_zh": "Saneh Jaan 传统泰菜",
+      "name_en": "Saneh Jaan",
+      "name_th": "เสน่ห์จันทน์",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Pathum Wan",
+      "district_zh": "Ploenchit",
+      "address": "Glasshouse at Sindhorn, 130-132 Wireless Rd, Lumphini, Pathum Wan, Bangkok 10330",
+      "lat": 13.7416,
+      "lng": 100.5458,
+      "duration_hr": 2.0,
+      "best_time": [
+        "evening"
+      ],
+      "price_thb": 2800,
+      "price_level": "¥¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "米其林一星传统泰菜，考究的皇室经典。",
+      "long_desc": "Saneh Jaan 由 Chef Prin 执掌，专注「濒危」的传统泰菜——那些因为工序繁琐逐渐消失的古法菜谱，米其林一星连续多年。招牌 Tasting Menu 2800 铢 8 道，包括 Miang Kham（槟榔叶小食）、手打咖喱 Massaman 配牛颊肉、椰香河虾丸汤；零点牛脸颊红咖喱约 850 铢。环境是殖民风玻璃温室，店内古董餐具和银器讲究到每一道菜配不同的盘子。一定要提前一周在官网订位，午市 Tasting Set 1500 铢更划算。Google 评 4.6/5。",
+      "tips": [
+        "必须官网提前 7 天订位，晚上一位难求",
+        "午市 Tasting Set 1500 铢性价比高",
+        "有 Dress code：smart casual 不穿拖鞋短裤",
+        "BTS Phloen Chit 步行 10 分钟，Sindhorn Village 内"
+      ],
+      "tags": [
+        "米其林一星",
+        "皇室菜",
+        "Fine Dining"
+      ],
+      "xhs_keyword": "曼谷saneh jaan",
+      "color": "#2E5A4A",
+      "icon": "🥂",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-057",
+      "name_zh": "Le Du 新派泰菜",
+      "name_en": "Le Du",
+      "name_th": "ฤดู",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Bang Rak",
+      "district_zh": "Silom",
+      "address": "399/3 Silom Soi 7, Silom, Bang Rak, Bangkok 10500",
+      "lat": 13.7272,
+      "lng": 100.5306,
+      "duration_hr": 2.5,
+      "best_time": [
+        "evening"
+      ],
+      "price_thb": 3800,
+      "price_level": "¥¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "亚洲 50 最佳第一名，本土食材新派泰菜。",
+      "long_desc": "Le Du 由 Chef Ton 2013 年创办，2023 年获「亚洲 50 最佳餐厅」冠军，连续多年米其林一星。「Le Du」泰语意为季节，菜单按四季换，用 100% 泰国本土食材做现代料理。Tasting Menu 4/6 道 2890/3890 铢，必吃 Khao Tang Nha Tang（酥炸米饼配虾肉蘸酱）、烟熏河虾配黑米粥、椰奶冰淇淋配红咖喱酱。空间只有 40 座位，暖灯木调低奢风，12 个月前都被订满。Silom 5 号巷子里，BTS Chong Nonsi 步行 8 分钟。Google 评 4.6/5。",
+      "tips": [
+        "必须至少提前 1-2 个月官网订位",
+        "Tasting Set 不含酒，配酒 Pairing +2500 铢",
+        "BTS Chong Nonsi 2 号出口步行 8 分钟",
+        "Smart casual 着装，男士建议长裤"
+      ],
+      "tags": [
+        "亚洲50最佳",
+        "米其林",
+        "新派泰菜"
+      ],
+      "xhs_keyword": "曼谷le du",
+      "color": "#1F3A3D",
+      "icon": "🍷",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-058",
+      "name_zh": "Sorn 南部泰菜",
+      "name_en": "Sorn",
+      "name_th": "ศรณ์",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Khlong Toei",
+      "district_zh": "Sukhumvit 26",
+      "address": "56 Soi Sukhumvit 26, Khlong Tan, Khlong Toei, Bangkok 10110",
+      "lat": 13.7231,
+      "lng": 100.5685,
+      "duration_hr": 2.5,
+      "best_time": [
+        "lunch",
+        "evening"
+      ],
+      "price_thb": 5500,
+      "price_level": "¥¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "泰国首家米其林三星，纯正南部菜。",
+      "long_desc": "Sorn 由 Chef Ice 2018 年创办，2024 年成为泰国第一家米其林三星餐厅，专做泰国南部（安达曼海沿岸）菜系。食材执念到极致：每天直送的南部海鲜、古法酱料、手作虾酱。Chef's Table Menu 约 5500 铢 15 道，招牌包括 Kua Kling 南部干咖喱猪肉、蟹肉黄咖喱、手工酸肠、椰肉炒饭。用餐时长 2.5 小时，只有 20 个座位。订位系统每月 1 日开放下月订位，2 分钟抢光。老宅改造的泰式别墅环境，BTS Phrom Phong 步行 10 分钟。Google 评 4.8/5，被誉「吃一次值一辈子」。",
+      "tips": [
+        "每月 1 日 10:00 官网抢下月位，手慢无",
+        "强烈建议配酒 Pairing，南部菜辣度偏高",
+        "BTS Phrom Phong 步行 10 分钟",
+        "正式便装，拍照不禁止但低调"
+      ],
+      "tags": [
+        "米其林三星",
+        "南部菜",
+        "难订"
+      ],
+      "xhs_keyword": "曼谷sorn三星",
+      "color": "#7B1E1E",
+      "icon": "🌶",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-059",
+      "name_zh": "Nahm 传奇泰菜",
+      "name_en": "Nahm",
+      "name_th": "น้ำ",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Sathon",
+      "district_zh": "Sathorn",
+      "address": "COMO Metropolitan Bangkok, 27 S Sathon Rd, Thung Maha Mek, Sathon, Bangkok 10120",
+      "lat": 13.7235,
+      "lng": 100.5336,
+      "duration_hr": 2.5,
+      "best_time": [
+        "evening"
+      ],
+      "price_thb": 3500,
+      "price_level": "¥¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "COMO Metropolitan 殿堂级泰菜，近十年米其林。",
+      "long_desc": "Nahm 位于 COMO Metropolitan Bangkok 酒店一层，Chef David Thompson 2010 年从伦敦搬来曼谷，2018 年起由泰籍女厨 Pim Techamuanvivit 接手，近十年米其林星级常客，号称「让泰国人重新认识泰菜」。Tasting Menu 3500 铢，会有咖喱 Massaman 牛肉、虾膏炒米粉、古法打抛肉等经典。COMO 酒店 2025 年 5-7 月装修期间 Nahm 仍正常营业，8 月起酒店分阶段重开。酒店泳池景餐厅，正式礼服氛围。MRT Lumphini 步行 5 分钟。Google 评 4.5/5。",
+      "tips": [
+        "建议提前 1-2 周官网订位",
+        "午市 Set Menu 1500 铢起，性价比更高",
+        "MRT Lumphini 2 号出口步行 5 分钟",
+        "Smart Elegant Dress Code"
+      ],
+      "tags": [
+        "米其林",
+        "殿堂级",
+        "泰菜经典"
+      ],
+      "xhs_keyword": "曼谷nahm",
+      "color": "#2C4A5C",
+      "icon": "🍽",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-060",
+      "name_zh": "Issaya Siamese Club",
+      "name_en": "Issaya Siamese Club",
+      "name_th": "อิษยา สยามมิสคลับ",
+      "category": "restaurant",
+      "category_label": "餐厅",
+      "district": "Sathon",
+      "district_zh": "Sathorn",
+      "address": "4 Soi Sri Aksorn, Chua Ploeng Rd, Thung Maha Mek, Sathon, Bangkok 10120",
+      "lat": 13.7181,
+      "lng": 100.5418,
+      "duration_hr": 2.5,
+      "best_time": [
+        "evening"
+      ],
+      "price_thb": 2000,
+      "price_level": "¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "百年花园别墅里的现代泰菜，拍照氛围拉满。",
+      "long_desc": "Issaya Siamese Club 由泰国名厨 Ian Kittichai 2011 年创办，开在一栋 1925 年建的泰式殖民风别墅里，三面环绕热带花园，露台和室内沙发都是出片位。招牌 Massaman 羊腿 1200 铢（软烂入味）、波罗蜜沙拉 450 铢、椰子泡沫芒果糯米饭 380 铢。人均 1800-2500 铢，比 Le Du/Sorn 便宜但仪式感不输。18:00-20:00 晚餐需订位，周末必订。有自家烹饪学校 Issaya Cooking Studio 可预约上烹饪课。MRT Khlong Toei 步行 10 分钟或 Grab 直达。Google 评 4.5/5，「环境 10 分食物 8 分」。",
+      "tips": [
+        "提前 2-3 天订位，指定花园露台位",
+        "17:30-18:30 黄金时段拍外景",
+        "Grab 直达最方便，巷子里别墅位置偏",
+        "可加 1800 铢换 Tasting Menu 6 道"
+      ],
+      "tags": [
+        "老别墅",
+        "Fine Dining",
+        "出片"
+      ],
+      "xhs_keyword": "曼谷issaya",
+      "color": "#C17A45",
+      "icon": "🌺",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-061",
+      "name_zh": "Thip Samai 月光泰式炒河",
+      "name_en": "Thip Samai Pad Thai",
+      "name_th": "ทิพย์สมัย",
+      "category": "streetfood",
+      "category_label": "街边小吃",
+      "district": "Phra Nakhon",
+      "district_zh": "Banglamphu 老城区",
+      "address": "313 Maha Chai Rd, Samran Rat, Phra Nakhon, Bangkok 10200",
+      "lat": 13.7525,
+      "lng": 100.5047,
+      "duration_hr": 1.0,
+      "best_time": [
+        "evening",
+        "night"
+      ],
+      "price_thb": 120,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "70 年历史 Pad Thai 天花板，蛋皮包炒河粉。",
+      "long_desc": "Thip Samai 1966 年开业，炉火连烧 60 多年没停过，公认曼谷最好的泰式炒河店，靠一口柴火大锅炒出锅气。招牌「月光 Pad Thai」（Pad Thai Superb）160 铢——炒河粉用蛋皮完整包成枕头状上桌，切开蛋液流出；普通虾仁 Pad Thai 90 铢、橙汁（Orange Juice）100 铢是店内另一传奇，现榨不兑水。傍晚 17:00 开门，18:30-20:30 门口排 40 分钟起。Jay Fai 斜对面，可连打卡。Google 评 4.3/5，「排队值不值看心情，但味道确实老牌稳定」。",
+      "tips": [
+        "17:00 开门直接去最不用等",
+        "月光版 160 铢必点，普通版 Pad Thai 不如它",
+        "店内只收现金，不支持银联",
+        "和 Jay Fai 斜对面，可连续打卡"
+      ],
+      "tags": [
+        "Pad Thai",
+        "70 年老店",
+        "排队"
+      ],
+      "xhs_keyword": "曼谷thip samai",
+      "color": "#E8A628",
+      "icon": "🍜",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-062",
+      "name_zh": "Wattana Panich 牛肉汤",
+      "name_en": "Wattana Panich",
+      "name_th": "วัฒนา พานิช",
+      "category": "streetfood",
+      "category_label": "街边小吃",
+      "district": "Watthana",
+      "district_zh": "Ekkamai",
+      "address": "338 40-41 Ekkamai Rd, Phra Khanong Nuea, Watthana, Bangkok 10110",
+      "lat": 13.7248,
+      "lng": 100.5852,
+      "duration_hr": 1.0,
+      "best_time": [
+        "lunch",
+        "evening"
+      ],
+      "price_thb": 120,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "50 年不熄火的祖传牛肉老汤，Netflix 同款。",
+      "long_desc": "Wattana Panich 是 Ekkamai 上的老字号潮汕式牛肉汤店，老板每天把前一天剩下的汤底留一部分继续加料炖煮，汤锅「永不熄火」已经 50 多年——这就是 Netflix《街头美食》第一季开篇那口大锅。招牌牛肉面 120 铢配牛肚/牛筋/牛腱，汤底黑褐色浓得像老卤；炖山羊肉（Goat Stew）180 铢也是隐藏菜单。8:30 开门到 19:30，中午 12:00-13:00 最挤但翻桌快。BTS Ekkamai 4 号出口步行 15 分钟，建议 Grab 直达。Google 评 4.4/5，「汤底值得一尝，但位置和卫生对游客来说一般」。",
+      "tips": [
+        "Grab 打车去最方便，BTS 走过去太远",
+        "一定要点牛杂拼盘版，120 铢超值",
+        "19:30 就打烊，晚到没得吃",
+        "现金 only，人均 150 铢吃饱"
+      ],
+      "tags": [
+        "50 年老汤",
+        "Netflix",
+        "牛肉面"
+      ],
+      "xhs_keyword": "曼谷wattana panich",
+      "color": "#5D2E1F",
+      "icon": "🥣",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-063",
+      "name_zh": "Polo Fried Chicken 炸鸡",
+      "name_en": "Polo Fried Chicken",
+      "name_th": "ไก่ทอดเจ๊กี",
+      "category": "streetfood",
+      "category_label": "街边小吃",
+      "district": "Pathum Wan",
+      "district_zh": "Lumpini",
+      "address": "137/1-3 Soi Sanam Khli, Lumphini, Pathum Wan, Bangkok 10330",
+      "lat": 13.7314,
+      "lng": 100.544,
+      "duration_hr": 1.0,
+      "best_time": [
+        "lunch",
+        "evening"
+      ],
+      "price_thb": 150,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "米其林必比登脆炸鸡，炸蒜碎是灵魂。",
+      "long_desc": "Polo Fried Chicken（又名 Gai Tord Jay Kee）藏在 Lumpini 公园旁 Soi Sanam Khli 小巷，连续 5 年拿米其林必比登。招牌伊善式炸鸡（Gai Tord）半只 180 铢、整只 320 铢，外皮酥到掉渣里面还多汁，精华是撒在上面的一大把金黄炸蒜粒——吃到最后用勺子挖蒜吃。配糯米饭 25 铢、青木瓜沙拉 80 铢、冬阴功汤 120 铢都是绝配。11:00-21:00 营业，12:00-13:30 白领午餐排 15-20 分钟。MRT Lumphini 3 号出口步行 10 分钟。Google 评 4.4/5。",
+      "tips": [
+        "必点炸鸡半只 + 糯米饭 + 青木瓜沙拉三件套",
+        "炸蒜碎要求多加，最多可免费再给一份",
+        "MRT Lumphini 步行 10 分钟，巷子里要找找",
+        "人均 200-300 铢吃撑"
+      ],
+      "tags": [
+        "米其林必比登",
+        "炸鸡",
+        "本地午餐"
+      ],
+      "xhs_keyword": "曼谷polo炸鸡",
+      "color": "#D4821F",
+      "icon": "🍗",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-064",
+      "name_zh": "Ann Guay Tiew Kua Gai 炒河",
+      "name_en": "Ann Guay Tiew Kua Gai",
+      "name_th": "แอน ก๋วยเตี๋ยวคั่วไก่",
+      "category": "streetfood",
+      "category_label": "街边小吃",
+      "district": "Pom Prap Sattru Phai",
+      "district_zh": "唐人街",
+      "address": "419 Luang Rd, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100",
+      "lat": 13.7436,
+      "lng": 100.5114,
+      "duration_hr": 0.8,
+      "best_time": [
+        "night"
+      ],
+      "price_thb": 80,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "唐人街深夜炭炒鸡肉河粉摊，锅气爆棚。",
+      "long_desc": "Ann Guay Tiew Kua Gai 是唐人街深夜炒河粉代表，专做一道菜：Guay Tiew Kua Gai（炭炒鸡肉河粉）80 铢——炭火把宽河粉炒到焦香，盖上半熟蛋和鸡肉丝，淋辣椒醋吃。老板娘一人守一口锅，一份份炒每次只能炒 2 份。16:00 开到 23:00，21:00 后夜市人流起排 30-40 分钟。店址 Yaowarat 唐人街主街旁巷子里，同一条街还有 T&K 海鲜、Ounalom 甜品店。MRT Wat Mangkon 步行 5 分钟。Google 评 4.4/5，「简单粗暴但就是好吃」。",
+      "tips": [
+        "MRT Wat Mangkon 1 号出口步行 5 分钟",
+        "80 铢加蛋 90 铢，性价比炸裂",
+        "21:00 后夜市最热闹也排最久",
+        "搭配同街 T&K 海鲜一起打卡"
+      ],
+      "tags": [
+        "唐人街",
+        "深夜",
+        "炭炒"
+      ],
+      "xhs_keyword": "曼谷唐人街炒河粉",
+      "color": "#B33333",
+      "icon": "🔥",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-065",
+      "name_zh": "Boon Tong Kiat 海南鸡饭",
+      "name_en": "Boon Tong Kiat Singapore Chicken Rice",
+      "name_th": "บุญทองเกียรติ",
+      "category": "streetfood",
+      "category_label": "街边小吃",
+      "district": "Watthana",
+      "district_zh": "Sukhumvit/Thonglor",
+      "address": "440/5 Thonglor Soi 16, Khlong Tan Nuea, Watthana, Bangkok 10110",
+      "lat": 13.7388,
+      "lng": 100.5816,
+      "duration_hr": 1.0,
+      "best_time": [
+        "lunch",
+        "evening"
+      ],
+      "price_thb": 150,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "新加坡风海南鸡饭，鸡油饭香到爆炸。",
+      "long_desc": "Boon Tong Kiat 在 Thonglor 开了 20 多年，走新加坡路线的海南鸡饭——鸡油饭用鸡汤和鸡油一起焖，自带油亮琥珀色。招牌套餐：蒸鸡饭 140 铢配辣椒蒜蓉酱、黑酱油、姜蓉三种蘸料；烧鸡饭 160 铢、半鸡拼盘 260 铢。菜单还有新加坡风咖喱叻沙、肉骨茶。店面干净简洁白底红字，11:00-22:00，午晚餐有 10 分钟排队但翻桌快。BTS Thonglor 2 号出口步行 3 分钟。Google 评 4.3/5，「不输新加坡天天海南鸡饭」。",
+      "tips": [
+        "BTS Thonglor 出口步行 3 分钟很方便",
+        "蒸鸡+烧鸡拼盘 260 铢两种风味都吃到",
+        "辣椒蒜蓉酱必蘸，自行要求可再加",
+        "人均 180-250 铢吃饱"
+      ],
+      "tags": [
+        "海南鸡饭",
+        "新加坡",
+        "平价"
+      ],
+      "xhs_keyword": "曼谷boon tong kiat",
+      "color": "#E8B923",
+      "icon": "🍚",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-066",
+      "name_zh": "Mont Nomsod 牛奶吐司",
+      "name_en": "Mont Nomsod",
+      "name_th": "มนต์นมสด",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Phra Nakhon",
+      "district_zh": "Banglamphu 老城区",
+      "address": "160/2-3 Dinso Rd, Sao Chingcha, Phra Nakhon, Bangkok 10200",
+      "lat": 13.7513,
+      "lng": 100.5013,
+      "duration_hr": 1.0,
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "price_thb": 150,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "1964 年老字号烤吐司+鲜牛奶，曼谷人童年。",
+      "long_desc": "Mont Nomsod 1964 年创立，是曼谷国民级牛奶+烤吐司老店，复古霓虹招牌和深色木桌没改过样。招牌：黄油炼乳烤吐司 45 铢、巧克力酱吐司 50 铢、泰式奶茶冰沙 65 铢、玻璃瓶鲜牛奶 40 铢（要趁冰喝）。面包是自家每日烘焙，厚切 4cm 外脆内软。Banglamphu Dinso Road 总店最地道，BTS/MRT 都不近要 Grab 或 tuk-tuk。本店 14:00-23:00 营业，周末晚 21:00 后最热闹。另在 Siam Square、EmQuartier 等商场有分店。Google 评 4.3/5。",
+      "tips": [
+        "总店最有老味道，Grab 直达最方便",
+        "吐司+炼乳+玻璃瓶牛奶三件套必点",
+        "商场分店人多但风味比总店弱",
+        "现金 only 人均 100 铢吃饱"
+      ],
+      "tags": [
+        "60 年老店",
+        "吐司",
+        "本地童年"
+      ],
+      "xhs_keyword": "曼谷mont nomsod",
+      "color": "#E8D07A",
+      "icon": "🍞",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-067",
+      "name_zh": "Patom Organic Living",
+      "name_en": "Patom Organic Living",
+      "name_th": "ปฐม ออร์แกนิค",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Watthana",
+      "district_zh": "Phrom Phong",
+      "address": "9, 2 Soi Phrom Chit, Khlong Tan Nuea, Watthana, Bangkok 10110",
+      "lat": 13.7365,
+      "lng": 100.57,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 250,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "玻璃花房里的有机咖啡，拍照天花板。",
+      "long_desc": "Patom Organic Living 是泰国有机品牌 Patom 的曼谷旗舰，开在 Phrom Phong 住宅区里一栋透明玻璃房，四周全是香蕉树和棕榈植物，阳光洒下来全是绿意——小红书热门出片点。主打有机咖啡和健康轻食：冷萃 150 铢、椰子冰拿铁 180 铢、藜麦碗 280 铢、有机面包配本地蜂蜜 200 铢。店内同时卖有机护肤品牌 Patom 的香皂精油。09:30-18:00 营业，周末 11:00-14:00 等位 20 分钟。BTS Phrom Phong 步行 15 分钟，建议 Grab。Google 评 4.5/5。",
+      "tips": [
+        "Grab 直达最方便，步行路绕",
+        "10:30-11:30 光线最好出片",
+        "平日去人少，周末 11:00 前去坐花房位",
+        "有机香皂礼盒可带回家当伴手礼"
+      ],
+      "tags": [
+        "玻璃花房",
+        "有机",
+        "出片"
+      ],
+      "xhs_keyword": "曼谷patom玻璃屋",
+      "color": "#7FA86B",
+      "icon": "🌿",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-068",
+      "name_zh": "Gallery Drip Coffee",
+      "name_en": "Gallery Drip Coffee",
+      "name_th": "แกลเลอรี่ ดริป",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Pathum Wan",
+      "district_zh": "BACC 艺术中心",
+      "address": "BACC 1F, 939 Rama I Rd, Wang Mai, Pathum Wan, Bangkok 10330",
+      "lat": 13.7466,
+      "lng": 100.5306,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 180,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "曼谷手冲咖啡先驱，BACC 艺术中心一层。",
+      "long_desc": "Gallery Drip Coffee 2012 年开在 BACC 艺术中心一层，曼谷最早一批精品手冲咖啡店。两位老板 Nara 和 Piyachart 都是摄影师，店内挂满他们和艺术家朋友的作品。主打单一产地手冲：埃塞俄比亚耶加雪菲 160 铢、哥伦比亚水洗 170 铢、泰国清莱本土豆 150 铢，用 V60 和爱乐压慢慢滴滤，咖啡师会讲豆子故事。冰黑咖 120 铢、手冲 Flight（3 款小杯）350 铢。10:30-19:00 营业。BTS National Stadium 3 号出口直连 BACC。Google 评 4.6/5，「咖啡不踩雷，氛围像艺术客厅」。",
+      "tips": [
+        "BTS National Stadium 3 号出口直达 BACC 1F",
+        "手冲 Flight 一次喝 3 款是入门好选择",
+        "周一休息（跟 BACC 同）",
+        "可顺路看 BACC 免费当代艺术展"
+      ],
+      "tags": [
+        "手冲",
+        "艺术",
+        "先驱"
+      ],
+      "xhs_keyword": "曼谷gallery drip",
+      "color": "#3B3024",
+      "icon": "☕",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-069",
+      "name_zh": "Nana Coffee Roasters Bangna",
+      "name_en": "Nana Coffee Roasters",
+      "name_th": "นานา คอฟฟี่",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Bang Na",
+      "district_zh": "Bangna 郊区",
+      "address": "27 Soi Lasalle 56, Bang Na Tai, Bang Na, Bangkok 10260",
+      "lat": 13.6683,
+      "lng": 100.642,
+      "duration_hr": 2.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 280,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "CNN 评全球最美咖啡店之一，花园热带风。",
+      "long_desc": "Nana Coffee Roasters Bangna 2022 年开业，CNN 和 Conde Nast Traveler 评为「全球最美咖啡店」之一。占地 6 亩的热带花园，主建筑是树屋风玻璃亭子，周围种满百年凤凰树，池塘锦鲤游动——小红书爆火的曼谷打卡点。招牌冷萃 220 铢、橙香冰拿铁 260 铢、手冲单品 280-380 铢、自家烘焙咖啡豆一包 750 铢。轻食有三明治和蛋糕。08:00-17:00 营业，周末 10:00-15:00 爆满等位 1 小时。远在 Bangna 郊区，从市中心 Grab 要 40-50 分钟，100-180 铢车费。Google 评 4.7/5，「颜值碾压一切，咖啡本身也不差」。",
+      "tips": [
+        "从市中心 Grab 40-50 分钟，来回交通费预算 300+ 铢",
+        "工作日早 9:00 去人最少、光线最好",
+        "周末一定要 08:00 门口等开门",
+        "和 Dream World 可连续打卡，都在 Bangna 方向"
+      ],
+      "tags": [
+        "CNN",
+        "花园",
+        "网红"
+      ],
+      "xhs_keyword": "曼谷nana咖啡",
+      "color": "#4A7A54",
+      "icon": "🌳",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-070",
+      "name_zh": "Rocket Coffeebar S.12",
+      "name_en": "Rocket Coffeebar S.12",
+      "name_th": "ร็อคเก็ต คอฟฟี่บาร์",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Sathon",
+      "district_zh": "Sathorn",
+      "address": "147 Sathorn Soi 12, Silom, Bang Rak, Bangkok 10500",
+      "lat": 13.7232,
+      "lng": 100.5268,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning"
+      ],
+      "price_thb": 280,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "Sathorn 白领早餐圣地，北欧风 All-day Brunch。",
+      "long_desc": "Rocket Coffeebar 2014 年由瑞典人 Pär Hörnell 创办，北欧极简风灰白调，Sathorn 总店 S.12 是本店。主打早午餐：烟熏三文鱼贝果 320 铢、松饼配浆果 280 铢、Avocado Toast 250 铢；咖啡有自家烘焙 Flat White 130 铢、拿铁 140 铢。07:00 就开门，周一至五 07:30-10:00 全是赶早咖啡的欧美白领。周末 09:00-12:00 爆满。BTS Chong Nonsi 步行 10 分钟，MRT Lumphini 步行 12 分钟。Google 评 4.5/5。另在 Ekkamai、Charoen Krung 有分店。",
+      "tips": [
+        "07:30 开门直接去最悠闲",
+        "松饼分量大，两人点一份够吃",
+        "BTS Chong Nonsi 步行 10 分钟",
+        "分店 Charoen Krung 店更有工业风"
+      ],
+      "tags": [
+        "北欧风",
+        "Brunch",
+        "白领"
+      ],
+      "xhs_keyword": "曼谷rocket咖啡",
+      "color": "#A3988B",
+      "icon": "🥐",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-071",
+      "name_zh": "Brave Roasters",
+      "name_en": "Brave Roasters",
+      "name_th": "เบรฟ โรสเตอร์",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Bang Rak",
+      "district_zh": "Saladaeng",
+      "address": "The Commons Saladaeng, 126 Sala Daeng Rd, Silom, Bang Rak, Bangkok 10500",
+      "lat": 13.7253,
+      "lng": 100.5388,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 200,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "工业风本土精品咖啡，泰国豆推手。",
+      "long_desc": "Brave Roasters 是曼谷本土烘焙咖啡品牌，店面走工业风水泥地+黑色金属吧台。店主 Chatree 是泰国本土咖啡豆推广人，主打泰北清莱、清迈 Doi Chaang 豆。招牌「Nitro Cold Brew」180 铢、清莱本土 Espresso 120 铢、燕麦奶拿铁 170 铢。手冲单品 200-280 铢 3 种冲法可选。自家烘焙豆零售 500 铢/250g。位于 The Commons Saladaeng 市集，07:30-18:00。BTS Sala Daeng 2 号出口步行 5 分钟。Google 评 4.5/5。",
+      "tips": [
+        "BTS Sala Daeng 步行 5 分钟，The Commons 里",
+        "氮气冷萃 Nitro 必试，口感像咖啡版 Guinness",
+        "本土豆礼盒 500 铢/包当伴手礼好选择",
+        "The Commons 里还有其他餐厅可连着吃饭"
+      ],
+      "tags": [
+        "工业风",
+        "本土豆",
+        "精品"
+      ],
+      "xhs_keyword": "曼谷brave roasters",
+      "color": "#2B2B2B",
+      "icon": "⚙",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-072",
+      "name_zh": "Wallflowers Café 干花咖啡",
+      "name_en": "Wallflowers Café",
+      "name_th": "วอลล์ฟลาวเวอร์ส",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Samphanthawong",
+      "district_zh": "唐人街",
+      "address": "31-33 Maha Chak Rd, Chakkrawat, Samphanthawong, Bangkok 10100",
+      "lat": 13.7455,
+      "lng": 100.506,
+      "duration_hr": 1.5,
+      "best_time": [
+        "afternoon"
+      ],
+      "price_thb": 250,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "唐人街顶天花板干花咖啡，出片王。",
+      "long_desc": "Wallflowers Café 藏在唐人街老巷子里一栋白色小楼，推开窄门上二楼豁然开朗：2 层挑高大空间，天花板倒挂 2000 多株风干玫瑰、绣球、尤加利，墙面是花店+咖啡馆。招牌「花园拿铁」220 铢、玫瑰冷萃 240 铢、自制玫瑰千层蛋糕 280 铢。店主本身是花艺师，一层是花店二层才是咖啡区。11:00-20:00 营业，14:00-17:00 下午茶档 35 分钟等位。MRT Wat Mangkon 4 号出口步行 3 分钟。Google 评 4.5/5，「出片非常出片，咖啡本身 80 分」。",
+      "tips": [
+        "MRT Wat Mangkon 出口步行 3 分钟",
+        "二楼靠窗花架位是最佳出片点",
+        "平日下午 15:00 后人最少",
+        "可顺逛 ATT 19 古董店就在附近"
+      ],
+      "tags": [
+        "干花",
+        "唐人街",
+        "出片"
+      ],
+      "xhs_keyword": "曼谷wallflowers",
+      "color": "#B8826B",
+      "icon": "🌹",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-073",
+      "name_zh": "Karmakamet Diner 香氛餐厅",
+      "name_en": "Karmakamet Diner",
+      "name_th": "กรรมะเกศ ไดเนอร์",
+      "category": "cafe",
+      "category_label": "咖啡甜品",
+      "district": "Khlong Toei",
+      "district_zh": "Sukhumvit 24",
+      "address": "30/1 Sukhumvit Soi 24, Khlong Tan, Khlong Toei, Bangkok 10110",
+      "lat": 13.7275,
+      "lng": 100.57,
+      "duration_hr": 2.0,
+      "best_time": [
+        "afternoon"
+      ],
+      "price_thb": 500,
+      "price_level": "¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "泰国香氛品牌跨界餐厅，药房风文艺范。",
+      "long_desc": "Karmakamet Diner 是泰国知名香氛品牌 Karmakamet 开的跨界餐厅，整店复古药房风：木架子上摆满玻璃瓶装干花草药精油，每走一步都是淡淡精油香。主打 All-day Brunch +欧陆菜：蘑菇烩饭 420 铢、香草烤鸡胸 480 铢、自制提拉米苏 260 铢、玫瑰拿铁 190 铢。下午茶 Set（2 人）980 铢包括 12 种点心+饮料，性价比高。店内香氛产品可购买，精油 350 铢起。10:00-22:00。BTS Phrom Phong 5 号出口步行 8 分钟。Google 评 4.4/5。",
+      "tips": [
+        "BTS Phrom Phong 步行 8 分钟",
+        "下午茶 Set 性价比最高，2 人分",
+        "店内香氛可带回家当伴手礼",
+        "玫瑰拿铁+提拉米苏是网红组合"
+      ],
+      "tags": [
+        "香氛",
+        "药房风",
+        "下午茶"
+      ],
+      "xhs_keyword": "曼谷karmakamet",
+      "color": "#7A5C4D",
+      "icon": "🌸",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-074",
+      "name_zh": "Warehouse 30 创意园",
+      "name_en": "Warehouse 30",
+      "name_th": "เวเวอร์เฮาส์ 30",
+      "category": "art",
+      "category_label": "文艺馆所",
+      "district": "Bang Rak",
+      "district_zh": "Charoen Krung 河畔",
+      "address": "48 Charoen Krung 30 Alley, Bang Rak, Bangkok 10500",
+      "lat": 13.7278,
+      "lng": 100.5147,
+      "duration_hr": 2.0,
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "price_thb": 0,
+      "price_level": "免费",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "二战仓库改造的创意园区，艺术设计集合地。",
+      "long_desc": "Warehouse 30 是曼谷建筑师 Duangrit Bunnag 把 7 栋二战遗留的锯齿屋顶仓库改造成的创意园，2017 年开放，位于 Charoen Krung 30 巷子里。里面汇集本土设计品牌、独立书店、古着店、咖啡馆、画廊：Casa Pagoda 家具店、Jai Design 本土服装、The Coffee Bureau 精品咖啡、Cyan Gallery 当代艺术。入园免费，除了特定画廊展有时收 100-200 铢门票。11:00-20:00 营业，周末下午最热闹。可步行到 Asiatique 河畔夜市或 The Jam Factory。BTS Saphan Taksin 2 号出口步行 12 分钟。Google 评 4.3/5，「文艺青年必打卡，但商品比较贵」。",
+      "tips": [
+        "入园免费，单独商店价格偏小众",
+        "BTS Saphan Taksin 步行 12 分钟",
+        "傍晚 17:00 后光线柔和出片",
+        "和 Talat Noi/Charoen Krung 艺术区连打卡"
+      ],
+      "tags": [
+        "创意园",
+        "二战仓库",
+        "免费"
+      ],
+      "xhs_keyword": "曼谷warehouse 30",
+      "color": "#8B7355",
+      "icon": "🏭",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-075",
+      "name_zh": "ATT 19 古董设计店",
+      "name_en": "ATT 19",
+      "name_th": "เอทีที 19",
+      "category": "art",
+      "category_label": "文艺馆所",
+      "district": "Pom Prap Sattru Phai",
+      "district_zh": "Talat Noi 老街区",
+      "address": "19 Soi Nana, Pom Prap, Pom Prap Sattru Phai, Bangkok 10100",
+      "lat": 13.7395,
+      "lng": 100.5131,
+      "duration_hr": 1.5,
+      "best_time": [
+        "afternoon"
+      ],
+      "price_thb": 0,
+      "price_level": "免费",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "老宅改造的全球古董设计集合店，拍照圣地。",
+      "long_desc": "ATT 19 开在 Talat Noi/Soi Nana 老社区一栋 100 多年的华人老宅里，店主走遍全球收集 19 至 20 世纪的古董家具、灯具、瓷器和艺术品。3 层楼空间，一层展欧洲古董椅和吊灯，二层是亚洲瓷器铜器，三层是当代艺术。产品价格从 2000 铢小摆件到几十万铢古董柜都有，但就算不买进去逛也是必打卡：黄铜吊灯、老挂毯、复古沙发各种出片角落。12:00-19:00，周二休。MRT Hua Lamphong 步行 10 分钟或 Wat Mangkon 步行 8 分钟。Google 评 4.6/5。",
+      "tips": [
+        "周二休息记得错开",
+        "MRT Hua Lamphong 步行 10 分钟",
+        "小物件如黄铜书签 2000 铢左右可买带走",
+        "搭 Talat Noi 壁画+Wallflowers 咖啡连打卡"
+      ],
+      "tags": [
+        "古董",
+        "老宅",
+        "出片"
+      ],
+      "xhs_keyword": "曼谷att19",
+      "color": "#4A3929",
+      "icon": "🕰",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-076",
+      "name_zh": "Bangkok CityCity Gallery",
+      "name_en": "Bangkok CityCity Gallery",
+      "name_th": "ซิตี้ซิตี้ แกลเลอรี่",
+      "category": "art",
+      "category_label": "文艺馆所",
+      "district": "Sathon",
+      "district_zh": "Sathorn",
+      "address": "13/3 Sathorn Soi 1, Thung Maha Mek, Sathon, Bangkok 10120",
+      "lat": 13.7225,
+      "lng": 100.5345,
+      "duration_hr": 1.0,
+      "best_time": [
+        "afternoon"
+      ],
+      "price_thb": 0,
+      "price_level": "免费",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "Sathorn 顶级当代艺术画廊，免费观展。",
+      "long_desc": "Bangkok CityCity Gallery 2014 年开设，由策展人 Supamas 和 Akapol 夫妇经营，是曼谷最活跃的独立当代艺术画廊之一，曾代理 Korakrit Arunanondchai、Wantanee Siripattananuntakul 等国际级泰国艺术家。展厅约 200 平方米极简白盒空间，年均 6-8 场展览涉及影像、装置、绘画。免费参观，展品均不标价（收藏需预约）。13:00-19:00 开放，周日周一休。MRT Lumphini 2 号出口步行 8 分钟。对当代艺术感兴趣的人必来，和 MOCA 气质不同——这里更年轻更实验。Google 评 4.5/5。",
+      "tips": [
+        "免费入馆，周日周一休",
+        "MRT Lumphini 2 号出口步行 8 分钟",
+        "每次展览不同，去前上 Instagram 查最新展",
+        "展期闭馆期间可能空置，提前确认"
+      ],
+      "tags": [
+        "当代艺术",
+        "画廊",
+        "免费"
+      ],
+      "xhs_keyword": "曼谷citycity画廊",
+      "color": "#E8E6E3",
+      "icon": "🖼",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-077",
+      "name_zh": "W District 夜市",
+      "name_en": "W District",
+      "name_th": "ดับบลิว ดิสตริค",
+      "category": "hidden",
+      "category_label": "小众私藏",
+      "district": "Watthana",
+      "district_zh": "Phra Khanong",
+      "address": "69-70 Sukhumvit 69/3, Phra Khanong Nuea, Watthana, Bangkok 10110",
+      "lat": 13.7128,
+      "lng": 100.5944,
+      "duration_hr": 2.0,
+      "best_time": [
+        "evening",
+        "night"
+      ],
+      "price_thb": 200,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "Phra Khanong 本地年轻人夜市，没有游客。",
+      "long_desc": "W District 是开在 Phra Khanong 住宅区里的小型夜市+集装箱园区，2016 年开业，没什么游客全是本地 20-30 岁年轻人。30 多个集装箱改造的小摊：泰式烤串 60 铢、寿司卷 120 铢、手工精酿 150 铢、夜宵妈妈面 80 铢、霓虹灯照片墙。另有露天酒吧、涂鸦墙和小舞台不定期有 Live 演出。17:00-24:00 营业，周五周六最热闹。BTS Phra Khanong 1 号出口步行 5 分钟。人均 200-350 铢吃喝一顿。比考山路安静、比 Asiatique 本土，适合想看真实曼谷夜生活的人。Google 评 4.2/5。",
+      "tips": [
+        "BTS Phra Khanong 出口步行 5 分钟",
+        "周五周六晚 20:00 后最热闹",
+        "带现金为主，小摊多数不收卡",
+        "不是游客区，英语服务有限但食物价格实在"
+      ],
+      "tags": [
+        "本地夜市",
+        "无游客",
+        "集装箱"
+      ],
+      "xhs_keyword": "曼谷w district",
+      "color": "#D946EF",
+      "icon": "🌃",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-078",
+      "name_zh": "Banglamphu 老社区漫步",
+      "name_en": "Banglamphu Old Neighborhood",
+      "name_th": "บางลำพู",
+      "category": "hidden",
+      "category_label": "小众私藏",
+      "district": "Phra Nakhon",
+      "district_zh": "Banglamphu 老城区",
+      "address": "Phra Athit Rd, Chana Songkhram, Phra Nakhon, Bangkok 10200",
+      "lat": 13.7612,
+      "lng": 100.4956,
+      "duration_hr": 2.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 0,
+      "price_level": "免费",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "考山路外侧老曼谷社区，河畔木屋和老店。",
+      "long_desc": "Banglamphu 是曼谷开埠就有的老城区，藏在考山路背后的 Phra Athit 码头一带——游客都去考山路，但拐个弯就是安静的河畔老社区。推荐路线：从 Phra Sumen Fort（曼谷仅存的两座古城堡之一）出发，沿 Phra Athit Road 走，左边是湄南河码头有老榕树和小教堂，右边是 19 世纪殖民风老民居改造的咖啡馆和小书店（如 Passport Books、The Bookshop）。拐进 Soi Rambuttri 有 20 多家本地小吃摊，芒果糯米饭 80 铢、冰凉饮 60 铢。可接卧佛寺、金山寺一起走。免费漫步，08:00-18:00 光线最好。Google 评 4.4/5。",
+      "tips": [
+        "从 Phra Athit 码头进最顺路",
+        "避开下午 12:00-15:00 暴晒时段",
+        "搭配 Thip Samai/Jay Fai 晚餐打卡",
+        "骑行/步行最适合，tuk-tuk 容易迷路"
+      ],
+      "tags": [
+        "老社区",
+        "步行",
+        "免费"
+      ],
+      "xhs_keyword": "曼谷banglamphu",
+      "color": "#8AA88F",
+      "icon": "🚶",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-079",
+      "name_zh": "Dream World 梦幻世界",
+      "name_en": "Dream World",
+      "name_th": "ดรีมเวิลด์",
+      "category": "family",
+      "category_label": "亲子乐园",
+      "district": "Pathum Thani",
+      "district_zh": "Pathum Thani 郊区",
+      "address": "62 Moo 1, Rangsit-Ongkharak Rd, Bueng Yi Tho, Thanyaburi, Pathum Thani 12130",
+      "lat": 14.0636,
+      "lng": 100.7093,
+      "duration_hr": 6.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 1200,
+      "price_level": "¥¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "曼谷迪士尼平替，家庭带娃必去。",
+      "long_desc": "Dream World 1993 年开业，被称「泰国迪士尼」，占地 24 亩分 4 大主题区：Dream World Plaza（城堡街道）、Dream Gardens（花园）、Fantasy Land（童话乐园）、Adventure Land（刺激过山车）。必玩项目：Sky Coaster 过山车、Hurricane 旋转船、Snow Town 雪屋（泰国唯一下雪室内）、水上滑道 Super Splash。一票 One-Day Pass 官网 1200 铢含所有项目+自助餐。10:00-17:00 营业，工作日人少，周六日排大项目 30 分钟。从市中心出租车 40-50 分钟约 400 铢，或 BTS Mo Chit 转小巴 60 分钟 50 铢。适合带 5-12 岁小朋友整天玩。Google 评 4.3/5，「比迪士尼老旧但便宜一半」。",
+      "tips": [
+        "官网订票 1200 铢含自助午餐，现场买 1500 铢",
+        "工作日去比周末快 1 小时",
+        "从市中心 Grab 单程 400 铢，建议订一日往返",
+        "Snow Town 雪屋孩子爱但要带外套"
+      ],
+      "tags": [
+        "亲子",
+        "主题乐园",
+        "迪士尼平替"
+      ],
+      "xhs_keyword": "曼谷dream world",
+      "color": "#E63946",
+      "icon": "🎢",
+      "thumb_url": ""
+    },
+    {
+      "id": "bkk-080",
+      "name_zh": "儿童探索博物馆",
+      "name_en": "Children's Discovery Museum",
+      "name_th": "พิพิธภัณฑ์เด็ก",
+      "category": "family",
+      "category_label": "亲子乐园",
+      "district": "Chatuchak",
+      "district_zh": "Chatuchak 恰图恰",
+      "address": "Queen Sirikit Park, Kamphaeng Phet 4 Rd, Chatuchak, Bangkok 10900",
+      "lat": 13.8107,
+      "lng": 100.5537,
+      "duration_hr": 3.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_thb": 0,
+      "price_level": "免费",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "恰图恰旁免费儿童博物馆，3 层互动科普。",
+      "long_desc": "Bangkok Children's Discovery Museum 位于 Queen Sirikit Park 皇后公园内，紧邻恰图恰周末市集，2015 年重装开放，3 层互动式科普博物馆，完全免费。一层「奇迹星球」（Wonder Planet）有恐龙化石挖掘坑、地震模拟器；二层「成长发展」（Imagination Playground）模拟消防员、医生、建筑师职业体验；三层「城市小天地」小型城镇让孩子开卡车、逛超市。户外还有 Water Play 戏水区（带换洗衣服）。10:00-16:00，周一闭馆。恰图恰市集隔壁，MRT Kamphaeng Phet 3 号出口步行 5 分钟。适合 3-10 岁。Google 评 4.4/5。",
+      "tips": [
+        "完全免费，周一休馆",
+        "MRT Kamphaeng Phet 步行 5 分钟",
+        "带换洗衣服可玩户外戏水区",
+        "和恰图恰市集顺逛一天搞定"
+      ],
+      "tags": [
+        "免费",
+        "儿童",
+        "互动"
+      ],
+      "xhs_keyword": "曼谷儿童博物馆",
+      "color": "#F4A261",
+      "icon": "🧸",
+      "thumb_url": ""
     }
   ]
 }
