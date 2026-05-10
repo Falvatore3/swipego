@@ -2,3 +2,7 @@ data/browse.html
 browse.html
 pois_original deleted
 assets/pois_original/
+
+# wrangler 本地依赖（包含 100MB+ workerd 二进制，不能进 GitHub）
+cf-worker/node_modules/
+cf-worker/.wrangler/

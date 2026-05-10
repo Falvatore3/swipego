@@ -1136,6 +1136,316 @@ function PoiDetail({poi,onClose}){
   );
 }
 
+/* ---------- STEP 2.5: 预处理（超量时才进，让用户增删替换） ---------- */
+function StepPreCheck({intake, liked, maybe, allPois, onDone}){
+  const [items,setItems] = useState(()=>liked.slice()); // 当前 liked
+  const [maybes,setMaybes] = useState(()=>maybe.slice()); // 当前 maybe
+  const [replaceFor,setReplaceFor] = useState(null); // {poi, mode:'same'|'free'}
+  const [adding,setAdding] = useState(false);
+
+  const paceUpper = intake.pace === 'chill' ? 4 : (intake.pace === 'intense' ? 8 : 6);
+  const upper = paceUpper * intake.days;
+  const overflow = items.length - upper;
+
+  // 按品类分组
+  const groups = useMemo(()=>{
+    const g = {};
+    items.forEach(p=>{
+      const k = p.category || 'other';
+      if(!g[k]) g[k] = [];
+      g[k].push(p);
+    });
+    // 排序：地标优先 → 食 → 其他
+    const order = ['landmark','restaurant','streetfood','market','mall','cafe','nightlife','spa','art','family','hidden'];
+    return Object.entries(g).sort((a,b)=>{
+      const ia = order.indexOf(a[0]); const ib = order.indexOf(b[0]);
+      return (ia<0?99:ia) - (ib<0?99:ib);
+    });
+  }, [items]);
+
+  const removeItem = (id)=>setItems(prev=>prev.filter(p=>p.id!==id));
+  const promoteMaybe = (poi)=>{
+    setMaybes(prev=>prev.filter(p=>p.id!==poi.id));
+    setItems(prev=>prev.find(p=>p.id===poi.id) ? prev : [...prev,poi]);
+  };
+  const removeMaybe = (id)=>setMaybes(prev=>prev.filter(p=>p.id!==id));
+
+  const doReplace = (oldPoi, newPoi)=>{
+    setItems(prev=>prev.map(p=>p.id===oldPoi.id ? newPoi : p));
+    setReplaceFor(null);
+  };
+  const doAdd = (poi)=>{
+    setItems(prev=>prev.find(p=>p.id===poi.id) ? prev : [...prev,poi]);
+    setMaybes(prev=>prev.filter(p=>p.id!==poi.id)); // 如果是 maybe 升级，从 maybe 移走
+  };
+
+  // 已选/maybe 的 id 集合，添加抽屉里要排除掉
+  const selectedIds = new Set([...items.map(p=>p.id)]);
+
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-4 pb-32">
+      <div className="mb-4">
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-1">// 03 PRE-CHECK</div>
+        <h2 className="font-serif text-2xl font-bold">确认你的清单</h2>
+        <p className="text-xs text-muted mt-1.5">同类放一起，方便对比和取舍。删掉不想去的，或换成更想去的。</p>
+      </div>
+
+      {/* 摘要 */}
+      <div className={`rounded-2xl p-4 mb-4 border-2 ${overflow>0?'bg-[#FFF3E0] border-accent':'bg-paper border-line'}`}>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="font-serif text-lg font-bold">{items.length} <span className="text-sm font-normal text-muted">个想去 · {intake.days} 天</span></div>
+            <div className="font-mono text-[11px] text-muted mt-1">建议总量：{upper} 个（每天 ≈ {paceUpper}）</div>
+          </div>
+          {overflow>0 ? (
+            <div className="text-right">
+              <div className="text-accent font-bold text-lg">⚠️ 超 {overflow} 个</div>
+              <div className="font-mono text-[10px] text-muted">建议砍到 {upper}</div>
+            </div>
+          ) : overflow===0 ? (
+            <div className="text-[#0F3D2E] font-mono text-xs font-bold">✅ 刚好</div>
+          ) : (
+            <div className="text-muted font-mono text-xs">还能加 {-overflow} 个</div>
+          )}
+        </div>
+      </div>
+
+      {/* 按品类分组 */}
+      {groups.map(([cat,arr])=>{
+        const meta = CAT_META[cat] || {label:cat, icon:'📍'};
+        return (
+          <div key={cat} className="mb-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-base">{meta.icon}</span>
+              <span className="font-serif font-bold text-sm">{meta.label}</span>
+              <span className="font-mono text-[11px] text-muted">{arr.length}</span>
+            </div>
+            <div className="space-y-2">
+              {arr.map(p=>(
+                <div key={p.id} className="bg-cream rounded-xl border border-line p-3 flex gap-3 items-center">
+                  <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden" style={{background:p.color||'#0F3D2E'}}>
+                    {p.cover_url
+                      ? <img src={p.cover_url} className="w-full h-full object-cover" loading="lazy"/>
+                      : <div className="w-full h-full grid place-items-center text-xl text-white/95">{p.icon||meta.icon}</div>}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-serif font-bold text-sm truncate">{p.name_zh}</div>
+                    <div className="text-[11px] text-muted truncate">{p.district_zh||p.district} · {p.duration_hr}h</div>
+                  </div>
+                  <button onClick={()=>setReplaceFor({poi:p, mode:'same'})}
+                    className="font-mono text-[10px] px-2.5 py-1.5 rounded-md bg-paper border border-line text-ink shrink-0">🔁 换</button>
+                  <button onClick={()=>removeItem(p.id)}
+                    className="font-mono text-[10px] px-2.5 py-1.5 rounded-md bg-paper border border-line text-muted shrink-0">🗑</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
+      {items.length===0 && (
+        <div className="py-10 text-center text-muted text-sm">空了，加点东西吧 ↓</div>
+      )}
+
+      {/* 添加按钮 */}
+      <button onClick={()=>setAdding(true)}
+        className="w-full py-3 rounded-xl border-2 border-dashed border-line text-muted text-sm hover:bg-paper">+ 添加更多 POI</button>
+
+      {/* Maybe 区 */}
+      {maybes.length>0 && (
+        <div className="mt-6 p-4 bg-paper border border-dashed border-line rounded-2xl">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className="font-serif font-bold text-sm">⏳ 待定区</div>
+              <div className="font-mono text-[10px] text-muted">{maybes.length} 个你下滑了的，可一键升级</div>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            {maybes.map(p=>{
+              const meta = CAT_META[p.category]||{icon:'📍',label:p.category};
+              return (
+                <div key={p.id} className="flex items-center gap-2 bg-cream rounded-lg px-3 py-2">
+                  <span className="text-sm shrink-0">{meta.icon}</span>
+                  <span className="text-[13px] font-serif font-bold flex-1 truncate">{p.name_zh}</span>
+                  <button onClick={()=>promoteMaybe(p)}
+                    className="font-mono text-[10px] px-2 py-1 rounded-md bg-accent text-white">↑ 加进去</button>
+                  <button onClick={()=>removeMaybe(p.id)}
+                    className="font-mono text-[10px] px-2 py-1 rounded-md text-muted">🗑</button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* 底部固定下一步 */}
+      <div className="fixed bottom-0 left-0 right-0 bg-cream border-t border-line p-3" style={{paddingBottom:'calc(env(safe-area-inset-bottom,0) + 12px)'}}>
+        <div className="max-w-xl mx-auto flex items-center gap-3">
+          <div className="flex-1 text-xs">
+            <div className="font-serif font-bold">{items.length} 个 · {intake.days} 天</div>
+            {overflow>0 && <div className="text-accent font-mono text-[10px]">建议再砍 {overflow} 个</div>}
+          </div>
+          <button onClick={()=>onDone(items, maybes)}
+            disabled={items.length===0}
+            className="px-6 py-3 btn-primary rounded-xl font-serif font-bold text-sm disabled:opacity-40">
+            下一步：生成行程 →
+          </button>
+        </div>
+      </div>
+
+      {/* 替换抽屉 */}
+      {replaceFor && (
+        <ReplaceDrawer
+          old={replaceFor.poi}
+          mode={replaceFor.mode}
+          allPois={allPois}
+          excludeIds={selectedIds}
+          onClose={()=>setReplaceFor(null)}
+          onPick={(newPoi)=>doReplace(replaceFor.poi, newPoi)}
+          onSwitchMode={(m)=>setReplaceFor(prev=>({...prev,mode:m}))}/>
+      )}
+
+      {/* 添加抽屉 */}
+      {adding && (
+        <AddDrawer
+          allPois={allPois}
+          excludeIds={selectedIds}
+          onClose={()=>setAdding(false)}
+          onPick={(p)=>{ doAdd(p); setAdding(false); }}/>
+      )}
+    </div>
+  );
+}
+
+/* ---------- 替换抽屉 ---------- */
+function ReplaceDrawer({old, mode, allPois, excludeIds, onClose, onPick, onSwitchMode}){
+  const meta = CAT_META[old.category]||{icon:'📍',label:old.category};
+  const candidates = useMemo(()=>{
+    let pool = allPois.filter(p => p.id !== old.id && !excludeIds.has(p.id));
+    if(mode === 'same'){
+      pool = pool.filter(p => p.category === old.category);
+    }
+    // 按热度排
+    return pool.sort((a,b)=>(b.popularity||0)-(a.popularity||0)).slice(0,30);
+  }, [old, mode, allPois]);
+
+  return (
+    <div onClick={onClose} style={{position:'fixed',inset:0,background:'rgba(15,61,46,.55)',zIndex:9000,display:'flex',alignItems:'flex-end'}}>
+      <div onClick={e=>e.stopPropagation()}
+        className="bg-cream w-full max-w-xl mx-auto rounded-t-3xl"
+        style={{maxHeight:'82vh',overflowY:'auto',paddingBottom:'env(safe-area-inset-bottom,0)'}}>
+        <div className="sticky top-0 bg-cream border-b border-line p-4 z-10">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-base">{meta.icon}</span>
+            <span className="font-serif font-bold text-sm">替换《{old.name_zh}》</span>
+            <span className="flex-1"/>
+            <button onClick={onClose} className="text-2xl text-muted leading-none">×</button>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={()=>onSwitchMode('same')}
+              className={`flex-1 py-1.5 rounded-md font-mono text-[11px] border ${mode==='same'?'bg-ink text-white border-ink':'bg-paper text-ink border-line'}`}>
+              同类（{meta.label}）
+            </button>
+            <button onClick={()=>onSwitchMode('free')}
+              className={`flex-1 py-1.5 rounded-md font-mono text-[11px] border ${mode==='free'?'bg-ink text-white border-ink':'bg-paper text-ink border-line'}`}>
+              🔧 自由编辑（任意品类）
+            </button>
+          </div>
+        </div>
+        <div className="p-3 space-y-2">
+          {candidates.map(p=>{
+            const m2 = CAT_META[p.category]||{icon:'📍',label:p.category};
+            return (
+              <button key={p.id} onClick={()=>onPick(p)}
+                className="w-full bg-paper rounded-xl border border-line p-3 flex gap-3 items-center text-left hover:bg-white">
+                <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden" style={{background:p.color||'#0F3D2E'}}>
+                  {p.cover_url
+                    ? <img src={p.cover_url} className="w-full h-full object-cover" loading="lazy"/>
+                    : <div className="w-full h-full grid place-items-center text-xl text-white/95">{p.icon||m2.icon}</div>}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-serif font-bold text-sm truncate">{p.name_zh}</div>
+                  <div className="text-[11px] text-muted truncate">
+                    <span className="font-mono">{m2.icon} {m2.label}</span> · {p.district_zh||p.district}
+                    {p.popularity ? <span className="text-accent ml-1.5">🔥{p.popularity}</span> : null}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+          {candidates.length===0 && (
+            <div className="py-10 text-center text-muted text-sm">暂无可替换的（{mode==='same'?'同类没有备选了，试试自由编辑':'已经全选完了'}）</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- 添加抽屉 ---------- */
+function AddDrawer({allPois, excludeIds, onClose, onPick}){
+  const [filter,setFilter] = useState('all');
+  const cats = useMemo(()=>{
+    const set = new Set(allPois.map(p=>p.category));
+    return ['all', ...Array.from(set)];
+  }, [allPois]);
+  const candidates = useMemo(()=>{
+    let pool = allPois.filter(p=>!excludeIds.has(p.id));
+    if(filter !== 'all') pool = pool.filter(p=>p.category===filter);
+    return pool.sort((a,b)=>(b.popularity||0)-(a.popularity||0));
+  }, [allPois, filter]);
+
+  return (
+    <div onClick={onClose} style={{position:'fixed',inset:0,background:'rgba(15,61,46,.55)',zIndex:9000,display:'flex',alignItems:'flex-end'}}>
+      <div onClick={e=>e.stopPropagation()}
+        className="bg-cream w-full max-w-xl mx-auto rounded-t-3xl"
+        style={{maxHeight:'82vh',overflowY:'auto',paddingBottom:'env(safe-area-inset-bottom,0)'}}>
+        <div className="sticky top-0 bg-cream border-b border-line p-4 z-10">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="font-serif font-bold text-sm">➕ 添加 POI</span>
+            <span className="flex-1"/>
+            <button onClick={onClose} className="text-2xl text-muted leading-none">×</button>
+          </div>
+          <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+            {cats.map(c=>{
+              const m = c==='all' ? {icon:'🌐',label:'全部'} : (CAT_META[c]||{icon:'📍',label:c});
+              return (
+                <button key={c} onClick={()=>setFilter(c)}
+                  className={`shrink-0 px-3 py-1.5 rounded-full font-mono text-[11px] border ${filter===c?'bg-ink text-white border-ink':'bg-paper text-ink border-line'}`}>
+                  {m.icon} {m.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <div className="p-3 space-y-2">
+          {candidates.map(p=>{
+            const m2 = CAT_META[p.category]||{icon:'📍',label:p.category};
+            return (
+              <button key={p.id} onClick={()=>onPick(p)}
+                className="w-full bg-paper rounded-xl border border-line p-3 flex gap-3 items-center text-left hover:bg-white">
+                <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden" style={{background:p.color||'#0F3D2E'}}>
+                  {p.cover_url
+                    ? <img src={p.cover_url} className="w-full h-full object-cover" loading="lazy"/>
+                    : <div className="w-full h-full grid place-items-center text-xl text-white/95">{p.icon||m2.icon}</div>}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-serif font-bold text-sm truncate">{p.name_zh}</div>
+                  <div className="text-[11px] text-muted truncate">
+                    <span className="font-mono">{m2.icon} {m2.label}</span> · {p.district_zh||p.district}
+                    {p.popularity ? <span className="text-accent ml-1.5">🔥{p.popularity}</span> : null}
+                  </div>
+                </div>
+                <span className="font-mono text-[11px] text-accent">+ 加</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- STEP 2: 行程清单 ---------- */
 function StepItinerary({intake,liked,maybe,onRestart,allPois}){
   const [loading,setLoading] = useState(true);
@@ -1161,6 +1471,44 @@ function StepItinerary({intake,liked,maybe,onRestart,allPois}){
     } finally {
       setLoading(false);
     }
+  };
+
+  // —— Step 4 编辑能力：删 / 加 / 移到别天 ——
+  const removePoiFromDay = (dayIdx, poiId)=>{
+    if(!confirm('从行程中移除这个景点？')) return;
+    setResult(prev=>{
+      if(!prev) return prev;
+      return {...prev, days: prev.days.map((d,i)=>{
+        if(i!==dayIdx) return d;
+        return {...d, timeline: d.timeline.filter(b => !(b.type==='poi' && b.poi.id===poiId))};
+      })};
+    });
+  };
+  const movePoiToDay = (fromIdx, toIdx, poiId)=>{
+    setResult(prev=>{
+      if(!prev) return prev;
+      let block = null;
+      const days = prev.days.map((d,i)=>{
+        if(i!==fromIdx) return d;
+        return {...d, timeline: d.timeline.filter(b=>{
+          if(b.type==='poi' && b.poi.id===poiId){ block = b; return false; }
+          return true;
+        })};
+      });
+      if(!block) return prev;
+      // 简单插到目标天末尾，时间不重排（用户后续可点 AI 重排）
+      const days2 = days.map((d,i)=> i===toIdx ? {...d, timeline:[...d.timeline, block]} : d);
+      return {...prev, days: days2};
+    });
+  };
+  const [addingTo, setAddingTo] = useState(null); // dayIdx | null
+  const addPoiToDay = (dayIdx, poi)=>{
+    setResult(prev=>{
+      if(!prev) return prev;
+      const block = {type:'poi', poi, start:'12:00', end:'14:00', note:'手动添加 · 点 ↻ AI 重排可优化时间'};
+      return {...prev, days: prev.days.map((d,i)=> i===dayIdx ? {...d, timeline:[...d.timeline, block]} : d)};
+    });
+    setAddingTo(null);
   };
 
   // 用户在抽屉里选了某个餐厅 / 手动添加 / 清除
@@ -1352,7 +1700,11 @@ function StepItinerary({intake,liked,maybe,onRestart,allPois}){
             if(b.type === 'poi'){
               return (
                 <TimelineItem key={i} item={b} checked={!!done[b.poi.id]}
-                  onToggle={()=>setDone(prev=>({...prev,[b.poi.id]:!prev[b.poi.id]}))}/>
+                  onToggle={()=>setDone(prev=>({...prev,[b.poi.id]:!prev[b.poi.id]}))}
+                  onRemove={()=>removePoiFromDay(tab, b.poi.id)}
+                  onMove={(toIdx)=>movePoiToDay(tab, toIdx, b.poi.id)}
+                  totalDays={itinerary.length}
+                  currentDayIdx={tab}/>
               );
             }
             if(b.type === 'meal_placeholder'){
@@ -1364,10 +1716,26 @@ function StepItinerary({intake,liked,maybe,onRestart,allPois}){
             return null;
           })}
           {day && day.timeline.length===0 && (
-            <div className="py-10 text-center text-muted text-sm">这一天 AI 给你留白了 🧘</div>
+            <div className="py-10 text-center text-muted text-sm">这一天空着，可以加点什么 ↓</div>
+          )}
+          {/* + 添加 POI 到这一天 */}
+          {day && (
+            <button onClick={()=>setAddingTo(tab)}
+              className="w-full py-3 ml-10 rounded-xl border-2 border-dashed border-line text-muted text-xs hover:bg-paper">
+              + 加一个 POI 到 Day {tab+1}
+            </button>
           )}
         </div>
       </div>
+
+      {/* Step 4 添加抽屉 */}
+      {addingTo!==null && (
+        <AddDrawer
+          allPois={allPois || []}
+          excludeIds={new Set(itinerary.flatMap(d=>d.timeline.filter(b=>b.type==='poi').map(b=>b.poi.id)))}
+          onClose={()=>setAddingTo(null)}
+          onPick={(p)=>addPoiToDay(addingTo, p)}/>
+      )}
 
       {/* 截图区域结束 */}
       </div>
@@ -1475,9 +1843,10 @@ function ItineraryError({err, onRetry, onBack}){
   );
 }
 
-function TimelineItem({item,checked,onToggle}){
+function TimelineItem({item,checked,onToggle,onRemove,onMove,totalDays,currentDayIdx}){
   const {poi,start,end,note} = item;
   const meta = CAT_META[poi.category];
+  const [menuOpen,setMenuOpen] = useState(false);
   return (
     <div className="relative pl-10">
       <div className="absolute left-[13px] top-4 w-2.5 h-2.5 rounded-full border-2 border-ink bg-cream"/>
@@ -1503,10 +1872,37 @@ function TimelineItem({item,checked,onToggle}){
               <div className={`font-serif font-bold text-sm mt-0.5 truncate ${checked?'line-through text-muted':'text-ink'}`}>{poi.name_zh}</div>
               <div className="text-[11px] text-muted truncate">{poi.district_zh||poi.district}</div>
             </div>
-            <button onClick={onToggle}
-              className={`shrink-0 w-7 h-7 rounded-md border-2 grid place-items-center transition ${checked?'bg-accent border-accent text-white':'border-ink bg-cream hover:bg-paper'}`}>
-              {checked && <span className="tick-in text-sm">✓</span>}
-            </button>
+            <div className="flex flex-col gap-1.5 items-end shrink-0">
+              <button onClick={onToggle}
+                className={`w-7 h-7 rounded-md border-2 grid place-items-center transition ${checked?'bg-accent border-accent text-white':'border-ink bg-cream hover:bg-paper'}`}>
+                {checked && <span className="tick-in text-sm">✓</span>}
+              </button>
+              {/* 编辑菜单 */}
+              <div className="relative">
+                <button onClick={()=>setMenuOpen(o=>!o)}
+                  className="w-7 h-7 rounded-md border border-line text-muted text-sm leading-none">⋯</button>
+                {menuOpen && (
+                  <>
+                    <div onClick={()=>setMenuOpen(false)} style={{position:'fixed',inset:0,zIndex:50}}/>
+                    <div className="absolute right-0 top-8 bg-cream border border-line rounded-lg shadow-lg z-[60] py-1 min-w-[120px]">
+                      {totalDays>1 && Array.from({length:totalDays}).map((_,d)=>{
+                        if(d===currentDayIdx) return null;
+                        return (
+                          <button key={d} onClick={()=>{onMove&&onMove(d);setMenuOpen(false);}}
+                            className="block w-full text-left px-3 py-1.5 text-[12px] hover:bg-paper">
+                            移到 Day {d+1}
+                          </button>
+                        );
+                      })}
+                      <button onClick={()=>{onRemove&&onRemove();setMenuOpen(false);}}
+                        className="block w-full text-left px-3 py-1.5 text-[12px] text-accent hover:bg-paper">
+                        🗑 移除
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </div>
         {/* AI note */}
@@ -1792,7 +2188,7 @@ async function aiBuildItinerary(liked, maybe, intake){
   const paceLabel = intake.pace === 'chill' ? '轻松' : intake.pace === 'intense' ? '高强度' : '标准';
   const paceCount = intake.pace === 'chill' ? '3-4' : intake.pace === 'intense' ? '6-8' : '5-6';
 
-  const user = `用户用 ${intake.days} 天玩曼谷，每天 ${intake.wake || '09:00'} 起床，${paceLabel}强度（每天 ${paceCount} 个 **POI**，不含吃饭）。
+  const user = `用户用 **严格 ${intake.days} 天** 玩曼谷，每天 ${intake.wake || '09:00'} 起床，${paceLabel}强度（每天 ${paceCount} 个 **POI**，不含吃饭）。
 
 ${seasonLine}
 ${rainyTip}
@@ -1800,14 +2196,19 @@ ${rainyTip}
 ${arriveLine}
 ${departLine}
 
-他**右滑想去**了 ${likedSlim.length} 个 POI（**这些是用户亲手挑的，必须全部排进 ${intake.days} 天行程，不允许砍掉任何一个**）：
+他**右滑想去**了 ${likedSlim.length} 个 POI（**这些是用户亲手挑的且已在前置页面确认过数量，必须全部排进去，不允许砍掉任何一个**）：
 ${JSON.stringify(likedSlim, null, 2)}
 
 ${maybeSlim.length>0 ? `他还**下滑待定**了 ${maybeSlim.length} 个，仅在 liked 不够填满时作为补充：
 ${JSON.stringify(maybeSlim, null, 2)}` : ''}
 
+🚨 **铁律（违反 = 输出无效）**：
+- days 数组长度 **必须严格等于 ${intake.days}**，多 1 天少 1 天都不行
+- 上面 ${likedSlim.length} 个 liked POI **每一个都必须出现** 在 days[].items 里
+- items 里 poi_id 总数 **必须等于 ${likedSlim.length}**，禁止重复、禁止增减
+- 每个 POI 在所有天里只出现 1 次
+
 排程要求：
-0. **最重要**：上面 ${likedSlim.length} 个 liked POI **每一个都必须出现**在 days[].items 里，**poi_id 总数 == ${likedSlim.length}**，不能多也不能少（如果 liked 多到一天放不下，可以一天放 5-7 个，强度可以稍微突破上限，宁可一天满一点也要全排上）
 1. 按地理位置就近聚类（用 lat/lng），同一天尽量同区域，避免横跨曼谷
 2. 尊重每个 POI 的 best_time（早上的去早上、傍晚的去傍晚）
 3. 每个时段 24h 制起止时刻（如 "09:30"）
@@ -1829,9 +2230,9 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
    - 具体数字（票价/排队时间/开门时间/历史年份）
    - 具体动作（"右手边台阶上去"/"在 X 出口换乘"）
    ❌ 禁止"记得带相机"、"注意防晒"、"准备好心情"这类废话
-8. 只在 liked POI 数量 < ${intake.days * 3} 时（即一天还排不满 3 个）才从待定清单里挑补充；否则只用 liked
-9. 每个 liked POI 在 items 里**只能出现 1 次**（不要重复）
-10. **poi_id 必须严格使用上方 liked / maybe 数据里的 id 字段原样输出**（如 "bkk-001"，不要写成 "bkk-1" 或 "BKK-001"）
+8. **poi_id 必须严格使用上方 liked / maybe 数据里的 id 字段原样输出**（如 "bkk-001"，不要写成 "bkk-1" 或 "BKK-001"）
+9. 如果 ${likedSlim.length} 个 POI 平摊到 ${intake.days} 天每天超过 ${paceCount} 上限，**强度规则让位于"全排进去"铁律**，宁可一天 7 个也要全排
+10. 反之如果 ${likedSlim.length} 个 POI 不够填满（少于 ${intake.days * 3}），**只补 maybe 不留白**
 
 **严格输出 JSON**（不要 markdown 代码块）：
 {
@@ -1985,12 +2386,25 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
   const liked_not_used = _dbg.liked_ids.filter(id => !used_set.has(id));   // 用户挑了 AI 没排
   const total_poi_in_plan = days.reduce((s,d)=>s + d.timeline.filter(b=>b.type==='poi').length, 0);
   const total_meal_in_plan = days.reduce((s,d)=>s + d.timeline.filter(b=>b.type==='meal_placeholder').length, 0);
+
+  // ===== 天数硬校验 =====
+  // 即使 prompt 说了 N 天，AI 偶尔还是会失控（返回 8 天）；这里硬截断
+  let final_days = days;
+  let day_truncated = false;
+  if(days.length > intake.days){
+    final_days = days.slice(0, intake.days);
+    day_truncated = true;
+    console.warn('[itinerary] AI 返回', days.length, '天，截断到', intake.days, '天');
+  }
+
   dbgPush({
     kind: 'ai_itinerary_parsed',
     intake,
     liked_count: liked.length,
     maybe_count: maybe.length,
     days_returned: (parsed.days||[]).length,
+    days_after_truncate: final_days.length,
+    day_truncated,                                // ★ 是否被截断（说明 AI 没听话）
     ai_returned_poi_count: _dbg.ai_returned_poi_ids.length,
     poi_in_plan_after_parse: total_poi_in_plan,
     meal_in_plan: total_meal_in_plan,
@@ -2003,7 +2417,7 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
     request_user_prompt: user,                   // 完整 prompt（方便对照）
   });
 
-  return { days, overallTip: parsed.overall_tip || '' };
+  return { days: final_days, overallTip: parsed.overall_tip || '' };
 }
 
 
@@ -2029,16 +2443,41 @@ function App(){
   const [step,setStep] = useState(0);
   const [intake,setIntake] = useState(null);
   const [swipeResult,setSwipeResult] = useState(null);
+  // 预处理后的最终 list（如果走预处理）
+  const [finalLiked,setFinalLiked] = useState(null);
+  const [finalMaybe,setFinalMaybe] = useState(null);
 
-  const reset = ()=>{setStep(0); setIntake(null); setSwipeResult(null);};
+  const reset = ()=>{setStep(0); setIntake(null); setSwipeResult(null); setFinalLiked(null); setFinalMaybe(null);};
 
   if(!data) return <><Header step={0} total={3}/><DataPending err={err}/><DebugPanel/></>;
+
+  // 判断是否需要走预处理（超量）：每天上限按 pace 来
+  const paceUpper = (intake?.pace === 'chill') ? 4 : (intake?.pace === 'intense' ? 8 : 6);
+  const dayCount = intake?.days || 3;
+  const upper = paceUpper * dayCount;
+  const needPreCheck = swipeResult && swipeResult.liked.length > upper;
+
+  // 滑卡完成回调：如果超量进 step=2 预处理，否则直接进 step=3 最终行程
+  const onSwipeDone = (r)=>{
+    setSwipeResult(r);
+    const overflow = r.liked.length > (paceUpper * dayCount);
+    if(overflow){
+      setStep(2);
+    } else {
+      setFinalLiked(r.liked); setFinalMaybe(r.maybe);
+      setStep(3);
+    }
+  };
+  const onPreCheckDone = (liked, maybe)=>{
+    setFinalLiked(liked); setFinalMaybe(maybe);
+    setStep(3);
+  };
 
   return (
     <div className="min-h-screen">
       <Header
         step={step+1}
-        total={3}
+        total={needPreCheck ? 4 : 3}
         onBack={step>0?()=>setStep(s=>Math.max(0,s-1)):null}
         right={step===1 ? <span/> : null}/>
 
@@ -2046,10 +2485,23 @@ function App(){
         <StepIntake onDone={(v)=>{setIntake(v); setStep(1);}}/>
       )}
       {step===1 && intake && (
-        <StepSwipe pois={data.pois} onDone={(r)=>{setSwipeResult(r); setStep(2);}}/>
+        <StepSwipe pois={data.pois} onDone={onSwipeDone}/>
       )}
-      {step===2 && swipeResult && (
-        <StepItinerary intake={intake} liked={swipeResult.liked} maybe={swipeResult.maybe} onRestart={reset} allPois={data.pois}/>
+      {step===2 && swipeResult && intake && (
+        <StepPreCheck
+          intake={intake}
+          liked={swipeResult.liked}
+          maybe={swipeResult.maybe}
+          allPois={data.pois}
+          onDone={onPreCheckDone}/>
+      )}
+      {step===3 && intake && finalLiked && (
+        <StepItinerary
+          intake={intake}
+          liked={finalLiked}
+          maybe={finalMaybe || []}
+          onRestart={reset}
+          allPois={data.pois}/>
       )}
       <DebugPanel/>
     </div>
