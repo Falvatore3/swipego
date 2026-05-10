@@ -24,7 +24,11 @@
  *   # 4) 只打印 prompt 不调 API（dry-run，零成本）
  *   node scripts/plan-debug/run.mjs --dry
  *
- *   # 5) 用代理而不是直连 DeepSeek（推荐，避免暴露 key）
+ *   # 5) 用 v2 prompt（含 meal_slots / 强约束 note / 季节机场）
+ *   node scripts/plan-debug/run.mjs --v2
+ *   node scripts/plan-debug/run.mjs --v2 --dry      # 只看 prompt 长啥样
+ *
+ *   # 6) 用代理而不是直连 DeepSeek（推荐，避免暴露 key）
  *   node scripts/plan-debug/run.mjs \
  *     --proxy https://swipego-deepseek-proxy.xxx.workers.dev/v1/chat/completions \
  *     --origin https://falvatore3.github.io
@@ -41,6 +45,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildMessages, slimPoi, SYSTEM_PROMPT } from "./prompt.mjs";
+import { buildMessagesV2, SYSTEM_PROMPT_V2 } from "./prompt-v2.mjs";
+import { fillTimeline } from "./fillTimeline.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -124,10 +130,14 @@ async function main() {
     );
   }
 
-  const { messages, likedSlim, maybeSlim } = buildMessages(fx.intake, liked, maybe);
+  const useV2 = !!args.v2;
+  const { messages, likedSlim, maybeSlim } = useV2
+    ? buildMessagesV2(fx.intake, liked, maybe)
+    : buildMessages(fx.intake, liked, maybe);
 
   // ---- 终端预览 ----
   console.log("─".repeat(60));
+  console.log(`🆚  Prompt 版本: ${useV2 ? 'v2.1（含 meal_slots）' : 'v1（生产中）'}`);
   console.log("📋  Intake:", fx.intake);
   console.log(
     `📥  Liked: ${likedSlim.length} 个 → ${likedSlim.map((p) => p.name).join(", ")}`
@@ -136,7 +146,7 @@ async function main() {
     `📥  Maybe: ${maybeSlim.length} 个 → ${maybeSlim.map((p) => p.name).join(", ") || "(无)"}`
   );
   console.log("─".repeat(60));
-  console.log("🧾  System prompt:\n" + SYSTEM_PROMPT);
+  console.log("🧾  System prompt:\n" + (useV2 ? SYSTEM_PROMPT_V2 : SYSTEM_PROMPT));
   console.log("─".repeat(60));
   console.log("🧾  User prompt 预览（前 800 字）:\n" + messages[1].content.slice(0, 800) + "...\n");
   console.log("─".repeat(60));
@@ -254,19 +264,46 @@ async function main() {
   // ---- 漂亮打印 ----
   console.log(`✅  ${dur}ms · 用量:`, data2.usage || "(未返回 usage)");
   console.log("─".repeat(60));
-  for (const day of plan.days || []) {
-    console.log(`\n📆  Day ${day.day} · ${day.theme || ""}`);
-    if (!day.items || day.items.length === 0) {
-      console.log("   （留白日）");
-      continue;
+
+  if (useV2) {
+    // v2：跑 fillTimeline 把 items + meal_slots 合并按时刻排序后打印
+    const poiMapObj = Object.fromEntries(poiMap);
+    const finalDays = fillTimeline(plan, poiMapObj);
+    for (const day of finalDays) {
+      console.log(`\n📆  Day ${day.day} · ${day.theme}`);
+      if (day.timeline.length === 0) {
+        console.log("   （留白日）");
+        continue;
+      }
+      for (const b of day.timeline) {
+        if (b.type === 'poi') {
+          console.log(`   ${b.start}-${b.end}  🏛  ${b.poi.name_zh}`);
+          if (b.note) console.log(`                💡 ${b.note}`);
+        } else if (b.type === 'meal_placeholder') {
+          const icon = { breakfast: '🥐', lunch: '🍜', dinner: '🍽️', snack: '🍡' }[b.meal_type] || '🍽️';
+          console.log(`   ${b.start}-${b.end}  ${icon}  ${b.meal_type} 餐位  [+ 选餐厅]`);
+          console.log(`                📍 ${b.near_district}`);
+          if (b.ai_hint) console.log(`                💡 ${b.ai_hint}`);
+        }
+      }
     }
-    for (const it of day.items) {
-      const poi = poiMap.get(it.poi_id);
-      const name = poi ? poi.name_zh : `[未知 POI: ${it.poi_id}]`;
-      console.log(`   ${it.start}-${it.end}  ${name}`);
-      if (it.note) console.log(`              💡 ${it.note}`);
+  } else {
+    // v1：保持原打印逻辑
+    for (const day of plan.days || []) {
+      console.log(`\n📆  Day ${day.day} · ${day.theme || ""}`);
+      if (!day.items || day.items.length === 0) {
+        console.log("   （留白日）");
+        continue;
+      }
+      for (const it of day.items) {
+        const poi = poiMap.get(it.poi_id);
+        const name = poi ? poi.name_zh : `[未知 POI: ${it.poi_id}]`;
+        console.log(`   ${it.start}-${it.end}  ${name}`);
+        if (it.note) console.log(`              💡 ${it.note}`);
+      }
     }
   }
+
   if (plan.overall_tip) {
     console.log("\n💡  整体建议:", plan.overall_tip);
   }

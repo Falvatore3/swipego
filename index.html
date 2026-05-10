@@ -108,84 +108,139 @@ const TIME_META = {
   night:{label:'夜间',range:'20-24'},
 };
 
-/* ---------- 智能推荐引擎 ---------- */
-/*
- * 策略：
- *  1) 冷启动：前 8 张优先 popularity ≥ 8 的高分热门，强制每张换品类
- *  2) 自适应：第 9 张起按 score 公式抽：
- *       score = popularity 基础分
- *             + 用户兴趣加成 (该 category 用户右滑越多越加分)
- *             - 近期连发惩罚 (上 3 张里同 category 几张就 -几 × 8)
- *             + 探索奖励 (用户没看过的 category +3)
- *             + 随机抖动 ±2
- *  3) 餐饮独立节奏：每 5 张必塞 1 张吃的（非个性化，固定刚需）
- *  4) 已看过的 POI 不再出现
+/* ---------- 智能推荐引擎（向量相似度版） ----------
+ * 算法：基于内容的推荐（Content-Based Filtering）+ 余弦相似度
+ *
+ * 1) 每个 POI 编码为 19 维特征向量：
+ *    - dim 0-10:  品类 one-hot（11 个品类）
+ *    - dim 11-13: 价格档（low ≤200 / mid 200-800 / high >800）
+ *    - dim 14-18: 时段（morning/noon/afternoon/evening/night，多选则均分）
+ *
+ * 2) 用户向量 = sum(like × 2 + maybe × 1)，每次更新后 L2 归一化
+ *
+ * 3) 评分 = cosine(user, poi) * 12        // 个性化主分（用户喜好越近越高）
+ *         + log2(popularity+1) * 1.5       // 热门基础（log 压缩防垄断）
+ *         - sameInRecent * 6               // 多样性惩罚
+ *         + (seenCount==0 ? 2 : 0)         // 新品类微鼓励
+ *         + jitter(±2)
+ *
+ * 4) 冷启动：用户向量为 0，余弦项为 0，自动退化为 popularity + diversity
+ *
+ * 5) 加权随机：top5 按分数权重随机抽，避免每次都最高分（增加变化感）
  */
-function createRecommender(allPois){
-  const seen = new Set();         // 已抽过的 poi.id
-  const recent = [];              // 最近抽过的 category，最长 5
-  const tasteCount = {};          // category -> 用户右滑次数（用于 exploit）
-  const seenCount = {};           // category -> 已展示次数（用于 explore）
-  let total = 0;                  // 已抽过的卡数
+const REC_CATEGORIES = ['landmark','restaurant','streetfood','cafe','market','mall','nightlife','spa','art','family','hidden'];
+const TIME_SLOTS = ['morning','noon','afternoon','evening','night'];
 
-  // 把"非餐饮"和"餐饮"分开池
+function vectorizePoi(poi){
+  const v = new Array(19).fill(0);
+  // 品类
+  const ci = REC_CATEGORIES.indexOf(poi.category);
+  if(ci >= 0) v[ci] = 1;
+  // 价格
+  const price = poi.price_thb || 0;
+  if(price <= 200) v[11] = 1;
+  else if(price <= 800) v[12] = 1;
+  else v[13] = 1;
+  // 时段（多选均分）
+  const slots = (poi.best_time||[]).filter(t=>TIME_SLOTS.includes(t));
+  if(slots.length){
+    const w = 1/slots.length;
+    slots.forEach(s=>{ v[14+TIME_SLOTS.indexOf(s)] = w; });
+  }
+  return v;
+}
+
+function l2norm(v){
+  let s = 0; for(const x of v) s += x*x;
+  const n = Math.sqrt(s);
+  if(n === 0) return v;
+  return v.map(x=>x/n);
+}
+function cosine(a, b){
+  // 假设 b 已归一化或将原始 dot/norm 算出
+  let dot = 0, na = 0, nb = 0;
+  for(let i=0;i<a.length;i++){
+    dot += a[i]*b[i];
+    na += a[i]*a[i];
+    nb += b[i]*b[i];
+  }
+  if(na===0 || nb===0) return 0;
+  return dot / (Math.sqrt(na)*Math.sqrt(nb));
+}
+
+function createRecommender(allPois){
+  // 预计算每个 POI 的特征向量
+  const poiVec = {};
+  allPois.forEach(p=>{ poiVec[p.id] = vectorizePoi(p); });
+
+  const seen = new Set();
+  const recent = [];               // 最近抽过的 category，最长 5
+  const seenCount = {};
+  const userVec = new Array(19).fill(0);  // 累加，未归一化（cosine 自己处理）
+  let userTouchedCount = 0;        // 用户右滑/下滑过几张（决定是否冷启动）
+  const tasteCount = {};           // 仅用于 stats 调试
+  let total = 0;
+
   const isMeal = (p)=> MEAL_CATS.has(p.category);
 
   const computeScore = (p, opts={})=>{
     const cat = p.category;
     const pop = p.popularity || 5;
-    let score = pop;
+    const isCold = userTouchedCount < 2;  // 用户还没明确表达过偏好
+
+    // 余弦相似度（冷启动时为 0）
+    const sim = isCold ? 0 : cosine(userVec, poiVec[p.id]);
+
+    let score = 0;
+    score += sim * 12;                                // 个性化主分
+    score += Math.log2(pop+1) * 1.5;                  // 热门基础
+    const sameInRecent = recent.filter(c=>c===cat).length;
+    score += -sameInRecent * 6;                       // 多样性
+    const seenN = (seenCount[cat]||0);
+    if(seenN === 0) score += 2;                       // 新品类微鼓励
+    score += (Math.random()-0.5) * 4;                 // 抖动 ±2
 
     if(opts.coldStart){
-      // 冷启动：只看热门，强惩同品类
-      const sameInRecent = recent.filter(c=>c===cat).length;
-      score += -sameInRecent * 12;
-      score += pop >= 8 ? 5 : 0;
-      score += (Math.random()-0.5) * 3;
-      return score;
+      // 冷启动加强：高 pop 额外加分
+      if(pop >= 8) score += 4;
+      score += -sameInRecent * 4;                     // 同品类再罚
     }
-
-    // 用户兴趣（exploit）— 包含餐饮，全部品类都参与个性化
-    const interest = (tasteCount[cat]||0);
-    score += interest * 1.8;
-    // 同品类连发惩罚（diversity）
-    const sameInRecent = recent.filter(c=>c===cat).length;
-    score += -sameInRecent * 8;
-    // 探索奖励：用户没刷过的品类
-    const seenN = (seenCount[cat]||0);
-    if(seenN===0) score += 4;
-    else if(seenN<=2) score += 2;
-    // 随机抖动
-    score += (Math.random()-0.5) * 4;
     return score;
   };
 
-  // 每次记录用户对当前卡的决定（决定影响后续推荐）
   const recordDecision = (poi, verb)=>{
+    const v = poiVec[poi.id];
     if(verb === 'like'){
-      tasteCount[poi.category] = (tasteCount[poi.category]||0) + 2;
+      for(let i=0;i<v.length;i++) userVec[i] += v[i] * 2;
+      userTouchedCount++;
+      tasteCount[poi.category] = (tasteCount[poi.category]||0)+2;
     } else if(verb === 'maybe'){
-      tasteCount[poi.category] = (tasteCount[poi.category]||0) + 1;
+      for(let i=0;i<v.length;i++) userVec[i] += v[i] * 1;
+      userTouchedCount++;
+      tasteCount[poi.category] = (tasteCount[poi.category]||0)+1;
     }
+    // pass 不改变向量（只走 diversity 逻辑）
   };
 
-  // 撤销时回滚
   const undoDecision = (poi, verb)=>{
+    const v = poiVec[poi.id];
     if(verb === 'like'){
-      tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0) - 2);
+      for(let i=0;i<v.length;i++) userVec[i] = Math.max(0, userVec[i] - v[i]*2);
+      userTouchedCount = Math.max(0, userTouchedCount-1);
+      tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0)-2);
     } else if(verb === 'maybe'){
-      tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0) - 1);
+      for(let i=0;i<v.length;i++) userVec[i] = Math.max(0, userVec[i] - v[i]*1);
+      userTouchedCount = Math.max(0, userTouchedCount-1);
+      tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0)-1);
     }
   };
 
   const pickFromPool = (pool, opts)=>{
     if(!pool.length) return null;
-    // 用 score 排序后从前 5 名里加权随机抽（避免每次都最高分）
     const scored = pool.map(p=>({p, s:computeScore(p,opts)}));
     scored.sort((a,b)=>b.s-a.s);
     const topN = scored.slice(0, Math.min(5, scored.length));
-    // 加权随机：分数越高概率越大
-    const weights = topN.map((x,i)=>Math.max(0.2, x.s+10-i*2));
+    const weights = topN.map((x,i)=>Math.max(0.2, x.s+10-i*1.5));
     const sum = weights.reduce((a,b)=>a+b,0);
     let r = Math.random()*sum;
     for(let i=0;i<topN.length;i++){
@@ -198,11 +253,8 @@ function createRecommender(allPois){
   const next = ()=>{
     const remaining = allPois.filter(p=>!seen.has(p.id));
     if(!remaining.length) return null;
-
-    // 全品类自然抽取（餐饮也走偏好策略，无固定节奏）
     let chosen = pickFromPool(remaining, {coldStart: total<8});
     if(!chosen) chosen = remaining[0];
-
     seen.add(chosen.id);
     seenCount[chosen.category] = (seenCount[chosen.category]||0)+1;
     recent.push(chosen.category);
@@ -212,7 +264,6 @@ function createRecommender(allPois){
   };
 
   const peekNext = ()=>{
-    // 不消费、用于卡堆下一张展示——简单返回第一个未看过的
     const remaining = allPois.filter(p=>!seen.has(p.id));
     return remaining[0] || null;
   };
@@ -220,6 +271,7 @@ function createRecommender(allPois){
   const stats = ()=>({
     seen: seen.size,
     total: allPois.length,
+    userVec: [...userVec],
     taste: {...tasteCount},
     seenByCat: {...seenCount},
   });
@@ -1280,24 +1332,62 @@ async function aiBuildItinerary(liked, maybe, intake){
   const likedSlim = liked.map(slim);
   const maybeSlim = maybe.map(slim);
 
-  const sys = "你是资深曼谷旅行规划师，擅长为 J 人型用户生成小时级精确行程。";
-  const user = `用户想用 ${intake.days} 天玩曼谷，每天 09:00 起床，标准强度（每天 5-6 项）。
+  // ---------- Prompt v2.1（含 meal_slots / 强约束 note / 季节 / 打车通勤） ----------
+  // 镜像源：scripts/plan-debug/prompt-v2.mjs。改完同步两边。
+  const sys = `你是资深曼谷旅行规划师，擅长为 J 人型用户生成小时级精确行程。
+你输出的所有时刻已经把"打车通勤时间"计算在内（POI 之间的时刻 gap = 打车时长 + 缓冲）。
+吃饭时段你只负责"留位置"，不要推荐具体餐厅（用户会自己选）。`;
+
+  const isRainy = !intake.season || /雨季/.test(intake.season || '');
+  const seasonLine = `旅行季节：${intake.season || '雨季（5-10 月）'}`;
+  const rainyTip = isRainy ? '⚠️ 雨季每日 14:00-17:00 易雷阵雨，户外景点尽量避开此时段' : '';
+  const arriveLine = intake.arrive_airport
+    ? `首日抵达机场：${intake.arrive_airport}（约 ${intake.arrive_time || '13:00'}），首日只排半天行程`
+    : '';
+  const departLine = intake.depart_airport
+    ? `末日离开机场：${intake.depart_airport}（约 ${intake.depart_time || '20:00'}），末日最后一项必须在登机前 4 小时结束`
+    : '';
+  const paceLabel = intake.pace === 'chill' ? '轻松' : intake.pace === 'intense' ? '高强度' : '标准';
+  const paceCount = intake.pace === 'chill' ? '3-4' : intake.pace === 'intense' ? '6-8' : '5-6';
+
+  const user = `用户用 ${intake.days} 天玩曼谷，每天 ${intake.wake || '09:00'} 起床，${paceLabel}强度（每天 ${paceCount} 项）。
+
+${seasonLine}
+${rainyTip}
+
+${arriveLine}
+${departLine}
 
 他**右滑想去**了 ${likedSlim.length} 个 POI：
 ${JSON.stringify(likedSlim, null, 2)}
 
-${maybeSlim.length>0 ? `他还**下滑待定**了 ${maybeSlim.length} 个，如果想去的不够填满天数可以补充使用：
+${maybeSlim.length>0 ? `他还**下滑待定**了 ${maybeSlim.length} 个，可以补充使用：
 ${JSON.stringify(maybeSlim, null, 2)}` : ''}
 
-要求：
-1. 按地理位置就近聚类（用 lat/lng），同一天尽量同区域
+排程要求：
+1. 按地理位置就近聚类（用 lat/lng），同一天尽量同区域，避免横跨曼谷
 2. 尊重每个 POI 的 best_time（早上的去早上、傍晚的去傍晚）
 3. 每个时段 24h 制起止时刻（如 "09:30"）
-4. 中间留 60-90 分钟用餐（12:00-13:30 / 18:30-20:00 高峰）、20-30 分钟通勤
-5. 每天起一个有"项目管理感、J 人爽点"的 day_theme（短促有力，<= 12 字，可加 emoji）
-6. 每个安排写一句 AI 贴士 note（why this time / what to watch out for / 通勤建议）
-7. 如果想去的 POI 不够填满 ${intake.days} 天，可以从待定清单里挑 1-2 个补充；仍然不够就让那一天为"留白日"，items 为空数组
-8. POI 不要重复出现
+4. **打车通勤估算**（默认交通方式 = 打车）：
+   - 同区域 5-15 分钟
+   - 跨区 20-40 分钟
+   - 早晚高峰（08-10 / 17-19）翻倍估
+   - POI 之间留出"打车时间"作为 gap，不要让两个 POI 时刻紧贴
+5. **吃饭坑位 meal_slots**（重要）：
+   - 每天必须给 2-3 个 meal_slot：早餐可选、**午餐必须、晚餐必须**
+   - 午餐建议 12:00-14:00 之间，时长 60-75 分钟
+   - 晚餐建议 18:30-20:30 之间，时长 75-90 分钟
+   - meal_slot 用 after_poi_id 挂在某个 POI 之后，表示"逛完 X 后吃饭"
+   - 不要推荐具体餐厅，只给 near_district + ai_hint（一句话提示哪类美食/方向）
+   - meal_slot 的 start/end 也要写好，和 POI items 共用一条时间线，不能与 POI 时刻重叠
+6. 每天起一个有"项目管理感、J 人爽点"的 day_theme（短促有力，<= 12 字，可加 emoji）
+7. **note 强约束**：每个 POI 的 note 必须包含至少一项：
+   - 具体数字（票价/排队时间/开门时间/历史年份）
+   - 具体动作（"右手边台阶上去"/"在 X 出口换乘"）
+   ❌ 禁止"记得带相机"、"注意防晒"、"准备好心情"这类废话
+8. 如果想去的 POI 不够填满 ${intake.days} 天，可以从待定清单里挑 1-2 个补充；
+   仍然不够就让那一天为"留白日"，items 为空数组（meal_slots 也为空）
+9. POI 不要重复出现
 
 **严格输出 JSON**（不要 markdown 代码块）：
 {
@@ -1306,11 +1396,14 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
       "day": 1,
       "theme": "老城寺庙暴走 ☀️",
       "items": [
-        {"poi_id":"bkk-001","start":"08:30","end":"11:00","note":"开门即到，避开团客高峰"}
+        {"poi_id":"bkk-001","start":"08:30","end":"11:00","note":"08:30 开门即到，门票 500 铢含玉佛寺，避开 10 点旅行团高峰"}
+      ],
+      "meal_slots": [
+        {"after_poi_id":"bkk-002","type":"lunch","start":"12:30","end":"13:45","near_district":"老城区","ai_hint":"卧佛寺出来推荐 Tha Tien 码头船面或附近 Krua Apsorn"}
       ]
     }
   ],
-  "overall_tip": "整体建议（雨季穿搭/打车/支付等）"
+  "overall_tip": "整体建议（雨季穿搭 / 打车支付 / SIM 卡等）"
 }`;
 
   const headers = {'Content-Type': 'application/json'};
@@ -1341,19 +1434,60 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
   try { parsed = JSON.parse(content); }
   catch(e){ throw new Error('AI 返回的不是 JSON: ' + content.slice(0,150)); }
 
-  // 把 poi_id 还原成完整 POI 对象，方便渲染
+  // 把 items + meal_slots 合并为按时刻排序的 timeline，区分 type
   const poiMap = {};
   [...liked, ...maybe].forEach(p=>poiMap[p.id]=p);
-  const days = (parsed.days||[]).map((d,i)=>({
-    dayIdx: i,
-    theme: d.theme || `Day ${i+1}`,
-    items: (d.items||[]).map(it=>({
-      poi: poiMap[it.poi_id],
-      start: it.start,
-      end: it.end,
-      note: it.note || '',
-    })).filter(it=>it.poi),
-  }));
+
+  const parseHHMM = (s) => {
+    if(!s || typeof s !== 'string') return -1;
+    const m = /^(\d{1,2}):(\d{2})$/.exec(s.trim());
+    return m ? parseInt(m[1],10)*60 + parseInt(m[2],10) : -1;
+  };
+  const validTime = (s) => parseHHMM(s) >= 0;
+
+  const days = (parsed.days||[]).map((d,i)=>{
+    const blocks = [];
+
+    // POI items
+    for(const it of (d.items||[])){
+      const poi = poiMap[it.poi_id];
+      if(!poi) { console.warn('[itinerary] 找不到 poi_id', it.poi_id); continue; }
+      if(!validTime(it.start) || !validTime(it.end)) { console.warn('[itinerary] 时刻非法', it); continue; }
+      blocks.push({
+        type: 'poi',
+        poi,
+        start: it.start,
+        end: it.end,
+        note: it.note || '',
+      });
+    }
+
+    // Meal slots
+    for(const m of (d.meal_slots||[])){
+      if(!validTime(m.start) || !validTime(m.end)) { console.warn('[itinerary] meal 时刻非法', m); continue; }
+      const afterPoi = poiMap[m.after_poi_id];
+      blocks.push({
+        type: 'meal_placeholder',
+        meal_type: m.type || 'lunch',
+        start: m.start,
+        end: m.end,
+        near_district: m.near_district || (afterPoi?.district_zh || afterPoi?.district || ''),
+        near_lat: afterPoi?.lat ?? null,
+        near_lng: afterPoi?.lng ?? null,
+        ai_hint: m.ai_hint || '',
+        after_poi_id: m.after_poi_id || null,
+        user_chosen_poi: null,
+      });
+    }
+
+    blocks.sort((a,b)=>parseHHMM(a.start)-parseHHMM(b.start));
+
+    return {
+      dayIdx: i,
+      theme: d.theme || `Day ${i+1}`,
+      timeline: blocks,
+    };
+  });
   return { days, overallTip: parsed.overall_tip || '' };
 }
 

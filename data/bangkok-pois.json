@@ -49,7 +49,8 @@
       "xhs_keyword": "曼谷大皇宫",
       "color": "#0F3D2E",
       "icon": "🏛",
-      "thumb_url": "./assets/pois/bkk-001.jpg"
+      "thumb_url": "./assets/pois/bkk-001.jpg",
+      "popularity": 10
     },
     {
       "id": "bkk-002",
@@ -96,7 +97,8 @@
       "xhs_keyword": "曼谷卧佛寺",
       "color": "#1A5240",
       "icon": "🛕",
-      "thumb_url": "./assets/pois/bkk-002.jpg"
+      "thumb_url": "./assets/pois/bkk-002.jpg",
+      "popularity": 10
     },
     {
       "id": "bkk-003",
@@ -142,7 +144,8 @@
       "xhs_keyword": "曼谷郑王庙",
       "color": "#26614C",
       "icon": "🏯",
-      "thumb_url": "./assets/pois/bkk-003.jpg"
+      "thumb_url": "./assets/pois/bkk-003.jpg",
+      "popularity": 10
     },
     {
       "id": "bkk-004",
@@ -189,7 +192,8 @@
       "xhs_keyword": "曼谷金山寺",
       "color": "#2F745A",
       "icon": "🕌",
-      "thumb_url": "./assets/pois/bkk-004.jpg"
+      "thumb_url": "./assets/pois/bkk-004.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-005",
@@ -236,7 +240,8 @@
       "xhs_keyword": "曼谷云石寺",
       "color": "#1F4F3D",
       "icon": "🪔",
-      "thumb_url": "./assets/pois/bkk-005.jpg"
+      "thumb_url": "./assets/pois/bkk-005.jpg",
+      "popularity": 5
     },
     {
       "id": "bkk-006",
@@ -283,7 +288,8 @@
       "xhs_keyword": "曼谷金佛寺",
       "color": "#13453A",
       "icon": "⛩",
-      "thumb_url": "https://images.unsplash.com/photo-1554188248-986adbb73be4?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1554188248-986adbb73be4?w=200&q=80&auto=format&fit=crop",
+      "popularity": 6
     },
     {
       "id": "bkk-007",
@@ -331,7 +337,8 @@
       "xhs_keyword": "曼谷四面佛",
       "color": "#0E382B",
       "icon": "📿",
-      "thumb_url": "./assets/pois/bkk-007.jpg"
+      "thumb_url": "./assets/pois/bkk-007.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-008",
@@ -378,7 +385,8 @@
       "xhs_keyword": "曼谷绿色玻璃佛塔",
       "color": "#1B5C45",
       "icon": "🔔",
-      "thumb_url": "./assets/pois/bkk-008.jpg"
+      "thumb_url": "./assets/pois/bkk-008.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-009",
@@ -425,7 +433,8 @@
       "xhs_keyword": "曼谷金汤普森故居",
       "color": "#5C4F7A",
       "icon": "🎨",
-      "thumb_url": "./assets/pois/bkk-009.jpg"
+      "thumb_url": "./assets/pois/bkk-009.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-010",
@@ -471,7 +480,8 @@
       "xhs_keyword": "曼谷BACC艺术中心",
       "color": "#3D4754",
       "icon": "🖼",
-      "thumb_url": "./assets/pois/bkk-010.jpg"
+      "thumb_url": "./assets/pois/bkk-010.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-011",
@@ -517,7 +527,8 @@
       "xhs_keyword": "曼谷MOCA当代艺术馆",
       "color": "#6E5C82",
       "icon": "📷",
-      "thumb_url": "./assets/pois/bkk-011.jpg"
+      "thumb_url": "./assets/pois/bkk-011.jpg",
+      "popularity": 5
     },
     {
       "id": "bkk-012",
@@ -563,7 +574,8 @@
       "xhs_keyword": "曼谷国立博物馆",
       "color": "#4F4368",
       "icon": "🏛",
-      "thumb_url": "./assets/pois/bkk-012.jpg"
+      "thumb_url": "./assets/pois/bkk-012.jpg",
+      "popularity": 4
     },
     {
       "id": "bkk-013",
@@ -610,7 +622,8 @@
       "xhs_keyword": "曼谷廊1919",
       "color": "#7C6494",
       "icon": "🎭",
-      "thumb_url": "./assets/pois/bkk-013.jpg"
+      "thumb_url": "./assets/pois/bkk-013.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-014",
@@ -656,7 +669,8 @@
       "xhs_keyword": "曼谷帕亚泰宫",
       "color": "#564978",
       "icon": "🖌",
-      "thumb_url": "./assets/pois/bkk-014.jpg"
+      "thumb_url": "./assets/pois/bkk-014.jpg",
+      "popularity": 4
     },
     {
       "id": "bkk-015",
@@ -703,7 +717,8 @@
       "xhs_keyword": "曼谷恰图恰周末市集",
       "color": "#7A5C3D",
       "icon": "🛍",
-      "thumb_url": "./assets/pois/bkk-015.jpg"
+      "thumb_url": "./assets/pois/bkk-015.jpg",
+      "popularity": 10
     },
     {
       "id": "bkk-016",
@@ -749,7 +764,8 @@
       "xhs_keyword": "曼谷帕空花市",
       "color": "#946B3D",
       "icon": "🌸",
-      "thumb_url": "./assets/pois/bkk-016.jpg"
+      "thumb_url": "./assets/pois/bkk-016.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-017",
@@ -796,7 +812,8 @@
       "xhs_keyword": "曼谷OrTorKor市集",
       "color": "#8E6A3A",
       "icon": "🥭",
-      "thumb_url": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=200&q=80&auto=format&fit=crop",
+      "popularity": 6
     },
     {
       "id": "bkk-018",
@@ -843,7 +860,8 @@
       "xhs_keyword": "曼谷JoddFairs夜市",
       "color": "#A57940",
       "icon": "🛶",
-      "thumb_url": "https://images.unsplash.com/photo-1559563458-527698bf5295?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1559563458-527698bf5295?w=200&q=80&auto=format&fit=crop",
+      "popularity": 8
     },
     {
       "id": "bkk-019",
@@ -889,7 +907,8 @@
       "xhs_keyword": "曼谷拉玛荣水上市场",
       "color": "#B58A48",
       "icon": "🏮",
-      "thumb_url": "./assets/pois/bkk-019.jpg"
+      "thumb_url": "./assets/pois/bkk-019.jpg",
+      "popularity": 5
     },
     {
       "id": "bkk-020",
@@ -936,7 +955,8 @@
       "xhs_keyword": "曼谷耀华力唐人街",
       "color": "#7E5938",
       "icon": "🛒",
-      "thumb_url": "./assets/pois/bkk-020.jpg"
+      "thumb_url": "./assets/pois/bkk-020.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-021",
@@ -983,7 +1003,8 @@
       "xhs_keyword": "曼谷Asiatique夜市",
       "color": "#3A4F6E",
       "icon": "🌃",
-      "thumb_url": "./assets/pois/bkk-021.jpg"
+      "thumb_url": "./assets/pois/bkk-021.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-022",
@@ -1029,7 +1050,8 @@
       "xhs_keyword": "曼谷SkyBar宿醉天台",
       "color": "#1F3D5C",
       "icon": "🍸",
-      "thumb_url": "https://images.unsplash.com/photo-1551731409-43eb3e517a1a?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1551731409-43eb3e517a1a?w=200&q=80&auto=format&fit=crop",
+      "popularity": 9
     },
     {
       "id": "bkk-023",
@@ -1075,7 +1097,8 @@
       "xhs_keyword": "曼谷考山路",
       "color": "#26405E",
       "icon": "🎡",
-      "thumb_url": "./assets/pois/bkk-023.jpg"
+      "thumb_url": "./assets/pois/bkk-023.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-024",
@@ -1121,7 +1144,8 @@
       "xhs_keyword": "曼谷牛仔街霓虹",
       "color": "#7A3E55",
       "icon": "🍻",
-      "thumb_url": "./assets/pois/bkk-024.jpg"
+      "thumb_url": "./assets/pois/bkk-024.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-025",
@@ -1168,7 +1192,8 @@
       "xhs_keyword": "曼谷Mahanakhon玻璃天台",
       "color": "#3D5470",
       "icon": "💃",
-      "thumb_url": "./assets/pois/bkk-025.jpg"
+      "thumb_url": "./assets/pois/bkk-025.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-026",
@@ -1215,7 +1240,8 @@
       "xhs_keyword": "曼谷月亮酒吧",
       "color": "#244B6E",
       "icon": "🎤",
-      "thumb_url": "https://images.unsplash.com/photo-1551731409-43eb3e517a1a?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1551731409-43eb3e517a1a?w=200&q=80&auto=format&fit=crop",
+      "popularity": 7
     },
     {
       "id": "bkk-027",
@@ -1262,7 +1288,8 @@
       "xhs_keyword": "曼谷HealthLand按摩",
       "color": "#5E7A6F",
       "icon": "💆",
-      "thumb_url": "./assets/pois/bkk-027.jpg"
+      "thumb_url": "./assets/pois/bkk-027.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-028",
@@ -1309,7 +1336,8 @@
       "xhs_keyword": "曼谷LetsRelaxSPA",
       "color": "#7B5A48",
       "icon": "🌸",
-      "thumb_url": "./assets/pois/bkk-028.jpg"
+      "thumb_url": "./assets/pois/bkk-028.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-029",
@@ -1356,7 +1384,8 @@
       "xhs_keyword": "曼谷AsiaHerb按摩",
       "color": "#8A6E5A",
       "icon": "🌺",
-      "thumb_url": "./assets/pois/bkk-029.jpg"
+      "thumb_url": "./assets/pois/bkk-029.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-030",
@@ -1403,7 +1432,8 @@
       "xhs_keyword": "曼谷DivanaSPA",
       "color": "#6F8C7E",
       "icon": "🪷",
-      "thumb_url": "./assets/pois/bkk-030.jpg"
+      "thumb_url": "./assets/pois/bkk-030.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-031",
@@ -1450,7 +1480,8 @@
       "xhs_keyword": "曼谷OasisSPA",
       "color": "#79665A",
       "icon": "🧖",
-      "thumb_url": "./assets/pois/bkk-031.jpg"
+      "thumb_url": "./assets/pois/bkk-031.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-032",
@@ -1497,7 +1528,8 @@
       "xhs_keyword": "曼谷阿拉比卡咖啡",
       "color": "#8B6F4A",
       "icon": "☕",
-      "thumb_url": "./assets/pois/bkk-032.jpg"
+      "thumb_url": "./assets/pois/bkk-032.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-033",
@@ -1543,7 +1575,8 @@
       "xhs_keyword": "曼谷AfterYou蜜糖吐司",
       "color": "#A57E5A",
       "icon": "🥐",
-      "thumb_url": "./assets/pois/bkk-033.jpg"
+      "thumb_url": "./assets/pois/bkk-033.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-034",
@@ -1590,7 +1623,8 @@
       "xhs_keyword": "曼谷FactoryCoffee",
       "color": "#7C5C42",
       "icon": "🧁",
-      "thumb_url": "./assets/pois/bkk-034.jpg"
+      "thumb_url": "./assets/pois/bkk-034.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-035",
@@ -1637,7 +1671,8 @@
       "xhs_keyword": "曼谷Roast早午餐",
       "color": "#9B7A55",
       "icon": "🍰",
-      "thumb_url": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200&q=80&auto=format&fit=crop",
+      "popularity": 7
     },
     {
       "id": "bkk-036",
@@ -1683,7 +1718,8 @@
       "xhs_keyword": "曼谷Featherstone",
       "color": "#6D5236",
       "icon": "🥯",
-      "thumb_url": "./assets/pois/bkk-036.jpg"
+      "thumb_url": "./assets/pois/bkk-036.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-037",
@@ -1730,7 +1766,8 @@
       "xhs_keyword": "曼谷Ari独立咖啡",
       "color": "#B58A66",
       "icon": "🍮",
-      "thumb_url": "./assets/pois/bkk-037.jpg"
+      "thumb_url": "./assets/pois/bkk-037.jpg",
+      "popularity": 5
     },
     {
       "id": "bkk-038",
@@ -1777,7 +1814,8 @@
       "xhs_keyword": "曼谷ICONSIAM",
       "color": "#33647B",
       "icon": "🏬",
-      "thumb_url": "./assets/pois/bkk-038.jpg"
+      "thumb_url": "./assets/pois/bkk-038.jpg",
+      "popularity": 10
     },
     {
       "id": "bkk-039",
@@ -1823,7 +1861,8 @@
       "xhs_keyword": "曼谷SiamParagon",
       "color": "#446C8B",
       "icon": "🛍",
-      "thumb_url": "./assets/pois/bkk-039.jpg"
+      "thumb_url": "./assets/pois/bkk-039.jpg",
+      "popularity": 9
     },
     {
       "id": "bkk-040",
@@ -1869,7 +1908,8 @@
       "xhs_keyword": "曼谷EmQuartier",
       "color": "#3F6082",
       "icon": "✈️",
-      "thumb_url": "./assets/pois/bkk-040.jpg"
+      "thumb_url": "./assets/pois/bkk-040.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-041",
@@ -1916,7 +1956,8 @@
       "xhs_keyword": "曼谷EmSphere",
       "color": "#5577A0",
       "icon": "💎",
-      "thumb_url": "./assets/pois/bkk-041.jpg"
+      "thumb_url": "./assets/pois/bkk-041.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-042",
@@ -1963,7 +2004,8 @@
       "xhs_keyword": "曼谷CentralWorld",
       "color": "#3A5A78",
       "icon": "🛒",
-      "thumb_url": "./assets/pois/bkk-042.jpg"
+      "thumb_url": "./assets/pois/bkk-042.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-043",
@@ -2009,7 +2051,8 @@
       "xhs_keyword": "曼谷SafariWorld",
       "color": "#C77B4B",
       "icon": "🦁",
-      "thumb_url": "./assets/pois/bkk-043.jpg"
+      "thumb_url": "./assets/pois/bkk-043.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-044",
@@ -2055,7 +2098,8 @@
       "xhs_keyword": "曼谷SeaLife海洋馆",
       "color": "#D88A3A",
       "icon": "🐠",
-      "thumb_url": "./assets/pois/bkk-044.jpg"
+      "thumb_url": "./assets/pois/bkk-044.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-045",
@@ -2101,7 +2145,8 @@
       "xhs_keyword": "曼谷KidZania",
       "color": "#B86A38",
       "icon": "🎢",
-      "thumb_url": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=200&q=80&auto=format&fit=crop",
+      "popularity": 6
     },
     {
       "id": "bkk-046",
@@ -2148,7 +2193,8 @@
       "xhs_keyword": "曼谷TalatNoi涂鸦巷",
       "color": "#5C5040",
       "icon": "🗺",
-      "thumb_url": "./assets/pois/bkk-046.jpg"
+      "thumb_url": "./assets/pois/bkk-046.jpg",
+      "popularity": 8
     },
     {
       "id": "bkk-047",
@@ -2195,7 +2241,8 @@
       "xhs_keyword": "曼谷库地秦葡萄牙社区",
       "color": "#6D5C45",
       "icon": "🏘",
-      "thumb_url": "./assets/pois/bkk-047.jpg"
+      "thumb_url": "./assets/pois/bkk-047.jpg",
+      "popularity": 6
     },
     {
       "id": "bkk-048",
@@ -2241,7 +2288,8 @@
       "xhs_keyword": "曼谷绿肺骑行",
       "color": "#4E4538",
       "icon": "🌿",
-      "thumb_url": "https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=200&q=80&auto=format&fit=crop"
+      "thumb_url": "https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=200&q=80&auto=format&fit=crop",
+      "popularity": 6
     },
     {
       "id": "bkk-049",
@@ -2287,7 +2335,8 @@
       "xhs_keyword": "曼谷艺术家之家",
       "color": "#7A6850",
       "icon": "📿",
-      "thumb_url": "./assets/pois/bkk-049.jpg"
+      "thumb_url": "./assets/pois/bkk-049.jpg",
+      "popularity": 4
     },
     {
       "id": "bkk-050",
@@ -2334,7 +2383,8 @@
       "xhs_keyword": "曼谷BangRak老街",
       "color": "#5F4E3D",
       "icon": "🚶",
-      "thumb_url": "./assets/pois/bkk-050.jpg"
+      "thumb_url": "./assets/pois/bkk-050.jpg",
+      "popularity": 7
     },
     {
       "id": "bkk-051",
@@ -2380,7 +2430,8 @@
       "xhs_keyword": "曼谷jay fai痣姐",
       "color": "#C94A3B",
       "icon": "🦀",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 10
     },
     {
       "id": "bkk-052",
@@ -2427,7 +2478,8 @@
       "xhs_keyword": "曼谷krua apsorn",
       "color": "#D9A441",
       "icon": "🍛",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-053",
@@ -2473,7 +2525,8 @@
       "xhs_keyword": "曼谷jeh o妈妈面",
       "color": "#8B2635",
       "icon": "🍜",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 9
     },
     {
       "id": "bkk-054",
@@ -2520,7 +2573,8 @@
       "xhs_keyword": "曼谷soei泰菜",
       "color": "#4A6B8A",
       "icon": "🐟",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-055",
@@ -2566,7 +2620,8 @@
       "xhs_keyword": "曼谷soul food",
       "color": "#6B4423",
       "icon": "🍹",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-056",
@@ -2612,7 +2667,8 @@
       "xhs_keyword": "曼谷saneh jaan",
       "color": "#2E5A4A",
       "icon": "🥂",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-057",
@@ -2658,7 +2714,8 @@
       "xhs_keyword": "曼谷le du",
       "color": "#1F3A3D",
       "icon": "🍷",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-058",
@@ -2705,7 +2762,8 @@
       "xhs_keyword": "曼谷sorn三星",
       "color": "#7B1E1E",
       "icon": "🌶",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-059",
@@ -2751,7 +2809,8 @@
       "xhs_keyword": "曼谷nahm",
       "color": "#2C4A5C",
       "icon": "🍽",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-060",
@@ -2797,7 +2856,8 @@
       "xhs_keyword": "曼谷issaya",
       "color": "#C17A45",
       "icon": "🌺",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-061",
@@ -2844,7 +2904,8 @@
       "xhs_keyword": "曼谷thip samai",
       "color": "#E8A628",
       "icon": "🍜",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 10
     },
     {
       "id": "bkk-062",
@@ -2891,7 +2952,8 @@
       "xhs_keyword": "曼谷wattana panich",
       "color": "#5D2E1F",
       "icon": "🥣",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 8
     },
     {
       "id": "bkk-063",
@@ -2938,7 +3000,8 @@
       "xhs_keyword": "曼谷polo炸鸡",
       "color": "#D4821F",
       "icon": "🍗",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 8
     },
     {
       "id": "bkk-064",
@@ -2984,7 +3047,8 @@
       "xhs_keyword": "曼谷唐人街炒河粉",
       "color": "#B33333",
       "icon": "🔥",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-065",
@@ -3031,7 +3095,8 @@
       "xhs_keyword": "曼谷boon tong kiat",
       "color": "#E8B923",
       "icon": "🍚",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 8
     },
     {
       "id": "bkk-066",
@@ -3078,7 +3143,8 @@
       "xhs_keyword": "曼谷mont nomsod",
       "color": "#E8D07A",
       "icon": "🍞",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-067",
@@ -3125,7 +3191,8 @@
       "xhs_keyword": "曼谷patom玻璃屋",
       "color": "#7FA86B",
       "icon": "🌿",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-068",
@@ -3172,7 +3239,8 @@
       "xhs_keyword": "曼谷gallery drip",
       "color": "#3B3024",
       "icon": "☕",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-069",
@@ -3219,7 +3287,8 @@
       "xhs_keyword": "曼谷nana咖啡",
       "color": "#4A7A54",
       "icon": "🌳",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-070",
@@ -3264,7 +3333,8 @@
       "xhs_keyword": "曼谷rocket咖啡",
       "color": "#A3988B",
       "icon": "🥐",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-071",
@@ -3311,7 +3381,8 @@
       "xhs_keyword": "曼谷brave roasters",
       "color": "#2B2B2B",
       "icon": "⚙",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-072",
@@ -3357,7 +3428,8 @@
       "xhs_keyword": "曼谷wallflowers",
       "color": "#B8826B",
       "icon": "🌹",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-073",
@@ -3403,7 +3475,8 @@
       "xhs_keyword": "曼谷karmakamet",
       "color": "#7A5C4D",
       "icon": "🌸",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-074",
@@ -3450,7 +3523,8 @@
       "xhs_keyword": "曼谷warehouse 30",
       "color": "#8B7355",
       "icon": "🏭",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 7
     },
     {
       "id": "bkk-075",
@@ -3496,7 +3570,8 @@
       "xhs_keyword": "曼谷att19",
       "color": "#4A3929",
       "icon": "🕰",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-076",
@@ -3542,7 +3617,8 @@
       "xhs_keyword": "曼谷citycity画廊",
       "color": "#E8E6E3",
       "icon": "🖼",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 5
     },
     {
       "id": "bkk-077",
@@ -3589,7 +3665,8 @@
       "xhs_keyword": "曼谷w district",
       "color": "#D946EF",
       "icon": "🌃",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 5
     },
     {
       "id": "bkk-078",
@@ -3636,7 +3713,8 @@
       "xhs_keyword": "曼谷banglamphu",
       "color": "#8AA88F",
       "icon": "🚶",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 5
     },
     {
       "id": "bkk-079",
@@ -3683,7 +3761,8 @@
       "xhs_keyword": "曼谷dream world",
       "color": "#E63946",
       "icon": "🎢",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 6
     },
     {
       "id": "bkk-080",
@@ -3730,7 +3809,8 @@
       "xhs_keyword": "曼谷儿童博物馆",
       "color": "#F4A261",
       "icon": "🧸",
-      "thumb_url": ""
+      "thumb_url": "",
+      "popularity": 5
     }
   ]
 }
