@@ -1,0 +1,1087 @@
+{
+  "city": "Rome",
+  "city_zh": "罗马",
+  "city_code": "rom",
+  "country": "Italy",
+  "country_zh": "意大利",
+  "currency": "EUR",
+  "currency_symbol": "€",
+  "timezone": "Europe/Rome",
+  "default_pace": "standard",
+  "updated_at": "2026-05-11",
+  "version": "1.0.0",
+  "total": 100,
+  "pois": [
+    {
+      "id": "rom-001",
+      "name_zh": "斗兽场",
+      "name_en": "Colosseum",
+      "name_local": "Colosseo",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Monti",
+      "district_zh": "蒙蒂区",
+      "address": "Piazza del Colosseo, 1, 00184 Roma RM",
+      "lat": 41.8902,
+      "lng": 12.4922,
+      "duration_hr": 2.5,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 18,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "古罗马最大的圆形角斗场，世界新七大奇迹。",
+      "long_desc": "建于公元 70-80 年提图斯皇帝时期，可容纳 5 万至 8 万观众，是古罗马角斗士搏斗、海战表演的主舞台。门票 18€（含斗兽场+古罗马广场+帕拉蒂尼山，24 小时联票），地下层与第三层需额外 +6€ 的 Full Experience 票。旺季现场买票排 1-2 小时，强烈建议官网 coopculture.it 或 Get Your Guide 提前 7 天订带时间段票。开放 09:00-19:15（夏），最晚入场 18:15。游客一致反馈：清晨 09:00 第一批进场拍空镜最佳，地下层导览必抢。",
+      "tips": [
+        "官网 coopculture.it 或 Get Your Guide 提前预订免排队",
+        "9:00 开门前 15 分钟到入口排第一批",
+        "和 Roman Forum + Palatine Hill 联票 24 小时内可重复入园",
+        "Forum 入口（Largo della Salara Vecchia）排队比 Colosseum 入口短"
+      ],
+      "tags": [
+        "必去",
+        "世界遗产",
+        "古罗马"
+      ],
+      "xhs_keyword": "罗马斗兽场"
+    },
+    {
+      "id": "rom-002",
+      "name_zh": "古罗马广场",
+      "name_en": "Roman Forum",
+      "name_local": "Foro Romano",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Monti",
+      "district_zh": "蒙蒂区",
+      "address": "Via della Salara Vecchia, 5/6, 00186 Roma RM",
+      "lat": 41.8925,
+      "lng": 12.4853,
+      "duration_hr": 2.0,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 18,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "古罗马政治、宗教与社交中心遗址。",
+      "long_desc": "古罗马广场是公元前 7 世纪到公元 4 世纪罗马公共生活的心脏，凯撒被刺、西塞罗演讲、凯旋式游行都在这里发生。可见维斯塔贞女神殿、塞维鲁凯旋门、提图斯凯旋门、元老院（Curia Julia）等遗迹，后者是凯撒被刺地点重建。门票与 Colosseum 联票 18€，24 小时内可去帕拉蒂尼山。建议从 Largo della Salara Vecchia 入口进，比 Colosseum 那侧排队短一半。烈日下没遮阴，夏天必须早上 9 点或下午 4 点后。游客反馈「没导览像看石头堆」，建议租官方语音导览 5€ 或下载 Rick Steves 免费 App。",
+      "tips": [
+        "从 Largo della Salara Vecchia 入口进，避开斗兽场侧排队",
+        "夏天必带帽子和水，全程无遮阴",
+        "下载 Rick Steves Audio Europe App 免费导览",
+        "联票 24 小时有效可分两次进"
+      ],
+      "tags": [
+        "必去",
+        "世界遗产",
+        "古罗马"
+      ],
+      "xhs_keyword": "古罗马广场"
+    },
+    {
+      "id": "rom-003",
+      "name_zh": "帕拉蒂尼山",
+      "name_en": "Palatine Hill",
+      "name_local": "Palatino",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Monti",
+      "district_zh": "蒙蒂区",
+      "address": "Via di San Gregorio, 30, 00184 Roma RM",
+      "lat": 41.8893,
+      "lng": 12.4875,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 18,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马七丘之首，皇帝宫殿群与神话发源地。",
+      "long_desc": "帕拉蒂尼山是传说中罗慕路斯建立罗马的地点，奥古斯都、提比略、图密善等历代皇帝在此修建宫殿（Domus Augustana、Domus Flavia）。山顶 Orti Farnesiani 文艺复兴花园是俯瞰 Roman Forum 与 Circus Maximus 的最佳点位，比 Colosseum 围栏外视角好十倍且没人。门票包含在 Colosseum 联票中（18€），但很多游客逛完 Forum 就累得不上山，导致这里基本不堵。Domus Augustana 内部参观需 SUPER 票（24€）。开放 09:00-19:15。",
+      "tips": [
+        "用 Colosseum 联票直接上山，无需另购",
+        "山顶花园是免费 Roman Forum 全景台",
+        "想看 Domus Augustana 内部需买 SUPER 票",
+        "穿防滑鞋，山路碎石多"
+      ],
+      "tags": [
+        "世界遗产",
+        "皇帝宫殿",
+        "全景"
+      ],
+      "xhs_keyword": "帕拉蒂尼山"
+    },
+    {
+      "id": "rom-004",
+      "name_zh": "万神殿",
+      "name_en": "Pantheon",
+      "name_local": "Pantheon",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Pigna",
+      "district_zh": "皮尼亚区",
+      "address": "Piazza della Rotonda, 00186 Roma RM",
+      "lat": 41.8986,
+      "lng": 12.4769,
+      "duration_hr": 0.75,
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "price_eur": 5,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "公元 2 世纪建造的圆顶神殿，米开朗基罗称为天使设计。",
+      "long_desc": "由哈德良皇帝公元 118-128 年重建，43.3 米直径的混凝土穹顶至今仍是世界最大的无钢筋混凝土圆顶。中央 9 米直径的天眼（Oculus）是唯一光源，雨天会落雨地面下水道排走。拉斐尔与维托里奥·埃马努埃莱二世国王长眠于此。2023 年 7 月起开始收门票 5€（之前免费），27 岁以下欧盟公民免费，每月第一个周日免费但人爆满。建议官网 musei.it 提前订 0.5€ 预约费免排队。Pentecost 周日（5-6 月）有玫瑰花瓣从天眼洒下的传统仪式。",
+      "tips": [
+        "官网 museiitaliani.it 订 5€ 票省 1 小时排队",
+        "黄昏时光线打进天眼最仙",
+        "雨天来看天眼漏雨是限定体验",
+        "出门左转 50 米就是 Tazza d'Oro 最棒咖啡"
+      ],
+      "tags": [
+        "必去",
+        "建筑奇迹",
+        "免费曾经"
+      ],
+      "xhs_keyword": "罗马万神殿"
+    },
+    {
+      "id": "rom-005",
+      "name_zh": "特雷维喷泉",
+      "name_en": "Trevi Fountain",
+      "name_local": "Fontana di Trevi",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Trevi",
+      "district_zh": "特雷维区",
+      "address": "Piazza di Trevi, 00187 Roma RM",
+      "lat": 41.9009,
+      "lng": 12.4833,
+      "duration_hr": 0.5,
+      "best_time": [
+        "morning",
+        "night"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马最华丽的巴洛克喷泉，许愿投币传说之地。",
+      "long_desc": "1762 年由 Nicola Salvi 设计完工，海神 Oceanus 立于贝壳战车上由两匹海马牵引。传说：右手持币越左肩投入，第一枚保证你重返罗马、第二枚遇真爱、第三枚结婚。每年从池中捞起约 150 万欧元全部捐给 Caritas 慈善机构资助穷人。2024 年 11 月-2025 年 4 月经历过一次清洗维护期间临时玻璃栈道开放游客近距离观看，目前已恢复正常。白天 10:00-20:00 人挤人完全无法拍照，建议早上 6:30 日出或深夜 23:00 后再来。2025 年 1 月起市政试行「限流 400 人」和「投币付费 2€」提案但仍在讨论未实施。",
+      "tips": [
+        "06:30 日出前到没人能独享",
+        "右手持硬币越左肩往后扔才算数",
+        "周边 gelato 店都是 8€ 一球的旅游陷阱",
+        "深夜 23:00 后人少灯光美"
+      ],
+      "tags": [
+        "必去",
+        "许愿",
+        "夜景"
+      ],
+      "xhs_keyword": "特雷维喷泉"
+    },
+    {
+      "id": "rom-006",
+      "name_zh": "西班牙阶梯",
+      "name_en": "Spanish Steps",
+      "name_local": "Scalinata di Trinità dei Monti",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Campo Marzio",
+      "district_zh": "战神广场区",
+      "address": "Piazza di Spagna, 00187 Roma RM",
+      "lat": 41.9059,
+      "lng": 12.4823,
+      "duration_hr": 0.5,
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "135 级巴洛克阶梯连接广场与山上圣三一教堂。",
+      "long_desc": "1725 年完工的 135 级宽大阶梯，连接 Piazza di Spagna 和山顶 Trinità dei Monti 教堂，因 Audrey Hepburn《罗马假日》而成全球网红。下方 Bernini 父子设计的破船喷泉（Barcaccia）是罗马最低喷泉避免水压不足的设计巧思。重要提醒：2019 年起立法禁止坐在台阶上吃喝休息，违者罚款 250€，现场有警察巡逻盯人。台阶顶部圣三一教堂是俯拍 Via Condotti 直通万神殿方向的绝佳机位。3-4 月杜鹃花季阶梯铺满粉花最美。",
+      "tips": [
+        "禁坐台阶违者罚 250€，警察会吹哨制止",
+        "顶部教堂前广场是俯拍最佳位",
+        "Via dei Condotti 名牌街从这里起步",
+        "3-4 月杜鹃花季最值得来"
+      ],
+      "tags": [
+        "必去",
+        "罗马假日",
+        "拍照"
+      ],
+      "xhs_keyword": "西班牙阶梯"
+    },
+    {
+      "id": "rom-007",
+      "name_zh": "纳沃纳广场",
+      "name_en": "Piazza Navona",
+      "name_local": "Piazza Navona",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Parione",
+      "district_zh": "帕里奥内区",
+      "address": "Piazza Navona, 00186 Roma RM",
+      "lat": 41.8992,
+      "lng": 12.4731,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "贝尼尼四河喷泉与巴洛克教堂围合的椭圆广场。",
+      "long_desc": "建在公元 86 年图密善竞技场原址上，保留椭圆赛道形制。中央贝尼尼 1651 年的四河喷泉（Fontana dei Quattro Fiumi）四尊巨人代表多瑙河、尼罗河、恒河、拉普拉塔河，对面是其学生 Borromini 设计的 Sant'Agnese in Agone 教堂——传言贝尼尼故意把尼罗河像设计成蒙眼「不忍看 Borromini 丑教堂」（其实只是因为当时尼罗河源头未知）。圣诞集市 12 月-1 月 6 日 La Befana 老巫婆节最热闹。广场餐厅是著名旅游陷阱，pasta 基本要价 22€+，街头画家肖像 30€ 起还要还价。",
+      "tips": [
+        "广场餐厅一律不踩，往周边小巷走 50 米价格减半",
+        "12 月圣诞集市持续到 1 月 6 日 La Befana",
+        "贝尼尼喷泉北面 Tre Scalini 的 tartufo 巧克力冰淇淋值得一吃 8€",
+        "避开拉小提琴/扮雕像的游客陷阱"
+      ],
+      "tags": [
+        "必去",
+        "巴洛克",
+        "广场"
+      ],
+      "xhs_keyword": "纳沃纳广场"
+    },
+    {
+      "id": "rom-008",
+      "name_zh": "圣天使堡",
+      "name_en": "Castel Sant'Angelo",
+      "name_local": "Castel Sant'Angelo",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Borgo",
+      "district_zh": "博尔戈区",
+      "address": "Lungotevere Castello, 50, 00193 Roma RM",
+      "lat": 41.9031,
+      "lng": 12.4663,
+      "duration_hr": 2.0,
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "price_eur": 16,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "哈德良皇帝陵墓改建的教皇要塞，俯瞰台伯河。",
+      "long_desc": "公元 139 年建为哈德良皇帝陵墓，6 世纪改为教皇堡垒并以顶部圣米迦勒铜像得名。地下秘密通道 Passetto di Borgo 800 米直通梵蒂冈，1527 年罗马之劫教皇克莱门特七世曾经此逃生。城堡内有教皇套房、武器库、监狱（关过哲学家 Giordano Bruno）。门票 16€，最值得是顶层 Terrazza dell'Angelo 360 度环视圣彼得大教堂、Ponte Sant'Angelo 贝尼尼天使桥与台伯河。开放 09:00-19:30。游客反馈「展品一般但屋顶视野无敌」。傍晚日落是绝佳拍照时间。",
+      "tips": [
+        "顶层观景台是看圣彼得大教堂最美角度之一",
+        "傍晚日落+蓝调时刻光线最美",
+        "和梵蒂冈套票可省 2€",
+        "Ponte Sant'Angelo 贝尼尼天使雕像桥免费可拍"
+      ],
+      "tags": [
+        "古堡",
+        "全景",
+        "夜景"
+      ],
+      "xhs_keyword": "圣天使堡"
+    },
+    {
+      "id": "rom-009",
+      "name_zh": "圣彼得大教堂",
+      "name_en": "St. Peter's Basilica",
+      "name_local": "Basilica di San Pietro",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Vatican City",
+      "district_zh": "梵蒂冈",
+      "address": "Piazza San Pietro, 00120 Città del Vaticano",
+      "lat": 41.9022,
+      "lng": 12.4533,
+      "duration_hr": 2.0,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "天主教世界中心，米开朗基罗设计大圆顶。",
+      "long_desc": "建在圣彼得殉道处，1506-1626 年集米开朗基罗、贝尼尼、Bramante 之大成。教堂内必看：贝尼尼 29 米高青铜华盖（Baldacchino）、米开朗基罗 25 岁雕《圣母怜子》（Pietà，1499 年作品保护在防弹玻璃后）、教皇祭坛。教堂免费进入但安检排长队 1-2 小时，建议 06:30 开门进或 16:30 后人少。穿衣严格：肩膀膝盖必须遮住否则当场拒入。登 Cupola 圆顶 10€ 走楼梯 551 级、8€ 电梯+320 级，顶部俯瞰圣彼得广场震撼。教皇周三 General Audience 需提前免费索票（papalaudience.org）。",
+      "tips": [
+        "06:30 开门时进基本不排队",
+        "肩膀膝盖必须遮，不能穿短裤短裙",
+        "登顶圆顶 10€ 现场买电梯排 30 分钟",
+        "周三上午有教皇接见免费索票"
+      ],
+      "tags": [
+        "必去",
+        "免费",
+        "宗教"
+      ],
+      "xhs_keyword": "圣彼得大教堂"
+    },
+    {
+      "id": "rom-010",
+      "name_zh": "人民广场",
+      "name_en": "Piazza del Popolo",
+      "name_local": "Piazza del Popolo",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Campo Marzio",
+      "district_zh": "战神广场区",
+      "address": "Piazza del Popolo, 00187 Roma RM",
+      "lat": 41.9108,
+      "lng": 12.4768,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "古罗马北门，三条主干道呈三叉戟放射。",
+      "long_desc": "曾是古罗马时期由北进城的主入口（Porta del Popolo），1813-1822 年由建筑师 Giuseppe Valadier 改造成新古典主义对称广场。中央 Flaminio 方尖碑高 24 米，公元前 13 世纪埃及拉美西斯二世作品，公元前 10 年由奥古斯都从赫利奥波利斯运来。两座「双子教堂」 Santa Maria di Montesanto 与 Santa Maria dei Miracoli 看似一样实际左圆右八角。东侧 Santa Maria del Popolo 教堂收藏卡拉瓦乔《圣保罗皈依》《圣彼得倒钉十字架》两幅杰作免费看。从这里走 Via del Babuino、Via del Corso、Via di Ripetta 三条路向南分别通西班牙阶梯、威尼斯广场、台伯河。",
+      "tips": [
+        "Santa Maria del Popolo 教堂免费看 2 幅卡拉瓦乔",
+        "上 Pincio 观景台只需走 5 分钟阶梯",
+        "三叉戟主路 Via del Corso 是逛街起点",
+        "广场咖啡 Rosati 露台位置网红但贵"
+      ],
+      "tags": [
+        "新古典主义",
+        "卡拉瓦乔",
+        "广场"
+      ],
+      "xhs_keyword": "罗马人民广场"
+    },
+    {
+      "id": "rom-011",
+      "name_zh": "威尼斯广场祖国祭坛",
+      "name_en": "Altare della Patria",
+      "name_local": "Vittoriano",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Pigna",
+      "district_zh": "皮尼亚区",
+      "address": "Piazza Venezia, 00186 Roma RM",
+      "lat": 41.8947,
+      "lng": 12.483,
+      "duration_hr": 1.0,
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "纪念意大利统一的纯白大理石巨型纪念堂。",
+      "long_desc": "1885 年开建、1935 年完工，纪念意大利首位国王维克多·埃马努埃莱二世和 1861 年统一伟业。罗马人吐槽外号「婚礼蛋糕」和「打字机」，因为纯白布雷西亚大理石与周围古罗马砖红风格违和。中央长明火供奉一战无名英雄。建筑本身免费进入，内含意大利统一运动博物馆（Museo del Risorgimento）也免费。屋顶 Terrazza delle Quadrighe 观景台需坐玻璃电梯上去 12€（购票点在建筑后侧），是俯瞰 Roman Forum 与 Via dei Fori Imperiali 直通 Colosseum 的最佳视角，超过任何「免费观景台」。",
+      "tips": [
+        "玻璃电梯上屋顶 12€ 视野绝佳",
+        "建筑+博物馆主体免费进",
+        "傍晚 18:00 蓝调时刻屋顶最美",
+        "下来后步行 10 分钟到 Colosseum"
+      ],
+      "tags": [
+        "新地标",
+        "拍照",
+        "全景"
+      ],
+      "xhs_keyword": "罗马祖国祭坛"
+    },
+    {
+      "id": "rom-012",
+      "name_zh": "图拉真柱与图拉真广场",
+      "name_en": "Trajan's Column & Forum",
+      "name_local": "Colonna Traiana e Foro di Traiano",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Monti",
+      "district_zh": "蒙蒂区",
+      "address": "Via dei Fori Imperiali, 00186 Roma RM",
+      "lat": 41.8956,
+      "lng": 12.4845,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 12,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "30 米高螺旋浮雕柱，记载达契亚战争。",
+      "long_desc": "公元 113 年图拉真皇帝建成，30 米高大理石柱身雕刻 200 米长螺旋浮雕，2500 多个人物记载图拉真两次征服达契亚（今罗马尼亚）的战役。柱顶原为图拉真铜像，1587 年教皇 Sixtus V 换成圣彼得像。柱后是图拉真广场和图拉真市场（Mercati di Traiano，世界第一座购物中心），后者改造成 Imperial Forums Museum 12€ 入场。柱本身在街边免费看，但浮雕细节看不清楚要望远镜辅助。傍晚打灯后浮雕轮廓更清晰。",
+      "tips": [
+        "柱在街边免费看，望远镜辅助看浮雕",
+        "进入图拉真市场博物馆 12€",
+        "Via dei Fori Imperiali 主路连通 Colosseum",
+        "周日免费但人多"
+      ],
+      "tags": [
+        "古罗马",
+        "雕刻",
+        "免费看"
+      ],
+      "xhs_keyword": "图拉真柱"
+    },
+    {
+      "id": "rom-013",
+      "name_zh": "卡拉卡拉浴场",
+      "name_en": "Baths of Caracalla",
+      "name_local": "Terme di Caracalla",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Aventino",
+      "district_zh": "阿文蒂诺区",
+      "address": "Viale delle Terme di Caracalla, 52, 00153 Roma RM",
+      "lat": 41.879,
+      "lng": 12.4925,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 8,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "古罗马第二大浴场，3 世纪可容 1600 人。",
+      "long_desc": "公元 212-216 年卡拉卡拉皇帝建造，占地 11 公顷，可同时容纳 1600 人沐浴。完整保留冷池（frigidarium）、温池（tepidarium）、热池（caldarium）、健身房、图书馆和地下蒸汽供应系统。马赛克地板大部分已迁至博物馆但仍能看到部分原址。门票 8€，比 Colosseum 区便宜且游客少 80%，是逃离人潮的宝藏景点。每年 6-8 月晚上举办罗马歌剧院 Opera 露天表演，《Aida》《Tosca》在 1800 年遗迹中演绎，门票 30-150€，是罗马夏季文化高光。",
+      "tips": [
+        "比斗兽场便宜，游客少非常推荐",
+        "夏季夜晚有歌剧表演 30-150€",
+        "VR 导览设备 7€ 还原罗马时代浴场",
+        "周一下午开放，其他日 09:00-19:00"
+      ],
+      "tags": [
+        "古罗马",
+        "小众",
+        "歌剧"
+      ],
+      "xhs_keyword": "卡拉卡拉浴场"
+    },
+    {
+      "id": "rom-014",
+      "name_zh": "拉特朗圣若望大殿",
+      "name_en": "Basilica San Giovanni in Laterano",
+      "name_local": "Basilica di San Giovanni in Laterano",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Esquilino",
+      "district_zh": "埃斯奎利诺区",
+      "address": "Piazza di San Giovanni in Laterano, 4, 00184 Roma RM",
+      "lat": 41.8862,
+      "lng": 12.5057,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马主教座堂，地位高于圣彼得的真正「母教堂」。",
+      "long_desc": "公元 4 世纪由君士坦丁大帝下令建造，是罗马最古老的大教堂和罗马主教（即教皇）的座堂，地位上「全世界天主教教堂之首」反而高于圣彼得。正立面 15 尊巨型雕塑、内部 12 使徒巨像、Borromini 重新装修的中殿、13 世纪的 Cosmati 镶嵌地板都值一看。教堂主体免费，但回廊（Chiostro）3€、洗礼堂、圣阶（Scala Santa，传说耶稣受审时走过的 28 级阶梯，信徒跪着上）需要单独票。游客比梵蒂冈少 90%，氛围庄重值得专程来。",
+      "tips": [
+        "免费进，比圣彼得人少 90%",
+        "Scala Santa 圣阶在马路对面，跪着上才正宗",
+        "回廊 Chiostro 3€ 必看 Cosmati 大理石镶嵌",
+        "地铁 A 线 San Giovanni 站直达"
+      ],
+      "tags": [
+        "免费",
+        "大教堂",
+        "宗教"
+      ],
+      "xhs_keyword": "拉特朗大殿"
+    },
+    {
+      "id": "rom-015",
+      "name_zh": "圣母大殿",
+      "name_en": "Basilica di Santa Maria Maggiore",
+      "name_local": "Basilica di Santa Maria Maggiore",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Esquilino",
+      "district_zh": "埃斯奎利诺区",
+      "address": "Piazza di Santa Maria Maggiore, 00100 Roma RM",
+      "lat": 41.8975,
+      "lng": 12.4986,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马四大特级宗座圣殿之一，5 世纪马赛克瑰宝。",
+      "long_desc": "公元 432-440 年建于 Esquiline 山上，是罗马四大特级宗座圣殿（Patriarchal Basilicas）之一，传说圣母托梦教皇 Liberius 在 8 月降雪处建堂，每年 8 月 5 日 Festa della Madonna della Neve 仪式从穹顶撒白色花瓣模拟「圣雪」。中殿两侧 36 根爱奥尼亚柱、5 世纪的圣经马赛克、13 世纪 Jacopo Torriti 的金色穹顶马赛克都是早期基督教艺术巅峰。教皇方济各 2025 年 4 月去世后选择安葬于此，是 100 多年来首位不葬于梵蒂冈的教皇。教堂免费，配套博物馆 4€。",
+      "tips": [
+        "教皇方济各墓所在地，2025 年起人流增加",
+        "8 月 5 日「圣雪节」洒白花瓣最特别",
+        "Termini 火车站步行 10 分钟",
+        "免费进入，配套博物馆 4€"
+      ],
+      "tags": [
+        "免费",
+        "教皇墓",
+        "马赛克"
+      ],
+      "xhs_keyword": "罗马圣母大殿"
+    },
+    {
+      "id": "rom-016",
+      "name_zh": "越台伯河圣母大殿",
+      "name_en": "Basilica di Santa Maria in Trastevere",
+      "name_local": "Basilica di Santa Maria in Trastevere",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Trastevere",
+      "district_zh": "越台伯河区",
+      "address": "Piazza di Santa Maria in Trastevere, 00153 Roma RM",
+      "lat": 41.8895,
+      "lng": 12.4694,
+      "duration_hr": 0.75,
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "price_eur": 0,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马最古老的圣母教堂，金色马赛克半圆顶。",
+      "long_desc": "传说公元 3 世纪原址有一处石油涌泉是基督诞生预兆，公元 340 年教皇 Julius I 建首座圣母教堂，1140-1143 年现存建筑落成，是罗马最老的圣母教堂。最大亮点是 Pietro Cavallini 1291 年的中殿后殿马赛克《圣母加冕》和六幅圣母生平场景，金底色彩在傍晚阳光斜射下整面墙发光。教堂前 Piazza di Santa Maria in Trastevere 是 Trastevere 区中心地带，本地人傍晚坐喷泉边喝 spritz。教堂免费 24 小时几乎不打烊。",
+      "tips": [
+        "免费 24 小时基本不关门",
+        "傍晚阳光斜射马赛克金光最美",
+        "广场是 Trastevere 区起点逛吃必经",
+        "晚上街头艺人弹吉他氛围很罗马"
+      ],
+      "tags": [
+        "免费",
+        "马赛克",
+        "Trastevere"
+      ],
+      "xhs_keyword": "越台伯河圣母堂"
+    },
+    {
+      "id": "rom-017",
+      "name_zh": "圣加里斯都地下墓穴",
+      "name_en": "Catacombs of San Callisto",
+      "name_local": "Catacombe di San Callisto",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Appia Antica",
+      "district_zh": "阿庇亚古道",
+      "address": "Via Appia Antica, 110/126, 00179 Roma RM",
+      "lat": 41.859,
+      "lng": 12.5126,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 10,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "古阿庇亚大道下 20 公里早期基督徒地下墓道。",
+      "long_desc": "公元 2-4 世纪罗马帝国禁基督教时期，基督徒在 Via Appia Antica 古道下挖出 20 公里长四层墓道埋葬数十万人，包括 16 位早期教皇和殉道者。门票 10€ 含必须的导游讲解（30-45 分钟，多语言含中文），跟着走 1-2 公里地下廊道、看早期基督教壁画与刻字。常年 16°C 凉爽防晒。需注意周三休息，强烈建议预订 catacombe.roma.it。Via Appia Antica 沿线还有 Catacombe di San Sebastiano、Domitilla 等其他地下墓穴，挑一处即可。",
+      "tips": [
+        "周三闭馆，提前查官网",
+        "16 度恒温，夏天必备外套",
+        "118 路公交从 Termini 直达",
+        "可以连游 Via Appia Antica 古道骑行"
+      ],
+      "tags": [
+        "地下",
+        "早期基督教",
+        "导览"
+      ],
+      "xhs_keyword": "罗马地下墓穴"
+    },
+    {
+      "id": "rom-018",
+      "name_zh": "真理之口",
+      "name_en": "Mouth of Truth",
+      "name_local": "Bocca della Verità",
+      "category": "landmark",
+      "category_label": "地标古迹",
+      "district": "Ripa",
+      "district_zh": "里帕区",
+      "address": "Piazza della Bocca della Verità, 18, 00186 Roma RM",
+      "lat": 41.8881,
+      "lng": 12.4814,
+      "duration_hr": 0.5,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 2,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "《罗马假日》经典伸手测谎大理石面具。",
+      "long_desc": "公元 1 世纪古罗马井盖或喷泉装饰，直径 1.75 米的特里同（Triton）海神面具，传说说谎者把手伸进嘴里会被咬住——奥黛丽·赫本和格里高利·派克 1953 年《罗马假日》经典桥段。坐落在 Santa Maria in Cosmedin 教堂门廊下，进门拍照需投币 2€（教堂运营费）。早上 9:30 开门排队 10-30 分钟，中午能排到 1 小时，9:50-10:30 是排队最长时间。教堂内部有 Cosmati 风格地板和 8 世纪半圆形唱诗席值得免费一看。",
+      "tips": [
+        "拍照投 2€ 维护费",
+        "9:30 一开门就到排第一",
+        "免费进教堂内部看 Cosmati 地板",
+        "对面 Tempio di Vesta 圆形小神殿可一并拍"
+      ],
+      "tags": [
+        "罗马假日",
+        "拍照",
+        "网红"
+      ],
+      "xhs_keyword": "真理之口"
+    },
+    {
+      "id": "rom-019",
+      "name_zh": "梵蒂冈博物馆",
+      "name_en": "Vatican Museums",
+      "name_local": "Musei Vaticani",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Vatican City",
+      "district_zh": "梵蒂冈",
+      "address": "00120 Città del Vaticano",
+      "lat": 41.9065,
+      "lng": 12.4536,
+      "duration_hr": 4.0,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 25,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "全球最大私人收藏，西斯廷教堂在终点。",
+      "long_desc": "1506 年教皇 Julius II 创立，9 公里展线、7 万件展品、54 个画廊。必看：Pio-Clementino 雕塑馆（Laocoön 群像、Apollo Belvedere）、地图廊（40 米长 16 世纪意大利地形图墙画）、Stanze di Raffaello 拉斐尔房间（《雅典学院》在 Stanza della Segnatura）、最后压轴 Sistine Chapel 西斯廷教堂米开朗基罗《创世记》《最后的审判》。门票 25€（+ 5€ 网上预约费），强烈建议官网 mv.vatican.va 提前 2-4 周抢早 08:00 时段票。Get Your Guide 卖 60€+ 「免排队」票其实和官网同步。周三上午教皇 Audience 时博物馆人少。每月最后周日免费但排队 4 小时。",
+      "tips": [
+        "官网 mv.vatican.va 提前 2-4 周订票免排队",
+        "8:00 开门第一批进，可独享西斯廷教堂",
+        "9 公里走下来累，提前规划主线",
+        "周日基本闭馆只开月末免费日"
+      ],
+      "tags": [
+        "必去",
+        "拉斐尔",
+        "米开朗基罗"
+      ],
+      "xhs_keyword": "梵蒂冈博物馆"
+    },
+    {
+      "id": "rom-020",
+      "name_zh": "西斯廷教堂",
+      "name_en": "Sistine Chapel",
+      "name_local": "Cappella Sistina",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Vatican City",
+      "district_zh": "梵蒂冈",
+      "address": "00120 Città del Vaticano",
+      "lat": 41.9029,
+      "lng": 12.4545,
+      "duration_hr": 0.75,
+      "best_time": [
+        "morning"
+      ],
+      "price_eur": 25,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "米开朗基罗《创世记》《最后的审判》终极殿堂。",
+      "long_desc": "1473-1481 年由教皇 Sixtus IV 建造，1508-1512 年米开朗基罗独自仰躺 4 年完成天顶 9 幅《创世记》场景含《创造亚当》。1535-1541 年他 60 多岁回来在祭坛后墙画《最后的审判》——构图 391 个人物里把得罪过他的教皇礼仪官 Biagio da Cesena 画成驴耳冥王。教堂同时是教皇选举 Conclave 秘密会议场所，2013 年方济各、2025 年新教皇 Leo XIV 都在这里诞生。包含在 Vatican Museums 25€ 票内不单卖。规则严格：禁拍照、禁说话（保安会大喊「Silenzio!」）、不能戴帽。建议梵蒂冈馆终点逛到。",
+      "tips": [
+        "禁拍照禁说话，保安会大声制止",
+        "用包含在 Vatican Museums 25€ 票里看",
+        "想看清天顶带个小型双筒望远镜",
+        "工作日早上 8:30 进相对安静"
+      ],
+      "tags": [
+        "必去",
+        "米开朗基罗",
+        "壁画"
+      ],
+      "xhs_keyword": "西斯廷教堂"
+    },
+    {
+      "id": "rom-021",
+      "name_zh": "博尔盖塞美术馆",
+      "name_en": "Galleria Borghese",
+      "name_local": "Galleria Borghese",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Pinciano",
+      "district_zh": "平齐亚诺区",
+      "address": "Piazzale Scipione Borghese, 5, 00197 Roma RM",
+      "lat": 41.9142,
+      "lng": 12.4922,
+      "duration_hr": 2.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 15,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "贝尼尼雕塑+卡拉瓦乔绘画双绝，必预约。",
+      "long_desc": "1612 年枢机主教 Scipione Borghese 私人别墅，今为罗马最重要的雕塑+绘画专题馆。镇馆之宝：贝尼尼《阿波罗与达芙妮》《普路托抢劫普洛塞庇娜》《大卫》三件巅峰作品，肌肉与丝绸大理石质感颠覆雕塑认知；卡拉瓦乔《捧果篮的男孩》《大卫与歌利亚》《圣杰罗姆》6 件杰作；提香《圣爱与俗爱》、拉斐尔《卸下圣体》。严格限流：每 2 小时一批 360 人，必须官网 galleriaborghese.beniculturali.it 提前 7-14 天预订时段票（15€ + 2€ 预约费）。Villa Borghese 公园内步行 10 分钟。",
+      "tips": [
+        "必须官网提前 7-14 天预订时段票",
+        "每 2 小时强制清场，控制好节奏",
+        "9:00 第一场票最好抢",
+        "存包强制免费，相机允许不准拍闪光"
+      ],
+      "tags": [
+        "必预约",
+        "贝尼尼",
+        "卡拉瓦乔"
+      ],
+      "xhs_keyword": "博尔盖塞美术馆"
+    },
+    {
+      "id": "rom-022",
+      "name_zh": "卡比托利欧博物馆",
+      "name_en": "Capitoline Museums",
+      "name_local": "Musei Capitolini",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Campitelli",
+      "district_zh": "坎皮泰利区",
+      "address": "Piazza del Campidoglio, 1, 00186 Roma RM",
+      "lat": 41.893,
+      "lng": 12.4828,
+      "duration_hr": 2.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 16,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "世界第一座公共博物馆，藏古罗马青铜与雕塑。",
+      "long_desc": "1471 年由教皇 Sixtus IV 把雕塑捐献给罗马人民，是世界上最早对公众开放的博物馆。米开朗基罗设计的卡比托利欧广场（Piazza del Campidoglio）由 Palazzo dei Conservatori 与 Palazzo Nuovo 两栋宫殿夹中央 Palazzo Senatorio 而成。镇馆藏品：青铜母狼像（Lupa Capitolina，传说中给罗慕路斯哺乳的狼）、马可·奥勒留骑马铜像（广场中央那座是复制品，真品在馆内）、垂死的高卢人、君士坦丁巨像残片。Tabularium 阳台俯瞰 Roman Forum 全景免费换角度。门票 16€。",
+      "tips": [
+        "Tabularium 阳台是俯瞰 Roman Forum 免费机位",
+        "母狼像、马可奥勒留铜像必拍",
+        "建议留 2.5 小时仔细看",
+        "和 Vittoriano 广场紧挨，可一并游"
+      ],
+      "tags": [
+        "世界最早",
+        "古罗马",
+        "雕塑"
+      ],
+      "xhs_keyword": "卡比托利欧博物馆"
+    },
+    {
+      "id": "rom-023",
+      "name_zh": "MAXXI 国立 21 世纪艺术博物馆",
+      "name_en": "MAXXI Museum",
+      "name_local": "MAXXI - Museo nazionale delle arti del XXI secolo",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Flaminio",
+      "district_zh": "弗拉米尼奥区",
+      "address": "Via Guido Reni, 4A, 00196 Roma RM",
+      "lat": 41.9286,
+      "lng": 12.467,
+      "duration_hr": 2.0,
+      "best_time": [
+        "afternoon"
+      ],
+      "price_eur": 12,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "扎哈·哈迪德设计当代艺术馆，建筑本身就是展品。",
+      "long_desc": "扎哈·哈迪德 2010 年完工的解构主义建筑，曲线混凝土与悬空楼梯创造出流动的展览空间，2010 年获英国 Stirling 建筑奖。专注 21 世纪当代艺术与建筑，常设展含 Anish Kapoor、Gerhard Richter、William Kentridge 等当代大师作品，临展频繁更新。门票 12€。位于 Flaminio 区比较远，地铁 A 线 Flaminio 站换 2 路有轨电车 5 站到 Apollodoro 步行 5 分钟。游客口碑两极：建筑迷打 5 星，传统艺术派觉得展品偏少。配套书店与咖啡厅设计感强值得专程坐坐。",
+      "tips": [
+        "建筑本身比展品更值得来",
+        "周一闭馆",
+        "MAXXI + Auditorium 文化区可半天游",
+        "周三晚 19:00-22:00 票价 5€ 优惠"
+      ],
+      "tags": [
+        "当代艺术",
+        "扎哈",
+        "建筑"
+      ],
+      "xhs_keyword": "MAXXI罗马"
+    },
+    {
+      "id": "rom-024",
+      "name_zh": "多利亚·潘菲利美术馆",
+      "name_en": "Galleria Doria Pamphilj",
+      "name_local": "Galleria Doria Pamphilj",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Pigna",
+      "district_zh": "皮尼亚区",
+      "address": "Via del Corso, 305, 00186 Roma RM",
+      "lat": 41.8987,
+      "lng": 12.4815,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 16,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马最大私人收藏，贝拉斯克斯教皇肖像在此。",
+      "long_desc": "Doria Pamphilj 家族 17 世纪以来私人收藏的 600+ 幅画作，仍由家族后代经营开放。最重要展品是西班牙画家 Velázquez 1650 年《教皇英诺森十世肖像》——画中教皇真容透出狡诈，以至英诺森看完叹「画得太真了」（troppo vero）。还有卡拉瓦乔《埃及避难歇息》《忏悔的抹大拉》、贝尼尼《教皇英诺森十世胸像》、拉斐尔等。镜面长廊（Galleria degli Specchi）仿凡尔赛镜厅。门票 16€ 含 Jonathan Pamphilj 王子亲口录制的导览，是罗马最有家族故事的美术馆。",
+      "tips": [
+        "Velázquez 教皇肖像是镇馆神品",
+        "免费语音导览很有趣，王子亲述",
+        "在 Via del Corso 步行街上很好顺路",
+        "周三闭馆"
+      ],
+      "tags": [
+        "私人收藏",
+        "卡拉瓦乔",
+        "宝藏"
+      ],
+      "xhs_keyword": "多利亚潘菲利美术馆"
+    },
+    {
+      "id": "rom-025",
+      "name_zh": "巴贝里尼宫国立古代艺术馆",
+      "name_en": "Palazzo Barberini",
+      "name_local": "Galleria Nazionale d'Arte Antica - Palazzo Barberini",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Trevi",
+      "district_zh": "特雷维区",
+      "address": "Via delle Quattro Fontane, 13, 00184 Roma RM",
+      "lat": 41.9035,
+      "lng": 12.491,
+      "duration_hr": 2.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 15,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "卡拉瓦乔《朱迪斯斩首荷罗孚尼》必看。",
+      "long_desc": "1625-1633 年由教皇 Urban VIII 家族 Barberini 委托 Bernini、Borromini 共同设计的巴洛克宫殿，今为意大利国立古代艺术馆。镇馆之宝是卡拉瓦乔《朱迪斯斩首荷罗孚尼》血腥写实震撼，以及 Pietro da Cortona 1633-1639 年绘的天顶画《神圣天意的胜利》（Trionfo della Divina Provvidenza）。还有拉斐尔《La Fornarina》、Hans Holbein《亨利八世肖像》。Borromini 螺旋楼梯本身就是建筑奇迹值得专门拍。门票 15€ 含相邻 Galleria Corsini，比 Borghese 容易抢、人少 80%、画作分量绝不输。",
+      "tips": [
+        "Borromini 螺旋楼梯必拍",
+        "比 Borghese 容易订，人少分量足",
+        "联票包含 Galleria Corsini",
+        "Barberini 地铁 A 线步行 2 分钟"
+      ],
+      "tags": [
+        "卡拉瓦乔",
+        "拉斐尔",
+        "宝藏"
+      ],
+      "xhs_keyword": "巴贝里尼宫"
+    },
+    {
+      "id": "rom-026",
+      "name_zh": "蒙特马尔蒂尼中央发电厂博物馆",
+      "name_en": "Centrale Montemartini",
+      "name_local": "Centrale Montemartini",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Ostiense",
+      "district_zh": "奥斯蒂恩塞区",
+      "address": "Via Ostiense, 106, 00154 Roma RM",
+      "lat": 41.8717,
+      "lng": 12.4773,
+      "duration_hr": 1.5,
+      "best_time": [
+        "afternoon"
+      ],
+      "price_eur": 11,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "废弃发电厂改造成博物馆，工业风+古罗马雕塑。",
+      "long_desc": "罗马第一座公用发电厂 1912 年开建，1963 年退役，2001 年改造成 Capitoline Museums 分馆陈列其溢出馆藏。最大魅力是巨型柴油发动机、蒸汽锅炉与古希腊罗马大理石雕塑同框——Apollo 神像站在涡轮机旁，Athena 立于发电机前，工业冷峻与古典温润形成反差冲击。门票 11€（Capitoline Museums 联票 +3€）。在 Ostiense 区，地铁 B 线 Garbatella 步行 8 分钟。游客评价「罗马最被低估的博物馆之一」「适合工业风爱好者」。",
+      "tips": [
+        "工业风 + 古希腊雕塑反差极美",
+        "Capitoline Museums 联票省钱",
+        "周一闭馆，其他 09:00-19:00",
+        "游客比市中心少 90% 拍照舒适"
+      ],
+      "tags": [
+        "工业风",
+        "小众",
+        "雕塑"
+      ],
+      "xhs_keyword": "蒙特马尔蒂尼"
+    },
+    {
+      "id": "rom-027",
+      "name_zh": "和平祭坛博物馆",
+      "name_en": "Ara Pacis Museum",
+      "name_local": "Museo dell'Ara Pacis",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Campo Marzio",
+      "district_zh": "战神广场区",
+      "address": "Lungotevere in Augusta, 00186 Roma RM",
+      "lat": 41.9061,
+      "lng": 12.4754,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 13,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "奥古斯都和平祭坛 + 美国建筑师 Meier 设计的玻璃馆。",
+      "long_desc": "公元前 13-9 年罗马元老院为庆祝奥古斯都凯旋平定西班牙与高卢而建的和平祭坛，公元 16 世纪在台伯河畔被陆续挖出。Richard Meier 2006 年设计的现代玻璃箱体保护建筑——是罗马历史中心战后唯一新建的当代建筑，建成时遭罗马人激烈批评后逐渐接受。祭坛四面浮雕是罗马艺术巅峰作品，描绘奥古斯都家族祭祀队列与神话寓言。距奥古斯都陵 50 米，2021 年陵墓修复完成开放。门票 13€。",
+      "tips": [
+        "和奥古斯都陵步行 1 分钟可一并参观",
+        "Richard Meier 玻璃馆建筑本身值得拍",
+        "1.5 小时足够",
+        "周一闭馆"
+      ],
+      "tags": [
+        "奥古斯都",
+        "浮雕",
+        "新旧融合"
+      ],
+      "xhs_keyword": "和平祭坛"
+    },
+    {
+      "id": "rom-028",
+      "name_zh": "巴尔比地下博物馆",
+      "name_en": "Crypta Balbi",
+      "name_local": "Crypta Balbi",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Sant'Angelo",
+      "district_zh": "圣天使区",
+      "address": "Via delle Botteghe Oscure, 31, 00186 Roma RM",
+      "lat": 41.8945,
+      "lng": 12.4768,
+      "duration_hr": 1.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 13,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "罗马城市层叠 2000 年的剖面博物馆。",
+      "long_desc": "Museo Nazionale Romano 四馆之一，罕见展示罗马「单一地块从公元前 13 年到中世纪 2000 年的城市层叠」。地下挖出公元前 13 年 Balbus 剧院附属柱廊，上叠中世纪 7-8 世纪的修道院、文艺复兴时期的工坊、巴洛克教堂——一个剖面看透罗马城建史。展品含早期基督教与中世纪手工艺品，特别小众但学术价值极高。游客极少几乎包场。Museo Nazionale Romano 4 馆联票 13€（Crypta Balbi + Palazzo Massimo + Diocletian Baths + Palazzo Altemps，7 天有效）。",
+      "tips": [
+        "Museo Nazionale Romano 4 馆联票最划算",
+        "几乎包场，适合深度学术游",
+        "导览必听否则看不懂",
+        "周一闭馆"
+      ],
+      "tags": [
+        "小众",
+        "城市考古",
+        "联票"
+      ],
+      "xhs_keyword": "Crypta Balbi"
+    },
+    {
+      "id": "rom-029",
+      "name_zh": "斯帕达美术馆",
+      "name_en": "Galleria Spada",
+      "name_local": "Galleria Spada",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Regola",
+      "district_zh": "雷戈拉区",
+      "address": "Piazza Capo di Ferro, 13, 00186 Roma RM",
+      "lat": 41.8941,
+      "lng": 12.471,
+      "duration_hr": 1.0,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 6,
+      "price_level": "¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "Borromini 透视长廊视错觉杰作。",
+      "long_desc": "枢机主教 Bernardino Spada 17 世纪私人收藏小馆。最大看点是 Borromini 1652 年设计的「透视长廊」（Galleria Prospettica）——一条视觉上看着 35 米长的拱廊，实际只有 8 米，地板逐级抬升、柱子越来越短、雕像越来越小造成视错觉，走进会发现「长廊深处的雕像」其实只有 60 厘米高。展厅四室含 Guercino、Tiziano、Rubens、Andrea del Sarto 等画作。门票 6€ 是罗马性价比最高小馆。",
+      "tips": [
+        "Borromini 视错觉长廊是必看必拍",
+        "门票 6€ 罗马最便宜小馆",
+        "Campo de' Fiori 步行 5 分钟",
+        "周二闭馆"
+      ],
+      "tags": [
+        "视错觉",
+        "小众",
+        "便宜"
+      ],
+      "xhs_keyword": "Galleria Spada"
+    },
+    {
+      "id": "rom-030",
+      "name_zh": "马西莫宫国家罗马博物馆",
+      "name_en": "Palazzo Massimo alle Terme",
+      "name_local": "Museo Nazionale Romano - Palazzo Massimo",
+      "category": "art",
+      "category_label": "文艺打卡",
+      "district": "Castro Pretorio",
+      "district_zh": "卡斯特罗普雷托里奥区",
+      "address": "Largo di Villa Peretti, 2, 00185 Roma RM",
+      "lat": 41.9015,
+      "lng": 12.4986,
+      "duration_hr": 2.5,
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "price_eur": 13,
+      "price_level": "¥¥",
+      "cover_url": "",
+      "gallery": [],
+      "short_desc": "古罗马雕塑、马赛克、壁画总集，Termini 站旁。",
+      "long_desc": "Museo Nazionale Romano 四大馆中分量最重的一座，Termini 火车站对面 5 分钟。四层展厅集合古罗马最重要文物：奥古斯都·普里马波尔塔像（Augustus of Prima Porta）、Discobolus 掷铁饼者（罗马复制品）、青铜「拳击手」（Pugile delle Terme，公元前 1 世纪希腊化杰作）、Livia 别墅整面花园壁画原址搬迁、Casa di Augusto 房间彩绘原件。MNR 联票 13€ 7 天有效含 4 馆。游客口碑「罗马博物馆性价比之王」，比梵蒂冈安静得多但分量绝对一档。",
+      "tips": [
+        "MNR 4 馆联票 13€ 性价比之王",
+        "Termini 火车站对面最方便",
+        "二楼壁画展厅常被忽略别错过",
+        "周一闭馆"
+      ],
+      "tags": [
+        "雕塑",
+        "壁画",
+        "联票"
+      ],
+      "xhs_keyword": "Palazzo Massimo"
+    }
+  ]
+}

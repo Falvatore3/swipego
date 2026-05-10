@@ -1,0 +1,51 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-05-11",
+  "cities": [
+    {
+      "code": "bkk",
+      "city": "Bangkok",
+      "city_zh": "曼谷",
+      "country": "Thailand",
+      "country_zh": "泰国",
+      "currency": "THB",
+      "currency_symbol": "฿",
+      "emoji": "🇹🇭",
+      "tagline": "金色寺庙 · 街边米其林 · 河岸夜风",
+      "data_file": "./data/cities/bangkok.json",
+      "cover": "./assets/pois/bkk-001.jpg",
+      "poi_count": 80,
+      "ready": true
+    },
+    {
+      "code": "rom",
+      "city": "Rome",
+      "city_zh": "罗马",
+      "country": "Italy",
+      "country_zh": "意大利",
+      "currency": "EUR",
+      "currency_symbol": "€",
+      "emoji": "🇮🇹",
+      "tagline": "古迹 · 教堂 · 一杯 espresso 站着喝",
+      "data_file": "./data/cities/rome.json",
+      "cover": "",
+      "poi_count": 100,
+      "ready": false
+    },
+    {
+      "code": "han",
+      "city": "Hanoi",
+      "city_zh": "河内",
+      "country": "Vietnam",
+      "country_zh": "越南",
+      "currency": "VND",
+      "currency_symbol": "₫",
+      "emoji": "🇻🇳",
+      "tagline": "蛋咖啡 · 河粉 · 36 老街法属时光",
+      "data_file": "./data/cities/hanoi.json",
+      "cover": "",
+      "poi_count": 100,
+      "ready": false
+    }
+  ]
+}

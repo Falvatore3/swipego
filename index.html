@@ -3,17 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-<title>SwipeGo · 曼谷小时级攻略</title>
-<meta name="description" content="J人专属·小时级曼谷旅游规划" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
-<!-- Tailwind 用 jsdelivr 的轻量版（cdn.tailwindcss.com 在国内经常卡死） -->
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<!-- 用于「保存为图片」+ 二维码 — 改 defer，不阻塞首屏 -->
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<title>SwipeGo · 滑卡定制旅行</title>
+<meta name="description" content="J 人专属·小时级海外城市旅游规划。曼谷 / 罗马 / 河内…" />
+<!-- 全部本地化（vendor/），不依赖任何外部 CDN，国内秒开 -->
+<script src="./vendor/react.min.js" crossorigin></script>
+<script src="./vendor/react-dom.min.js" crossorigin></script>
+<script src="./vendor/babel.min.js"></script>
+<script src="./vendor/tailwind.js"></script>
+<!-- 只在「保存为图片」时才用，defer 不阻塞首屏；加载失败也不影响主流程 -->
+<script defer src="./vendor/html2canvas.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.js" onerror="window.__qrcodeFailed=true"></script>
+<!-- 字体也走系统字体兜底，不再依赖 Google Fonts（国内常卡） -->
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft Yahei',sans-serif;}
+  .font-serif{font-family:'Noto Serif SC',ui-serif,'Songti SC','Source Han Serif SC',serif;}
+  .font-mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+</style>
 <style>
   :root{
     --ink:#0F3D2E;        /* 深墨绿 */
@@ -69,7 +74,7 @@
   <div id="boot-skeleton" style="max-width:36rem;margin:0 auto;padding:48px 20px;text-align:center;font-family:ui-serif,'Noto Serif SC',serif;">
     <div style="font-size:48px;margin-bottom:16px;animation:bootPulse 1.4s infinite;">✨</div>
     <div style="font-family:ui-monospace,'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:#FF6B35;margin-bottom:8px;">SWIPEGO LOADING</div>
-    <div style="font-size:22px;font-weight:700;color:#0F3D2E;">滑卡定制曼谷行程</div>
+    <div style="font-size:22px;font-weight:700;color:#0F3D2E;">SwipeGo · 滑卡定制旅行</div>
     <div style="font-size:13px;color:#6B7A70;margin-top:10px;">正在启动…</div>
     <style>@keyframes bootPulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}</style>
   </div>
@@ -96,15 +101,37 @@ function dbgSetCurrent(c){
 }
 
 /* ---------- 数据加载 ---------- */
-function usePois(){
+function useCities(){
+  const [cities,setCities] = useState(null);
+  const [err,setErr] = useState(null);
+  useEffect(()=>{
+    fetch('./data/cities.json?v='+Date.now())
+      .then(r=>{ if(!r.ok) throw new Error('cities 索引未就绪'); return r.json(); })
+      .then(d=>setCities(d.cities||[]))
+      .catch(e=>setErr(e.message));
+  },[]);
+  return {cities,err};
+}
+function usePois(cityCode){
   const [data,setData] = useState(null);
   const [err,setErr] = useState(null);
   useEffect(()=>{
-    fetch('./data/bangkok-pois.json?v='+Date.now())
-      .then(r=>{ if(!r.ok) throw new Error('poi 数据还没就绪，研究 Agent 正在整理'); return r.json(); })
-      .then(setData)
-      .catch(e=>setErr(e.message));
-  },[]);
+    if(!cityCode) return;
+    setData(null); setErr(null);
+    // bkk 同时回退到旧路径（兼容）
+    const tries = cityCode==='bkk'
+      ? [`./data/cities/bangkok.json`, `./data/bangkok-pois.json`]
+      : [`./data/cities/${({rom:'rome',han:'hanoi'})[cityCode] || cityCode}.json`];
+    (async ()=>{
+      for(const url of tries){
+        try{
+          const r = await fetch(url+'?v='+Date.now());
+          if(r.ok){ setData(await r.json()); return; }
+        }catch{}
+      }
+      setErr('该城市数据还在路上');
+    })();
+  },[cityCode]);
   return {data,err};
 }
 
@@ -364,7 +391,72 @@ function Header({step,total,onBack,right}){
 }
 
 /* ---------- STEP 0: 开场问卷（仅天数） ---------- */
-function StepIntake({onDone}){
+function StepCity({cities,onDone}){
+  const ready = (cities||[]).filter(c=>c.ready);
+  const coming = (cities||[]).filter(c=>!c.ready);
+  return (
+    <div className="max-w-xl mx-auto px-5 pt-6 pb-10">
+      <div className="mb-6">
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// 00 DESTINATION</div>
+        <h2 className="font-serif text-3xl font-bold leading-tight">这次想去哪？</h2>
+        <p className="text-sm text-muted mt-2">先挑一座城，再排几天</p>
+      </div>
+
+      <div className="space-y-3">
+        {ready.map(c=>(
+          <button key={c.code} onClick={()=>onDone(c)}
+            className="group w-full relative overflow-hidden rounded-2xl border-2 border-ink/15 bg-cream text-left active:scale-[0.99] transition shadow-sm hover:border-ink/40">
+            <div className="relative h-36">
+              {c.cover ? (
+                <img src={c.cover} alt={c.city_zh}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e)=>{e.currentTarget.style.display='none';}}/>
+              ) : null}
+              <div className="absolute inset-0" style={{background:'linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.6) 100%)'}}/>
+              <div className="absolute left-4 right-4 bottom-3 text-white">
+                <div className="flex items-end justify-between gap-3">
+                  <div>
+                    <div className="font-mono text-[10px] tracking-widest opacity-85">{c.country_zh} · {c.country}</div>
+                    <h3 className="font-serif text-2xl font-bold leading-tight" style={{textShadow:'0 2px 8px rgba(0,0,0,.55)'}}>
+                      {c.emoji} {c.city_zh}
+                    </h3>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-mono text-[10px] opacity-80">POI</div>
+                    <div className="font-serif text-xl font-bold">{c.poi_count}</div>
+                  </div>
+                </div>
+                <p className="text-[12px] mt-1.5 opacity-95" style={{textShadow:'0 1px 4px rgba(0,0,0,.5)'}}>{c.tagline}</p>
+              </div>
+            </div>
+          </button>
+        ))}
+
+        {coming.length > 0 && (
+          <div className="pt-2">
+            <div className="font-mono text-[10px] text-muted tracking-widest mb-2">// COMING SOON</div>
+            <div className="grid grid-cols-2 gap-3">
+              {coming.map(c=>(
+                <div key={c.code} className="relative rounded-2xl border-2 border-dashed border-ink/15 bg-cream/60 p-4 text-left opacity-70">
+                  <div className="text-2xl">{c.emoji}</div>
+                  <div className="font-serif text-base font-bold mt-1">{c.city_zh}</div>
+                  <div className="font-mono text-[10px] text-muted mt-0.5">{c.country_zh}</div>
+                  <div className="font-mono text-[9px] text-muted mt-2 tracking-wider">数据准备中…</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <p className="font-mono text-[10px] text-muted text-center mt-8 tracking-wider">
+        SWIPEGO · 多城市持续上新
+      </p>
+    </div>
+  );
+}
+
+function StepIntake({city, onDone}){
   const [days,setDays] = useState(null);
 
   const choose = (v)=>{
@@ -385,8 +477,8 @@ function StepIntake({onDone}){
   return (
     <div className="max-w-xl mx-auto px-5 pt-6 pb-10">
       <div className="mb-8">
-        <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// 01 INTAKE</div>
-        <h2 className="font-serif text-3xl font-bold leading-tight">你打算待几天？</h2>
+        <div className="font-mono text-[11px] text-accent tracking-widest mb-2">// 01 INTAKE {city ? `· ${city.emoji} ${city.city_zh}` : ''}</div>
+        <h2 className="font-serif text-3xl font-bold leading-tight">{city ? `${city.city_zh}打算待几天？` : '你打算待几天？'}</h2>
         <p className="text-sm text-muted mt-2">SwipeGo 会按天给你排出小时级清单</p>
       </div>
 
@@ -2440,17 +2532,36 @@ function DataPending({err}){
 
 /* ---------- 主 App ---------- */
 function App(){
-  const {data,err} = usePois();
-  const [step,setStep] = useState(0);
+  const {cities, err: cityErr} = useCities();
+  const [city,setCity] = useState(null);
+  const {data,err} = usePois(city?.code);
+  const [step,setStep] = useState(0);  // 0=选城市, 1=选天数, 2=刷卡, 3=预处理, 4=行程
   const [intake,setIntake] = useState(null);
   const [swipeResult,setSwipeResult] = useState(null);
-  // 预处理后的最终 list（如果走预处理）
   const [finalLiked,setFinalLiked] = useState(null);
   const [finalMaybe,setFinalMaybe] = useState(null);
 
-  const reset = ()=>{setStep(0); setIntake(null); setSwipeResult(null); setFinalLiked(null); setFinalMaybe(null);};
+  const reset = ()=>{
+    setStep(0); setCity(null);
+    setIntake(null); setSwipeResult(null); setFinalLiked(null); setFinalMaybe(null);
+  };
 
-  if(!data) return <><Header step={0} total={3}/><DataPending err={err}/><DebugPanel/></>;
+  // 选城市页（无需 data）
+  if(step === 0){
+    return (
+      <div className="min-h-screen">
+        <Header step={1} total={4}/>
+        {!cities && !cityErr && <div className="p-10 text-center text-muted">加载城市清单…</div>}
+        {cityErr && <div className="p-10 text-center text-muted">{cityErr}</div>}
+        {cities && (
+          <StepCity cities={cities} onDone={(c)=>{ setCity(c); setStep(1); }}/>
+        )}
+      </div>
+    );
+  }
+
+  // 选了城市但 POI 数据还没就绪
+  if(!data) return <><Header step={1} total={4} onBack={()=>setStep(0)}/><DataPending err={err}/><DebugPanel/></>;
 
   // 判断是否需要走预处理（超量）：每天上限按 pace 来
   const paceUpper = (intake?.pace === 'chill') ? 4 : (intake?.pace === 'intense' ? 8 : 6);
@@ -2458,37 +2569,37 @@ function App(){
   const upper = paceUpper * dayCount;
   const needPreCheck = swipeResult && swipeResult.liked.length > upper;
 
-  // 滑卡完成回调：如果超量进 step=2 预处理，否则直接进 step=3 最终行程
+  // 滑卡完成回调：如果超量进 step=3 预处理，否则直接进 step=4 最终行程
   const onSwipeDone = (r)=>{
     setSwipeResult(r);
     const overflow = r.liked.length > (paceUpper * dayCount);
     if(overflow){
-      setStep(2);
+      setStep(3);
     } else {
       setFinalLiked(r.liked); setFinalMaybe(r.maybe);
-      setStep(3);
+      setStep(4);
     }
   };
   const onPreCheckDone = (liked, maybe)=>{
     setFinalLiked(liked); setFinalMaybe(maybe);
-    setStep(3);
+    setStep(4);
   };
 
   return (
     <div className="min-h-screen">
       <Header
         step={step+1}
-        total={needPreCheck ? 4 : 3}
+        total={needPreCheck ? 5 : 4}
         onBack={step>0?()=>setStep(s=>Math.max(0,s-1)):null}
-        right={step===1 ? <span/> : null}/>
+        right={step===2 ? <span/> : null}/>
 
-      {step===0 && (
-        <StepIntake onDone={(v)=>{setIntake(v); setStep(1);}}/>
+      {step===1 && (
+        <StepIntake city={city} onDone={(v)=>{setIntake(v); setStep(2);}}/>
       )}
-      {step===1 && intake && (
+      {step===2 && intake && (
         <StepSwipe pois={data.pois} onDone={onSwipeDone}/>
       )}
-      {step===2 && swipeResult && intake && (
+      {step===3 && swipeResult && intake && (
         <StepPreCheck
           intake={intake}
           liked={swipeResult.liked}
@@ -2496,7 +2607,7 @@ function App(){
           allPois={data.pois}
           onDone={onPreCheckDone}/>
       )}
-      {step===3 && intake && finalLiked && (
+      {step===4 && intake && finalLiked && (
         <StepItinerary
           intake={intake}
           liked={finalLiked}
