@@ -80,19 +80,26 @@ function usePois(){
 
 /* ---------- 小工具 ---------- */
 const CAT_META = {
-  landmark:  {label:'地标寺庙', icon:'🏛'},
-  food:      {label:'美食',     icon:'🍜'},
-  market:    {label:'市集购物', icon:'🛍'},
-  nightlife: {label:'夜生活',   icon:'🌃'},
-  niche:     {label:'小众文艺', icon:'🛕'},
-  spa:       {label:'SPA体验',  icon:'💆'},
-  nature:    {label:'自然公园', icon:'🌳'},
-  art:       {label:'文艺艺术', icon:'🎨'},
-  cafe:      {label:'咖啡甜品', icon:'☕'},
-  mall:      {label:'商场购物', icon:'🏬'},
-  hidden:    {label:'小众秘境', icon:'🗺'},
-  family:    {label:'亲子游乐', icon:'🦁'},
+  landmark:   {label:'地标寺庙', icon:'🏛'},
+  restaurant: {label:'特色餐厅', icon:'🍽'},
+  streetfood: {label:'街边小吃', icon:'🥘'},
+  cafe:       {label:'咖啡甜品', icon:'☕'},
+  market:     {label:'市集购物', icon:'🛍'},
+  mall:       {label:'商场',     icon:'🏬'},
+  nightlife:  {label:'夜生活',   icon:'🌃'},
+  spa:        {label:'SPA体验',  icon:'💆'},
+  art:        {label:'文艺艺术', icon:'🎨'},
+  family:     {label:'亲子游乐', icon:'🦁'},
+  hidden:     {label:'小众秘境', icon:'🗺'},
+  // 兼容旧数据
+  food:       {label:'美食',     icon:'🍜'},
+  niche:      {label:'小众文艺', icon:'🛕'},
+  nature:     {label:'自然公园', icon:'🌳'},
 };
+// "吃饭"类（用于固定节奏插入）
+const MEAL_CATS = new Set(['restaurant','streetfood']);
+// "甜品/咖啡"算辅助餐饮但不算正餐
+const SNACK_CATS = new Set(['cafe']);
 const TIME_META = {
   morning:{label:'清晨',range:'06-11'},
   noon:{label:'午间',range:'11-14'},
@@ -100,6 +107,146 @@ const TIME_META = {
   evening:{label:'傍晚',range:'17-20'},
   night:{label:'夜间',range:'20-24'},
 };
+
+/* ---------- 智能推荐引擎 ---------- */
+/*
+ * 策略：
+ *  1) 冷启动：前 8 张优先 popularity ≥ 8 的高分热门，强制每张换品类
+ *  2) 自适应：第 9 张起按 score 公式抽：
+ *       score = popularity 基础分
+ *             + 用户兴趣加成 (该 category 用户右滑越多越加分)
+ *             - 近期连发惩罚 (上 3 张里同 category 几张就 -几 × 8)
+ *             + 探索奖励 (用户没看过的 category +3)
+ *             + 随机抖动 ±2
+ *  3) 餐饮独立节奏：每 5 张必塞 1 张吃的（非个性化，固定刚需）
+ *  4) 已看过的 POI 不再出现
+ */
+function createRecommender(allPois){
+  const seen = new Set();         // 已抽过的 poi.id
+  const recent = [];              // 最近抽过的 category，最长 5
+  const tasteCount = {};          // category -> 右滑次数（用于 exploit）
+  const seenCount = {};           // category -> 已展示次数（用于 explore）
+  let total = 0;                  // 已抽过的卡数（含餐饮）
+  let lastMealAt = -1;            // 上次塞餐饮卡的位置，用于"每 5 张必有吃的"
+
+  // 把"非餐饮"和"餐饮"分开池
+  const isMeal = (p)=> MEAL_CATS.has(p.category);
+
+  const computeScore = (p, opts={})=>{
+    const cat = p.category;
+    const pop = p.popularity || 5;
+    let score = pop;
+
+    if(opts.coldStart){
+      // 冷启动：只看热门，强惩同品类
+      const sameInRecent = recent.filter(c=>c===cat).length;
+      score += -sameInRecent * 12;
+      score += pop >= 8 ? 5 : 0;
+      score += (Math.random()-0.5) * 3;
+      return score;
+    }
+
+    // 用户兴趣（exploit）— 餐饮不参与
+    if(!isMeal(p)){
+      const interest = (tasteCount[cat]||0);
+      score += interest * 1.8;
+    }
+    // 同品类连发惩罚（diversity）
+    const sameInRecent = recent.filter(c=>c===cat).length;
+    score += -sameInRecent * 8;
+    // 探索奖励：用户没刷过的品类
+    const seenN = (seenCount[cat]||0);
+    if(seenN===0) score += 4;
+    else if(seenN<=2) score += 2;
+    // 随机抖动
+    score += (Math.random()-0.5) * 4;
+    return score;
+  };
+
+  // 每次记录用户对当前卡的决定（决定影响后续推荐）
+  const recordDecision = (poi, verb)=>{
+    if(verb === 'like'){
+      // 用户右滑想去 → 这个 category 加权（餐饮不参与个性化）
+      if(!isMeal(poi)){
+        tasteCount[poi.category] = (tasteCount[poi.category]||0) + 2;
+      }
+    } else if(verb === 'maybe'){
+      if(!isMeal(poi)){
+        tasteCount[poi.category] = (tasteCount[poi.category]||0) + 1;
+      }
+    }
+    // pass 不调整
+  };
+
+  // 撤销时回滚
+  const undoDecision = (poi, verb)=>{
+    if(verb === 'like' && !isMeal(poi)){
+      tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0) - 2);
+    } else if(verb === 'maybe' && !isMeal(poi)){
+      tasteCount[poi.category] = Math.max(0, (tasteCount[poi.category]||0) - 1);
+    }
+  };
+
+  const pickFromPool = (pool, opts)=>{
+    if(!pool.length) return null;
+    // 用 score 排序后从前 5 名里加权随机抽（避免每次都最高分）
+    const scored = pool.map(p=>({p, s:computeScore(p,opts)}));
+    scored.sort((a,b)=>b.s-a.s);
+    const topN = scored.slice(0, Math.min(5, scored.length));
+    // 加权随机：分数越高概率越大
+    const weights = topN.map((x,i)=>Math.max(0.2, x.s+10-i*2));
+    const sum = weights.reduce((a,b)=>a+b,0);
+    let r = Math.random()*sum;
+    for(let i=0;i<topN.length;i++){
+      r -= weights[i];
+      if(r<=0) return topN[i].p;
+    }
+    return topN[0].p;
+  };
+
+  const next = ()=>{
+    const remaining = allPois.filter(p=>!seen.has(p.id));
+    if(!remaining.length) return null;
+
+    // 餐饮节奏：每 5 张必塞 1 张餐饮（如果已经超过 5 张没塞）
+    const mealsRemaining = remaining.filter(isMeal);
+    const since = total - lastMealAt;
+    const forceMeal = since >= 5 && mealsRemaining.length > 0;
+
+    let chosen;
+    if(forceMeal){
+      chosen = pickFromPool(mealsRemaining, {coldStart: total<6});
+      lastMealAt = total;
+    } else {
+      // 自然抽取：前 8 张冷启动，之后自适应
+      chosen = pickFromPool(remaining, {coldStart: total<8});
+      if(chosen && isMeal(chosen)) lastMealAt = total;
+    }
+
+    if(!chosen) chosen = remaining[0];
+    seen.add(chosen.id);
+    seenCount[chosen.category] = (seenCount[chosen.category]||0)+1;
+    recent.push(chosen.category);
+    if(recent.length > 5) recent.shift();
+    total++;
+    return chosen;
+  };
+
+  const peekNext = ()=>{
+    // 不消费、用于卡堆下一张展示——简单返回第一个未看过的
+    const remaining = allPois.filter(p=>!seen.has(p.id));
+    return remaining[0] || null;
+  };
+
+  const stats = ()=>({
+    seen: seen.size,
+    total: allPois.length,
+    taste: {...tasteCount},
+    seenByCat: {...seenCount},
+  });
+
+  return { next, peekNext, recordDecision, undoDecision, stats };
+}
 
 /* ---------- 顶部 Header ---------- */
 function Header({step,total,onBack,right}){
@@ -175,23 +322,32 @@ function StepIntake({onDone}){
 
 /* ---------- STEP 1: 刷 POI 卡 ---------- */
 function StepSwipe({pois,onDone}){
-  const [idx,setIdx] = useState(0);
+  // 推荐引擎：每个 mount 创建一次，跨 render 持有状态
+  const recoRef = useRef(null);
+  if(!recoRef.current) recoRef.current = createRecommender(pois);
+  const reco = recoRef.current;
+
+  // queue 始终保持 [current, next, ...]，初始抽 2 张
+  const [queue,setQueue] = useState(()=>{
+    const a = reco.next(); const b = reco.next();
+    return [a,b].filter(Boolean);
+  });
   const [decisions,setDecisions] = useState({});
-  const [history,setHistory] = useState([]);
+  const [history,setHistory] = useState([]);  // [{poi, verb}] 用于撤销
   const [openDetail,setOpenDetail] = useState(null);
   const [openShortlist,setOpenShortlist] = useState(false);
   const [exiting,setExiting] = useState(null);
-  const [imgIdx,setImgIdx] = useState(0);  // 当前卡片的图片索引
+  const [imgIdx,setImgIdx] = useState(0);
 
-  // 拖拽用 ref，不走 state，避免 60fps re-render 卡顿
+  // 拖拽用 ref
   const cardRef = useRef(null);
   const labelLikeRef = useRef(null);
   const labelPassRef = useRef(null);
   const labelMaybeRef = useRef(null);
   const dragRef = useRef({x:0,y:0,active:false,startX:0,startY:0});
 
-  const current = pois[idx];
-  const next = pois[idx+1];
+  const current = queue[0];
+  const next = queue[1];
 
   // 应用 transform 到 DOM
   const applyTransform = (x,y,withTransition=false)=>{
@@ -200,7 +356,6 @@ function StepSwipe({pois,onDone}){
     const rot = Math.max(-22, Math.min(22, x*0.08));
     el.style.transition = withTransition ? 'transform .28s cubic-bezier(.2,.8,.2,1)' : 'none';
     el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${rot}deg)`;
-    // 三个方向标签的不透明度也直接 DOM 改
     if(labelLikeRef.current) labelLikeRef.current.style.opacity = Math.max(0, Math.min(1, (x-20)/100));
     if(labelPassRef.current) labelPassRef.current.style.opacity = Math.max(0, Math.min(1, (-x-20)/100));
     if(labelMaybeRef.current) labelMaybeRef.current.style.opacity = Math.max(0, Math.min(1, (y-20)/100));
@@ -210,7 +365,6 @@ function StepSwipe({pois,onDone}){
     if(!current || exiting) return;
     const dir = verb==='like'?{x:700,y:-80}:verb==='pass'?{x:-700,y:-80}:{x:0,y:800};
     setExiting({dir,verb});
-    // 飞出动画用 transition
     const el = cardRef.current;
     if(el){
       const rot = verb==='like'?22:verb==='pass'?-22:0;
@@ -218,16 +372,21 @@ function StepSwipe({pois,onDone}){
       el.style.transform = `translate3d(${dir.x}px, ${dir.y}px, 0) rotate(${rot}deg)`;
       el.style.opacity = '0';
     }
-    const snapshotIdx = idx;
     const snapshotPoi = current;
     setTimeout(()=>{
-      // 状态切换
+      // 通知推荐引擎并抽下一张
+      reco.recordDecision(snapshotPoi, verb);
       setDecisions(prev=>({...prev, [snapshotPoi.id]:verb}));
-      setHistory(h=>[...h, {idx:snapshotIdx, poiId:snapshotPoi.id, verb}]);
-      setIdx(i=>i+1);
-      setImgIdx(0);  // 新卡从第一张开始
+      setHistory(h=>[...h, {poi:snapshotPoi, verb}]);
+      // queue 出列 + 补充
+      setQueue(q=>{
+        const newNext = reco.next();
+        const arr = q.slice(1);
+        if(newNext) arr.push(newNext);
+        return arr;
+      });
+      setImgIdx(0);
       setExiting(null);
-      // 重置 ref 卡片：先无 transition 归零，再恢复完整 opacity
       requestAnimationFrame(()=>{
         const el2 = cardRef.current;
         if(el2){
@@ -249,11 +408,13 @@ function StepSwipe({pois,onDone}){
     setHistory(h=>h.slice(0,-1));
     setDecisions(prev=>{
       const n = {...prev};
-      delete n[last.poiId];
+      delete n[last.poi.id];
       return n;
     });
-    setIdx(last.idx);
-    setImgIdx(0);  // 撤销也回到第一张
+    // 撤销时把卡塞回 queue 头部，让用户再决定一次
+    reco.undoDecision(last.poi, last.verb);
+    setQueue(q=>[last.poi, ...q]);
+    setImgIdx(0);
     setExiting(null);
     requestAnimationFrame(()=>{
       const el = cardRef.current;
@@ -338,7 +499,8 @@ function StepSwipe({pois,onDone}){
   const doneCount = Object.keys(decisions).length;
   const likeCount = Object.values(decisions).filter(v=>v==='like').length;
   const maybeCount = Object.values(decisions).filter(v=>v==='maybe').length;
-  const allDone = idx >= pois.length;
+  const totalPois = pois.length;
+  const allDone = !current; // queue 空 = 没卡可刷了
 
   // 触发规划
   const startPlanning = ()=>{
@@ -356,11 +518,11 @@ function StepSwipe({pois,onDone}){
     <div className="max-w-xl mx-auto px-5 pt-4 pb-6">
       {/* 进度 */}
       <div className="mb-3 flex items-center justify-between text-[11px] font-mono text-muted">
-        <span>{doneCount} / {pois.length}</span>
+        <span>{doneCount} / {totalPois}</span>
         <span className="text-accent">♥ 想去 {likeCount}</span>
       </div>
       <div className="h-1 bg-paper rounded-full overflow-hidden mb-5">
-        <div className="h-full bg-ink transition-all" style={{width:`${(doneCount/pois.length)*100}%`}}/>
+        <div className="h-full bg-ink transition-all" style={{width:`${(doneCount/totalPois)*100}%`}}/>
       </div>
 
       {/* 卡堆 / 完成态 */}

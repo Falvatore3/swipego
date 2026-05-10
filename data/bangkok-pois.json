@@ -2,7 +2,7 @@
   "city": "Bangkok",
   "city_zh": "曼谷",
   "updated_at": "2026-05-10",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "total": 80,
   "pois": [
     {
@@ -257,7 +257,7 @@
       ],
       "price_thb": 100,
       "price_level": "¥",
-      "cover_url": "",
+      "cover_url": "./assets/pois/bkk-006.jpg",
       "gallery": [
         "./assets/pois/gallery/bkk-006_1.jpg",
         "./assets/pois/gallery/bkk-006_2.jpg",
@@ -770,7 +770,7 @@
       ],
       "price_thb": 400,
       "price_level": "¥¥",
-      "cover_url": "",
+      "cover_url": "./assets/pois/bkk-017.jpg",
       "gallery": [
         "./assets/pois/gallery/bkk-017_1.jpg",
         "./assets/pois/gallery/bkk-017_2.jpg",
@@ -817,8 +817,16 @@
       ],
       "price_thb": 400,
       "price_level": "¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-018.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-018_1.jpg",
+        "./assets/pois/gallery/bkk-018_2.jpg",
+        "./assets/pois/gallery/bkk-018_3.jpg",
+        "./assets/pois/gallery/bkk-018_4.jpg",
+        "./assets/pois/gallery/bkk-018_5.jpg",
+        "./assets/pois/gallery/bkk-018_6.jpg",
+        "./assets/pois/gallery/bkk-018_7.jpg"
+      ],
       "short_desc": "市中心彩色帐篷夜市，原拉差达火车夜市搬迁版。",
       "long_desc": "原 Train Night Market Ratchada 2021 年闭市，现以「Talad Neon」「Jodd Fairs」等形式分流复活。Jodd Fairs（位于 Esplanade 商场后）是当下接班人，入口排满霓虹招牌、彩色帐篷连成片，从无人机俯拍是网红封面。招牌「火山排骨」一份 599 铢叠成小山、海鲜烧烤、Heng Heng 麻辣烫都好吃。每天 16:00-24:00 营业。游客评价：「氛围 100 分价格便宜 60 分（按夜市标准）」「拍完照打卡走人」。",
       "tips": [
@@ -856,7 +864,15 @@
       "price_thb": 300,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-019.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-019_1.jpg",
+        "./assets/pois/gallery/bkk-019_2.jpg",
+        "./assets/pois/gallery/bkk-019_3.jpg",
+        "./assets/pois/gallery/bkk-019_4.jpg",
+        "./assets/pois/gallery/bkk-019_5.jpg",
+        "./assets/pois/gallery/bkk-019_6.jpg",
+        "./assets/pois/gallery/bkk-019_7.jpg"
+      ],
       "short_desc": "曼谷市内最地道水上市场，无旅行团本地人聚集。",
       "long_desc": "相比丹嫩沙朵那种网红水市，Khlong Lat Mayom 是曼谷市内本地人会去吃早午饭的水上市场，距市中心 30 分钟车程。木船在窄运河里穿梭叫卖船面、椰子糖、椰汁咖喱蟹，岸边摊位卖手工点心和热带水果。可付 60 铢搭长尾船游运河 1 小时看泰式高脚屋人家。仅周六周日 08:00-17:00 营业。Tripadvisor 评 4.3，「比丹嫩沙朵真实 10 倍」「价格平民没有宰客」。",
       "tips": [
@@ -987,8 +1003,16 @@
       ],
       "price_thb": 1200,
       "price_level": "¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-022.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-022_1.jpg",
+        "./assets/pois/gallery/bkk-022_2.jpg",
+        "./assets/pois/gallery/bkk-022_3.jpg",
+        "./assets/pois/gallery/bkk-022_4.jpg",
+        "./assets/pois/gallery/bkk-022_5.jpg",
+        "./assets/pois/gallery/bkk-022_6.jpg",
+        "./assets/pois/gallery/bkk-022_7.jpg"
+      ],
       "short_desc": "63 楼宿醉 2 取景天台酒吧，金色穹顶绝景。",
       "long_desc": "Sky Bar 位于 Lebua at State Tower 63 楼，海拔 220 米，2009 年随《宿醉 2》一炮而红——电影里 4 个主角站在悬空甲板看曼谷天际线就是这。镇店招牌 Hangovertini（宿醉酒）450 铢起，调酒师用蓝色香甜酒模仿电影里那杯。一杯酒人均 600-1000 铢，但景观值回票价。Dress code 严格：男士长裤、有领上衣、闭趾鞋，拖鞋短裤会被拒。BTS Saphan Taksin 步行 10 分钟。Tripadvisor 4.4/5，「一辈子去一次值」「服务略冷淡」。",
       "tips": [
@@ -1119,7 +1143,15 @@
       "price_thb": 880,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-025.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-025_1.jpg",
+        "./assets/pois/gallery/bkk-025_2.jpg",
+        "./assets/pois/gallery/bkk-025_3.jpg",
+        "./assets/pois/gallery/bkk-025_4.jpg",
+        "./assets/pois/gallery/bkk-025_5.jpg",
+        "./assets/pois/gallery/bkk-025_6.jpg",
+        "./assets/pois/gallery/bkk-025_7.jpg"
+      ],
       "short_desc": "78 楼透明玻璃地板天台，泰国第二高楼。",
       "long_desc": "Mahanakhon Tower 高 314 米，曾是 2018 年泰国最高楼（现仅次于 Magnolias Waterfront）。78 楼室内观景台 + 78 楼玻璃天台 SkyWalk 是核心卖点——4×4 米透明玻璃地板悬空 310 米，有恐高症慎入，但封面照绝杀。日落前 30 分钟到能拍到「日落 + 夜景」双重切换。门票官网买 880 铢含玻璃地板 + 鸡尾酒，比现场便宜。BTS Chong Nonsi 站 3 号口直达。Tripadvisor 4.5/5，「比 Sky Bar 视野更广」「玻璃地板腿软真好玩」。",
       "tips": [
@@ -1157,8 +1189,16 @@
       ],
       "price_thb": 1500,
       "price_level": "¥¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-026.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-026_1.jpg",
+        "./assets/pois/gallery/bkk-026_2.jpg",
+        "./assets/pois/gallery/bkk-026_3.jpg",
+        "./assets/pois/gallery/bkk-026_4.jpg",
+        "./assets/pois/gallery/bkk-026_5.jpg",
+        "./assets/pois/gallery/bkk-026_6.jpg",
+        "./assets/pois/gallery/bkk-026_7.jpg"
+      ],
       "short_desc": "61 楼 Banyan Tree 露天月亮酒吧，360 度无柱视野。",
       "long_desc": "Vertigo & Moon Bar 位于 Banyan Tree Bangkok 61 楼，2003 年开业是曼谷最早一批天台餐酒吧之一。半月形露台无玻璃遮挡视野通透，日落时刻能同时看到 Lumphini 公园全景和 Sathorn 商务区。Vertigo 是定价较高的牛排海鲜餐厅、Moon Bar 是站立式酒吧人均一杯 500-700 铢。和 Sky Bar 相比这里风格更优雅，常被本地中产带客户来。Dress code 严格。雨季常关闭，去前查官网。Tripadvisor 4.5/5，「景观无敌但价格肉痛」。",
       "tips": [
@@ -1197,7 +1237,15 @@
       "price_thb": 650,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-027.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-027_1.jpg",
+        "./assets/pois/gallery/bkk-027_2.jpg",
+        "./assets/pois/gallery/bkk-027_3.jpg",
+        "./assets/pois/gallery/bkk-027_4.jpg",
+        "./assets/pois/gallery/bkk-027_5.jpg",
+        "./assets/pois/gallery/bkk-027_6.jpg",
+        "./assets/pois/gallery/bkk-027_7.jpg"
+      ],
       "short_desc": "本地中产首选连锁，2 小时泰式按摩 650 铢性价比拉满。",
       "long_desc": "Health Land 是泰国最大本土 SPA 连锁，1995 年创立，目前曼谷有 9 家分店，Asoke 旗舰店是独立 4 层洋楼。招牌 2 小时泰式按摩仅 650 铢、90 分钟精油 1300 铢——价格只是商场连锁 Let's Relax 的 6-7 折，但环境同样干净（每间独立精油房+换衣柜+冲澡间）。在小红书攻略里被称为「曼谷最难订连锁」，建议提前 3 天电话或官网预订。MRT Sukhumvit 站 2 号口步行 5 分钟。Google 评 4.3/5，「手法重价格便宜」「不会推销卖卡」。",
       "tips": [
@@ -1236,7 +1284,15 @@
       "price_thb": 1500,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-028.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-028_1.jpg",
+        "./assets/pois/gallery/bkk-028_2.jpg",
+        "./assets/pois/gallery/bkk-028_3.jpg",
+        "./assets/pois/gallery/bkk-028_4.jpg",
+        "./assets/pois/gallery/bkk-028_5.jpg",
+        "./assets/pois/gallery/bkk-028_6.jpg",
+        "./assets/pois/gallery/bkk-028_7.jpg"
+      ],
       "short_desc": "中文友好连锁 SPA，热石+精油+泰式三连套餐。",
       "long_desc": "Let's Relax 是中国游客最熟的泰国 SPA 连锁，2002 年创立，曼谷十几家店、店员普遍会简单中文，菜单也是中英泰三语。Sukhumvit 39 店是 4 层洋楼独栋，环境优雅干净。招牌是 Heavenly Relax Package（2.5 小时含精油+热石+足部+面部）2099 铢。比 Health Land 贵但环境更精致、毛巾热敷茶点都很到位，结束前会送一份甜品。BTS Phrom Phong 站走 8 分钟。Klook/KKday 比官网便宜 15%。Tripadvisor 4.6/5，「服务标准化适合第一次」「比泰国本地按摩贵但放心」。",
       "tips": [
@@ -1275,7 +1331,15 @@
       "price_thb": 1200,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-029.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-029_1.jpg",
+        "./assets/pois/gallery/bkk-029_2.jpg",
+        "./assets/pois/gallery/bkk-029_3.jpg",
+        "./assets/pois/gallery/bkk-029_4.jpg",
+        "./assets/pois/gallery/bkk-029_5.jpg",
+        "./assets/pois/gallery/bkk-029_6.jpg",
+        "./assets/pois/gallery/bkk-029_7.jpg"
+      ],
       "short_desc": "招牌草药球热敷按摩，自家有机药草农场直供。",
       "long_desc": "Asia Herb Association 由日本人创办，主打用自家泰国 Nakhon Pathom 草药农场的有机药草球（Herbal Ball）做热敷按摩。招牌 2 小时泰式按摩 + 草药球 1300 铢，热腾腾的药包压在肩颈背部，柠檬草 + 樟脑 + 姜的香气贯穿全程，是其他 SPA 复刻不出来的味道。Sukhumvit 24 店有 5 层楼独立房间。日本人创办所以用品都是日式的干净。BTS Phrom Phong 5 号口走 6 分钟。Tripadvisor 4.7/5，「药草球真的有疗效」「日式服务水准」。",
       "tips": [
@@ -1314,7 +1378,15 @@
       "price_thb": 3500,
       "price_level": "¥¥¥¥",
       "cover_url": "./assets/pois/bkk-030.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-030_1.jpg",
+        "./assets/pois/gallery/bkk-030_2.jpg",
+        "./assets/pois/gallery/bkk-030_3.jpg",
+        "./assets/pois/gallery/bkk-030_4.jpg",
+        "./assets/pois/gallery/bkk-030_5.jpg",
+        "./assets/pois/gallery/bkk-030_6.jpg",
+        "./assets/pois/gallery/bkk-030_7.jpg"
+      ],
       "short_desc": "百年老宅独栋花园 SPA，仪式感拉满的高端选择。",
       "long_desc": "Divana 是 2002 年创立的本土高端 SPA 品牌，全曼谷 6 家店都是独栋老宅 + 私家花园改造。Silom 的 Virtue 店是 1922 年的英式殖民老宅，每个 SPA 房都是独立套房（含按摩床+大浴缸+热带花园露台）。招牌 3 小时 Sense of Heaven Package 4999 铢，含 90 分钟精油 + 香薰浴 + 面部 + 下午茶。每位客人专属一位按摩师，结束前会送一壶玫瑰花茶 + 现切水果。BTS Chong Nonsi 走 5 分钟。Tripadvisor 4.8/5，「本以为踩雷结果是天花板」「适合纪念日」。",
       "tips": [
@@ -1353,7 +1425,15 @@
       "price_thb": 2200,
       "price_level": "¥¥¥",
       "cover_url": "./assets/pois/bkk-031.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-031_1.jpg",
+        "./assets/pois/gallery/bkk-031_2.jpg",
+        "./assets/pois/gallery/bkk-031_3.jpg",
+        "./assets/pois/gallery/bkk-031_4.jpg",
+        "./assets/pois/gallery/bkk-031_5.jpg",
+        "./assets/pois/gallery/bkk-031_6.jpg",
+        "./assets/pois/gallery/bkk-031_7.jpg"
+      ],
       "short_desc": "清迈起家热带花园 SPA，含免费班车接送。",
       "long_desc": "Oasis Spa 2003 年清迈起家，主打热带花园 + 兰娜泰式风格独栋别墅。曼谷 Sukhumvit 31 店是独栋三层别墅 + 户外水景庭园，10 间私人 SPA 房每间都对着花园。招牌「King of Oasis」120 分钟泰式 + 精油 2200 铢，价格在中高端但环境对得起。亮点是含曼谷市区 5 公里范围免费班车接送（电话预约即可），省掉打车时间。BTS Phrom Phong 走 12 分钟，建议直接用免费车。Tripadvisor 4.6/5，「庭园太美按完不想走」「司机准时接送加分」。",
       "tips": [
@@ -1392,7 +1472,15 @@
       "price_thb": 250,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-032.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-032_1.jpg",
+        "./assets/pois/gallery/bkk-032_2.jpg",
+        "./assets/pois/gallery/bkk-032_3.jpg",
+        "./assets/pois/gallery/bkk-032_4.jpg",
+        "./assets/pois/gallery/bkk-032_5.jpg",
+        "./assets/pois/gallery/bkk-032_6.jpg",
+        "./assets/pois/gallery/bkk-032_7.jpg"
+      ],
       "short_desc": "京都极简咖啡品牌，ICONSIAM 临河外卖窗口。",
       "long_desc": "% Arabica 是 2014 年京都岚山起家的咖啡品牌，黑底白色 % Logo 极简到出圈。ICONSIAM 店位于商场底层临河长廊，有外卖窗口直接面对湄南河，能边喝拿铁边看船。招牌：京都拿铁（Kyoto Latte）210 铢、Spanish Latte 230 铢、烤白巧软曲奇 80 铢。下午通常排 15-20 分钟，建议早上 11:00 前去。免费班船从 BTS Saphan Taksin 旁边码头 10 分钟到 ICONSIAM 码头。Google 评 4.5/5，「拍照位多但价格不便宜」「咖啡水准比海外稳定」。",
       "tips": [
@@ -1477,7 +1565,15 @@
       "price_thb": 200,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-034.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-034_1.jpg",
+        "./assets/pois/gallery/bkk-034_2.jpg",
+        "./assets/pois/gallery/bkk-034_3.jpg",
+        "./assets/pois/gallery/bkk-034_4.jpg",
+        "./assets/pois/gallery/bkk-034_5.jpg",
+        "./assets/pois/gallery/bkk-034_6.jpg",
+        "./assets/pois/gallery/bkk-034_7.jpg"
+      ],
       "short_desc": "WBC 咖啡冠军店，工业风精品咖啡天花板。",
       "long_desc": "Factory Coffee 由 2017 年泰国国家咖啡师冠军 Pop（Wanida Hongyok）创立，是曼谷精品咖啡圈的标杆。装修走仓库工业风，进门就是吧台和巨大的烘豆机，店里同时供 5-6 款单品手冲（180-260 铢一杯）+ 4-5 款 signature 创意咖啡。招牌「Mr. Quincy」是橙汁 + Espresso 的清爽款，「Black Maria」混了可可豆水。BTS Phaya Thai 站 4 号口直接对面。咖啡爱好者朝圣点。Google 评 4.6/5，「精品咖啡水准曼谷前三」「价格友好」。",
       "tips": [
@@ -1515,8 +1611,16 @@
       ],
       "price_thb": 500,
       "price_level": "¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-035.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-035_1.jpg",
+        "./assets/pois/gallery/bkk-035_2.jpg",
+        "./assets/pois/gallery/bkk-035_3.jpg",
+        "./assets/pois/gallery/bkk-035_4.jpg",
+        "./assets/pois/gallery/bkk-035_5.jpg",
+        "./assets/pois/gallery/bkk-035_6.jpg",
+        "./assets/pois/gallery/bkk-035_7.jpg"
+      ],
       "short_desc": "通罗 The Commons 文创社区里的全日 brunch 标杆。",
       "long_desc": "Roast 在通罗 The Commons 文创建筑群里，是曼谷雅痞和侨民最爱的 brunch 标杆。招牌：Eggs Benedict 320 铢、Buttermilk Pancakes 260 铢、Iced Latte 130 铢。咖啡用自家烘焙豆，brunch 出品稳定不踩雷。The Commons 本身是 4 层开放式商场建筑，1F 是美食广场（含 Roast、Roots Coffee）、2F 服饰店、3F 健康概念店。氛围 OK 周末必排 30 分钟。BTS Thong Lo 站打车 5 分钟。Google 评 4.4/5，「brunch 质量稳定」「价格不亲民但环境值」。",
       "tips": [
@@ -1554,7 +1658,15 @@
       "price_thb": 600,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-036.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-036_1.jpg",
+        "./assets/pois/gallery/bkk-036_2.jpg",
+        "./assets/pois/gallery/bkk-036_3.jpg",
+        "./assets/pois/gallery/bkk-036_4.jpg",
+        "./assets/pois/gallery/bkk-036_5.jpg",
+        "./assets/pois/gallery/bkk-036_6.jpg",
+        "./assets/pois/gallery/bkk-036_7.jpg"
+      ],
       "short_desc": "维多利亚药剂店风装修，玻璃罐汽水网红鼻祖。",
       "long_desc": "Featherstone 2016 年开业，把店面装修成英式维多利亚 Apothecary 药剂店——黄铜柜台、瓷砖地板、整墙的玻璃药罐。招牌「Sparkling Apothecary」系列冰镇花果茶汽水（180 铢起）端上来时是装满冰块和鲜花的高玻璃罐配试管糖浆，倒进去一秒变色，是小红书 2018 年起的网红封面。同时是 Lifestyle Shop 卖香氛、明信片、泰国设计师饰品。BTS Ekkamai 站打车 5 分钟。Google 评 4.4/5，「拍照分 5 星味道分 3.5 星」「适合女生约会」。",
       "tips": [
@@ -1593,7 +1705,15 @@
       "price_thb": 250,
       "price_level": "¥¥",
       "cover_url": "./assets/pois/bkk-037.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-037_1.jpg",
+        "./assets/pois/gallery/bkk-037_2.jpg",
+        "./assets/pois/gallery/bkk-037_3.jpg",
+        "./assets/pois/gallery/bkk-037_4.jpg",
+        "./assets/pois/gallery/bkk-037_5.jpg",
+        "./assets/pois/gallery/bkk-037_6.jpg",
+        "./assets/pois/gallery/bkk-037_7.jpg"
+      ],
       "short_desc": "Ari 文艺街区独立咖啡馆，二楼小阳台超出片。",
       "long_desc": "Ari 是曼谷年轻设计师/插画师/摄影师的聚集区，类似北京的 798 + 五道营，巷子里全是独立咖啡馆和小众选品店。One Ounce for Onion 是 Ari 第一批独立咖啡馆，2014 年开店，2 层小白楼配粉色小阳台是经典封面位。招牌「Lavender Latte」180 铢、烤吐司加奶酪 220 铢。咖啡用自家烘豆，水准稳定。BTS Ari 站 1 号口走 8 分钟到 Ari Soi 4。逛完顺路扫一圈 Soi Ari 1-Ari 5 的小众店。Tripadvisor 4.4/5，「比通罗清净适合慢慢坐」。",
       "tips": [
@@ -1955,8 +2075,16 @@
       ],
       "price_thb": 1280,
       "price_level": "¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-045.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-045_1.jpg",
+        "./assets/pois/gallery/bkk-045_2.jpg",
+        "./assets/pois/gallery/bkk-045_3.jpg",
+        "./assets/pois/gallery/bkk-045_4.jpg",
+        "./assets/pois/gallery/bkk-045_5.jpg",
+        "./assets/pois/gallery/bkk-045_6.jpg",
+        "./assets/pois/gallery/bkk-045_7.jpg"
+      ],
       "short_desc": "Siam Paragon 5 楼儿童职业小镇，4-14 岁体验天堂。",
       "long_desc": "KidZania 是墨西哥起源的全球连锁儿童职业体验主题乐园，曼谷店在 Siam Paragon 5F，1 万平方米按 70% 比例搭建迷你城市，含 70 多种职业体验：消防员、飞行员、医生、寿司师傅、警察、记者、面包师、CSI 法医。孩子完成任务能挣到园区货币 KidZos 在镇上消费。适合 4-14 岁，每场 4 小时（10:00-14:00 或 15:00-19:00）。家长不能进入很多体验区域（玻璃外观看）。Klook 比现场便宜 200 铢。Google 评 4.4/5，「3 小时孩子根本不想走」「英文+泰文双语讲解」。",
       "tips": [
@@ -2134,7 +2262,15 @@
       "price_thb": 100,
       "price_level": "¥",
       "cover_url": "./assets/pois/bkk-049.jpg",
-      "gallery": [],
+      "gallery": [
+        "./assets/pois/gallery/bkk-049_1.jpg",
+        "./assets/pois/gallery/bkk-049_2.jpg",
+        "./assets/pois/gallery/bkk-049_3.jpg",
+        "./assets/pois/gallery/bkk-049_4.jpg",
+        "./assets/pois/gallery/bkk-049_5.jpg",
+        "./assets/pois/gallery/bkk-049_6.jpg",
+        "./assets/pois/gallery/bkk-049_7.jpg"
+      ],
       "short_desc": "200 年柚木水上老屋改造艺廊，每天下午皮影戏免费看。",
       "long_desc": "Baan Silapin 是 200 年阿瑜陀耶时期的柚木水上老屋，2008 年由本地艺术家 Chumpol Akkapantanon 修复改成开放艺术中心。老屋面对运河和一座 18 世纪 Wat Thong Sala Ngam 古塔，氛围极静。每天下午 14:00 有传统泰式皮影戏（Hun Lakhon Lek）公益表演（免费/接受打赏），很多本地老人也会来围观。屋内一楼咖啡馆 + 二楼小画廊免费参观。地处西郊运河区，Grab 30 分钟，建议和水上市场连游。Tripadvisor 4.3/5，「免费小众皮影戏不可多得」。",
       "tips": [
@@ -2218,8 +2354,16 @@
       ],
       "price_thb": 1500,
       "price_level": "¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-051.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-051_1.jpg",
+        "./assets/pois/gallery/bkk-051_2.jpg",
+        "./assets/pois/gallery/bkk-051_3.jpg",
+        "./assets/pois/gallery/bkk-051_4.jpg",
+        "./assets/pois/gallery/bkk-051_5.jpg",
+        "./assets/pois/gallery/bkk-051_6.jpg",
+        "./assets/pois/gallery/bkk-051_7.jpg"
+      ],
       "short_desc": "戴滑雪镜炒锅的米其林一星街边传奇。",
       "long_desc": "Jay Fai 是曼谷最难订的街边店，老板娘「痣姐」七十多岁戴着滑雪镜在门口炒菜已经三十多年，2018 年拿下米其林一星至今年年蝉联。招牌蟹肉欧姆蛋（Crab Omelette）1000 铢一份——整整 200 克新鲜蟹肉裹在金黄蛋皮里，外焦内嫩；海鲜冬阴功 600 铢、干咖喱炒蟹肉（Drunken Crab）1200 铢也是必点。现场不接受预订，早 9:00 店门口就开始排号，傍晚 6 点营业后排 2-3 小时起跳。Netflix《街头美食》播出后更是每天爆满。Google 评 4.4/5，两极分化：「一辈子吃过最好的欧姆蛋」对「街边价格吃出星级店价」。",
       "tips": [
@@ -2257,8 +2401,16 @@
       ],
       "price_thb": 600,
       "price_level": "¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-052.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-052_1.jpg",
+        "./assets/pois/gallery/bkk-052_2.jpg",
+        "./assets/pois/gallery/bkk-052_3.jpg",
+        "./assets/pois/gallery/bkk-052_4.jpg",
+        "./assets/pois/gallery/bkk-052_5.jpg",
+        "./assets/pois/gallery/bkk-052_6.jpg",
+        "./assets/pois/gallery/bkk-052_7.jpg"
+      ],
       "short_desc": "皇室御厨传人开的家常泰菜，连续米其林必比登。",
       "long_desc": "Krua Apsorn 由皇室御厨家族传人 Daranee 阿婆 2005 年创办，菜单改编自泰皇室家宴菜谱，连续多年拿下米其林必比登推荐。招牌：蟹肉炒蛋（Crab Meat with Yellow Curry）450 铢，蛋液里满是虎掌蟹拆肉；炸鱼配芒果沙拉（Catfish with Green Mango Salad）350 铢外酥里嫩；虾酱炒空心菜 180 铢也是神来之笔。环境就是普通老店但座无虚席，12:00-13:00 午市和 18:30 后晚市要排 30 分钟。Google 评 4.5/5，当地白领和老饕的食堂。",
       "tips": [
@@ -2295,8 +2447,16 @@
       ],
       "price_thb": 600,
       "price_level": "¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-053.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-053_1.jpg",
+        "./assets/pois/gallery/bkk-053_2.jpg",
+        "./assets/pois/gallery/bkk-053_3.jpg",
+        "./assets/pois/gallery/bkk-053_4.jpg",
+        "./assets/pois/gallery/bkk-053_5.jpg",
+        "./assets/pois/gallery/bkk-053_6.jpg",
+        "./assets/pois/gallery/bkk-053_7.jpg"
+      ],
       "short_desc": "凌晨排 3 小时的妈妈面海鲜火锅，米其林必比登。",
       "long_desc": "Jeh O 只在晚上开门（17:00-次日 01:00），招牌妈妈面冬阴功（Mama Tom Yum）必须点——900 铢一大锅，里面装满大虾、猪肉碎、鱿鱼、煎蛋、猪血和一整包脆爽的 Mama 方便面，酸辣到冒汗。配菜推荐咸蛋黄炸软壳蟹 400 铢、猪脑咖喱 350 铢，连续多年米其林必比登。20:30 后才是高峰，需要在店门口扫码取号，平均等 2-3 小时，周五周六排 4 小时不夸张。中国游客经常 23:00 去等到凌晨 1 点开吃。Google 评 4.5/5，「锅底惊艳但排队时间劝退」。",
       "tips": [
@@ -2334,8 +2494,16 @@
       ],
       "price_thb": 500,
       "price_level": "¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-054.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-054_1.jpg",
+        "./assets/pois/gallery/bkk-054_2.jpg",
+        "./assets/pois/gallery/bkk-054_3.jpg",
+        "./assets/pois/gallery/bkk-054_4.jpg",
+        "./assets/pois/gallery/bkk-054_5.jpg",
+        "./assets/pois/gallery/bkk-054_6.jpg",
+        "./assets/pois/gallery/bkk-054_7.jpg"
+      ],
       "short_desc": "本地老饕藏的鱼鲜泰菜，米其林必比登常客。",
       "long_desc": "Soei 是藏在 Bang Sue 居民区里的本地人食堂，门面普通但多年拿下米其林必比登。主打渔港直送的杂鱼料理，招牌是「炸鱼杂煮酸辣汤」（Tom Som Pla）380 铢——用十几种小鱼熬汤，酸中带甜；鱼肚沙拉（Yum Plakapong）280 铢、椰浆咖喱炸鱼 320 铢也是必点。店面只有 10 几张桌子，11:30 开门到 14:00 午市，18:00 再开到 22:00。本地人中午多，没太多游客，氛围原生态。人均 400-600 铢吃饱。Google 评 4.6/5。",
       "tips": [
@@ -2372,8 +2540,16 @@
       ],
       "price_thb": 700,
       "price_level": "¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-055.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-055_1.jpg",
+        "./assets/pois/gallery/bkk-055_2.jpg",
+        "./assets/pois/gallery/bkk-055_3.jpg",
+        "./assets/pois/gallery/bkk-055_4.jpg",
+        "./assets/pois/gallery/bkk-055_5.jpg",
+        "./assets/pois/gallery/bkk-055_6.jpg",
+        "./assets/pois/gallery/bkk-055_7.jpg"
+      ],
       "short_desc": "复古小酒馆风的东北菜，手工鸡尾酒出圈。",
       "long_desc": "Soul Food Mahanakorn 是美籍作家 Jarrett Wrisley 2010 年开的，把泰国东北伊善菜放在纽约式小酒馆里，环境昏黄木质拥挤又温馨。招牌：伊善烤鸡（Gai Yang）380 铢配青木瓜沙拉、烤牛肉沙拉（Nuea Yang Nam Tok）420 铢、糯米饭搭自制辣酱不限量。手工鸡尾酒 300-380 铢也是特色，调酒师会用南姜、香茅做基酒。Thonglor BTS 步行 8 分钟，晚 19:00-21:00 客满，周五周六建议提前 3 天电话订位。人均 700-900 铢。Google 评 4.4/5。",
       "tips": [
@@ -2410,8 +2586,16 @@
       ],
       "price_thb": 2800,
       "price_level": "¥¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-056.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-056_1.jpg",
+        "./assets/pois/gallery/bkk-056_2.jpg",
+        "./assets/pois/gallery/bkk-056_3.jpg",
+        "./assets/pois/gallery/bkk-056_4.jpg",
+        "./assets/pois/gallery/bkk-056_5.jpg",
+        "./assets/pois/gallery/bkk-056_6.jpg",
+        "./assets/pois/gallery/bkk-056_7.jpg"
+      ],
       "short_desc": "米其林一星传统泰菜，考究的皇室经典。",
       "long_desc": "Saneh Jaan 由 Chef Prin 执掌，专注「濒危」的传统泰菜——那些因为工序繁琐逐渐消失的古法菜谱，米其林一星连续多年。招牌 Tasting Menu 2800 铢 8 道，包括 Miang Kham（槟榔叶小食）、手打咖喱 Massaman 配牛颊肉、椰香河虾丸汤；零点牛脸颊红咖喱约 850 铢。环境是殖民风玻璃温室，店内古董餐具和银器讲究到每一道菜配不同的盘子。一定要提前一周在官网订位，午市 Tasting Set 1500 铢更划算。Google 评 4.6/5。",
       "tips": [
@@ -2448,8 +2632,16 @@
       ],
       "price_thb": 3800,
       "price_level": "¥¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-057.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-057_1.jpg",
+        "./assets/pois/gallery/bkk-057_2.jpg",
+        "./assets/pois/gallery/bkk-057_3.jpg",
+        "./assets/pois/gallery/bkk-057_4.jpg",
+        "./assets/pois/gallery/bkk-057_5.jpg",
+        "./assets/pois/gallery/bkk-057_6.jpg",
+        "./assets/pois/gallery/bkk-057_7.jpg"
+      ],
       "short_desc": "亚洲 50 最佳第一名，本土食材新派泰菜。",
       "long_desc": "Le Du 由 Chef Ton 2013 年创办，2023 年获「亚洲 50 最佳餐厅」冠军，连续多年米其林一星。「Le Du」泰语意为季节，菜单按四季换，用 100% 泰国本土食材做现代料理。Tasting Menu 4/6 道 2890/3890 铢，必吃 Khao Tang Nha Tang（酥炸米饼配虾肉蘸酱）、烟熏河虾配黑米粥、椰奶冰淇淋配红咖喱酱。空间只有 40 座位，暖灯木调低奢风，12 个月前都被订满。Silom 5 号巷子里，BTS Chong Nonsi 步行 8 分钟。Google 评 4.6/5。",
       "tips": [
@@ -2487,8 +2679,16 @@
       ],
       "price_thb": 5500,
       "price_level": "¥¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-058.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-058_1.jpg",
+        "./assets/pois/gallery/bkk-058_2.jpg",
+        "./assets/pois/gallery/bkk-058_3.jpg",
+        "./assets/pois/gallery/bkk-058_4.jpg",
+        "./assets/pois/gallery/bkk-058_5.jpg",
+        "./assets/pois/gallery/bkk-058_6.jpg",
+        "./assets/pois/gallery/bkk-058_7.jpg"
+      ],
       "short_desc": "泰国首家米其林三星，纯正南部菜。",
       "long_desc": "Sorn 由 Chef Ice 2018 年创办，2024 年成为泰国第一家米其林三星餐厅，专做泰国南部（安达曼海沿岸）菜系。食材执念到极致：每天直送的南部海鲜、古法酱料、手作虾酱。Chef's Table Menu 约 5500 铢 15 道，招牌包括 Kua Kling 南部干咖喱猪肉、蟹肉黄咖喱、手工酸肠、椰肉炒饭。用餐时长 2.5 小时，只有 20 个座位。订位系统每月 1 日开放下月订位，2 分钟抢光。老宅改造的泰式别墅环境，BTS Phrom Phong 步行 10 分钟。Google 评 4.8/5，被誉「吃一次值一辈子」。",
       "tips": [
@@ -2525,8 +2725,16 @@
       ],
       "price_thb": 3500,
       "price_level": "¥¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-059.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-059_1.jpg",
+        "./assets/pois/gallery/bkk-059_2.jpg",
+        "./assets/pois/gallery/bkk-059_3.jpg",
+        "./assets/pois/gallery/bkk-059_4.jpg",
+        "./assets/pois/gallery/bkk-059_5.jpg",
+        "./assets/pois/gallery/bkk-059_6.jpg",
+        "./assets/pois/gallery/bkk-059_7.jpg"
+      ],
       "short_desc": "COMO Metropolitan 殿堂级泰菜，近十年米其林。",
       "long_desc": "Nahm 位于 COMO Metropolitan Bangkok 酒店一层，Chef David Thompson 2010 年从伦敦搬来曼谷，2018 年起由泰籍女厨 Pim Techamuanvivit 接手，近十年米其林星级常客，号称「让泰国人重新认识泰菜」。Tasting Menu 3500 铢，会有咖喱 Massaman 牛肉、虾膏炒米粉、古法打抛肉等经典。COMO 酒店 2025 年 5-7 月装修期间 Nahm 仍正常营业，8 月起酒店分阶段重开。酒店泳池景餐厅，正式礼服氛围。MRT Lumphini 步行 5 分钟。Google 评 4.5/5。",
       "tips": [
@@ -2563,8 +2771,16 @@
       ],
       "price_thb": 2000,
       "price_level": "¥¥¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-060.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-060_1.jpg",
+        "./assets/pois/gallery/bkk-060_2.jpg",
+        "./assets/pois/gallery/bkk-060_3.jpg",
+        "./assets/pois/gallery/bkk-060_4.jpg",
+        "./assets/pois/gallery/bkk-060_5.jpg",
+        "./assets/pois/gallery/bkk-060_6.jpg",
+        "./assets/pois/gallery/bkk-060_7.jpg"
+      ],
       "short_desc": "百年花园别墅里的现代泰菜，拍照氛围拉满。",
       "long_desc": "Issaya Siamese Club 由泰国名厨 Ian Kittichai 2011 年创办，开在一栋 1925 年建的泰式殖民风别墅里，三面环绕热带花园，露台和室内沙发都是出片位。招牌 Massaman 羊腿 1200 铢（软烂入味）、波罗蜜沙拉 450 铢、椰子泡沫芒果糯米饭 380 铢。人均 1800-2500 铢，比 Le Du/Sorn 便宜但仪式感不输。18:00-20:00 晚餐需订位，周末必订。有自家烹饪学校 Issaya Cooking Studio 可预约上烹饪课。MRT Khlong Toei 步行 10 分钟或 Grab 直达。Google 评 4.5/5，「环境 10 分食物 8 分」。",
       "tips": [
@@ -2602,8 +2818,16 @@
       ],
       "price_thb": 120,
       "price_level": "¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-061.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-061_1.jpg",
+        "./assets/pois/gallery/bkk-061_2.jpg",
+        "./assets/pois/gallery/bkk-061_3.jpg",
+        "./assets/pois/gallery/bkk-061_4.jpg",
+        "./assets/pois/gallery/bkk-061_5.jpg",
+        "./assets/pois/gallery/bkk-061_6.jpg",
+        "./assets/pois/gallery/bkk-061_7.jpg"
+      ],
       "short_desc": "70 年历史 Pad Thai 天花板，蛋皮包炒河粉。",
       "long_desc": "Thip Samai 1966 年开业，炉火连烧 60 多年没停过，公认曼谷最好的泰式炒河店，靠一口柴火大锅炒出锅气。招牌「月光 Pad Thai」（Pad Thai Superb）160 铢——炒河粉用蛋皮完整包成枕头状上桌，切开蛋液流出；普通虾仁 Pad Thai 90 铢、橙汁（Orange Juice）100 铢是店内另一传奇，现榨不兑水。傍晚 17:00 开门，18:30-20:30 门口排 40 分钟起。Jay Fai 斜对面，可连打卡。Google 评 4.3/5，「排队值不值看心情，但味道确实老牌稳定」。",
       "tips": [
@@ -2641,8 +2865,16 @@
       ],
       "price_thb": 120,
       "price_level": "¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-062.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-062_1.jpg",
+        "./assets/pois/gallery/bkk-062_2.jpg",
+        "./assets/pois/gallery/bkk-062_3.jpg",
+        "./assets/pois/gallery/bkk-062_4.jpg",
+        "./assets/pois/gallery/bkk-062_5.jpg",
+        "./assets/pois/gallery/bkk-062_6.jpg",
+        "./assets/pois/gallery/bkk-062_7.jpg"
+      ],
       "short_desc": "50 年不熄火的祖传牛肉老汤，Netflix 同款。",
       "long_desc": "Wattana Panich 是 Ekkamai 上的老字号潮汕式牛肉汤店，老板每天把前一天剩下的汤底留一部分继续加料炖煮，汤锅「永不熄火」已经 50 多年——这就是 Netflix《街头美食》第一季开篇那口大锅。招牌牛肉面 120 铢配牛肚/牛筋/牛腱，汤底黑褐色浓得像老卤；炖山羊肉（Goat Stew）180 铢也是隐藏菜单。8:30 开门到 19:30，中午 12:00-13:00 最挤但翻桌快。BTS Ekkamai 4 号出口步行 15 分钟，建议 Grab 直达。Google 评 4.4/5，「汤底值得一尝，但位置和卫生对游客来说一般」。",
       "tips": [
@@ -2680,8 +2912,16 @@
       ],
       "price_thb": 150,
       "price_level": "¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-063.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-063_1.jpg",
+        "./assets/pois/gallery/bkk-063_2.jpg",
+        "./assets/pois/gallery/bkk-063_3.jpg",
+        "./assets/pois/gallery/bkk-063_4.jpg",
+        "./assets/pois/gallery/bkk-063_5.jpg",
+        "./assets/pois/gallery/bkk-063_6.jpg",
+        "./assets/pois/gallery/bkk-063_7.jpg"
+      ],
       "short_desc": "米其林必比登脆炸鸡，炸蒜碎是灵魂。",
       "long_desc": "Polo Fried Chicken（又名 Gai Tord Jay Kee）藏在 Lumpini 公园旁 Soi Sanam Khli 小巷，连续 5 年拿米其林必比登。招牌伊善式炸鸡（Gai Tord）半只 180 铢、整只 320 铢，外皮酥到掉渣里面还多汁，精华是撒在上面的一大把金黄炸蒜粒——吃到最后用勺子挖蒜吃。配糯米饭 25 铢、青木瓜沙拉 80 铢、冬阴功汤 120 铢都是绝配。11:00-21:00 营业，12:00-13:30 白领午餐排 15-20 分钟。MRT Lumphini 3 号出口步行 10 分钟。Google 评 4.4/5。",
       "tips": [
@@ -2718,8 +2958,16 @@
       ],
       "price_thb": 80,
       "price_level": "¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-064.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-064_1.jpg",
+        "./assets/pois/gallery/bkk-064_2.jpg",
+        "./assets/pois/gallery/bkk-064_3.jpg",
+        "./assets/pois/gallery/bkk-064_4.jpg",
+        "./assets/pois/gallery/bkk-064_5.jpg",
+        "./assets/pois/gallery/bkk-064_6.jpg",
+        "./assets/pois/gallery/bkk-064_7.jpg"
+      ],
       "short_desc": "唐人街深夜炭炒鸡肉河粉摊，锅气爆棚。",
       "long_desc": "Ann Guay Tiew Kua Gai 是唐人街深夜炒河粉代表，专做一道菜：Guay Tiew Kua Gai（炭炒鸡肉河粉）80 铢——炭火把宽河粉炒到焦香，盖上半熟蛋和鸡肉丝，淋辣椒醋吃。老板娘一人守一口锅，一份份炒每次只能炒 2 份。16:00 开到 23:00，21:00 后夜市人流起排 30-40 分钟。店址 Yaowarat 唐人街主街旁巷子里，同一条街还有 T&K 海鲜、Ounalom 甜品店。MRT Wat Mangkon 步行 5 分钟。Google 评 4.4/5，「简单粗暴但就是好吃」。",
       "tips": [
@@ -2757,8 +3005,16 @@
       ],
       "price_thb": 150,
       "price_level": "¥",
-      "cover_url": "",
-      "gallery": [],
+      "cover_url": "./assets/pois/bkk-065.jpg",
+      "gallery": [
+        "./assets/pois/gallery/bkk-065_1.jpg",
+        "./assets/pois/gallery/bkk-065_2.jpg",
+        "./assets/pois/gallery/bkk-065_3.jpg",
+        "./assets/pois/gallery/bkk-065_4.jpg",
+        "./assets/pois/gallery/bkk-065_5.jpg",
+        "./assets/pois/gallery/bkk-065_6.jpg",
+        "./assets/pois/gallery/bkk-065_7.jpg"
+      ],
       "short_desc": "新加坡风海南鸡饭，鸡油饭香到爆炸。",
       "long_desc": "Boon Tong Kiat 在 Thonglor 开了 20 多年，走新加坡路线的海南鸡饭——鸡油饭用鸡汤和鸡油一起焖，自带油亮琥珀色。招牌套餐：蒸鸡饭 140 铢配辣椒蒜蓉酱、黑酱油、姜蓉三种蘸料；烧鸡饭 160 铢、半鸡拼盘 260 铢。菜单还有新加坡风咖喱叻沙、肉骨茶。店面干净简洁白底红字，11:00-22:00，午晚餐有 10 分钟排队但翻桌快。BTS Thonglor 2 号出口步行 3 分钟。Google 评 4.3/5，「不输新加坡天天海南鸡饭」。",
       "tips": [

@@ -1,0 +1,22 @@
+{
+  "_comment": "示例 fixture：3 天经典老城 + 商圈混合行程，可复制改名做新 fixture",
+  "intake": {
+    "days": 3,
+    "wake": "09:00",
+    "pace": "standard"
+  },
+  "liked_ids": [
+    "bkk-001",
+    "bkk-002",
+    "bkk-005",
+    "bkk-010",
+    "bkk-020",
+    "bkk-030",
+    "bkk-040",
+    "bkk-050"
+  ],
+  "maybe_ids": [
+    "bkk-008",
+    "bkk-015"
+  ]
+}
