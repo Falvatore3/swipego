@@ -9,9 +9,9 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- 用于「保存为图片」+ 二维码 -->
-<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
+<!-- 用于「保存为图片」+ 二维码 — 改 defer，不阻塞首屏 -->
+<script defer src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script defer src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
@@ -63,7 +63,16 @@
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root">
+  <!-- 启动骨架屏：让用户在 Babel 编译/Tailwind 启动期间看到内容，而不是白屏 -->
+  <div id="boot-skeleton" style="max-width:36rem;margin:0 auto;padding:48px 20px;text-align:center;font-family:ui-serif,'Noto Serif SC',serif;">
+    <div style="font-size:48px;margin-bottom:16px;animation:bootPulse 1.4s infinite;">✨</div>
+    <div style="font-family:ui-monospace,'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:#FF6B35;margin-bottom:8px;">SWIPEGO LOADING</div>
+    <div style="font-size:22px;font-weight:700;color:#0F3D2E;">滑卡定制曼谷行程</div>
+    <div style="font-size:13px;color:#6B7A70;margin-top:10px;">正在启动…</div>
+    <style>@keyframes bootPulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}</style>
+  </div>
+</div>
 
 <script type="text/babel" data-presets="react">
 const { useState, useEffect, useMemo, useRef, useCallback } = React;
@@ -1235,7 +1244,12 @@ function StepItinerary({intake,liked,maybe,onRestart,allPois}){
 
   if(loading) return <ItineraryLoading liked={liked} days={intake.days}/>;
   if(err) return <ItineraryError err={err} onRetry={runAI} onBack={onRestart}/>;
-  if(!result) return null;
+  // 防御：result 缺失或 days 为空都给一个明确的空态，避免白屏
+  if(!result || !Array.isArray(result.days) || result.days.length === 0){
+    return <ItineraryError
+      err={result ? '行程数据为空（AI 没排出任何天，可能是输入太少）' : '行程结果丢失，请重试'}
+      onRetry={runAI} onBack={onRestart}/>;
+  }
 
   const itinerary = result.days;
   // 兼容统计：只统计 poi 类型的 block
@@ -1391,6 +1405,7 @@ function StepItinerary({intake,liked,maybe,onRestart,allPois}){
 /* ---------- AI 加载态 ---------- */
 function ItineraryLoading({liked, days}){
   const [step,setStep] = useState(0);
+  const [elapsed,setElapsed] = useState(0);  // 已等待秒数，给用户"它没死"的反馈
   const phases = [
     `分析你选的 ${liked.length} 个景点`,
     "按地理位置聚类...",
@@ -1399,15 +1414,20 @@ function ItineraryLoading({liked, days}){
     "撰写每日主题与贴士...",
   ];
   useEffect(()=>{
-    const t = setInterval(()=>setStep(s=>(s+1)%phases.length), 1400);
-    return ()=>clearInterval(t);
+    const t1 = setInterval(()=>setStep(s=>(s+1)%phases.length), 1400);
+    const t2 = setInterval(()=>setElapsed(s=>s+1), 1000);
+    return ()=>{ clearInterval(t1); clearInterval(t2); };
   },[]);
+  const slow = elapsed > 20;  // >20s 提示用户它没卡死
   return (
     <div className="max-w-xl mx-auto px-5 pt-12 pb-20 text-center">
       <div className="text-6xl mb-5 select-none animate-pulse">✨</div>
       <div className="font-mono text-[11px] text-accent tracking-widest mb-2">AI GENERATING</div>
       <h2 className="font-serif text-2xl font-bold">DeepSeek 正在为你排程</h2>
-      <p className="text-sm text-muted mt-3">通常需要 5-15 秒</p>
+      <p className="text-sm text-muted mt-3">通常需要 5-15 秒 · 已等待 <span className="font-mono text-ink font-bold">{elapsed}s</span></p>
+      {slow && (
+        <p className="text-[11px] text-accent mt-2 font-mono">⏳ 模型正在思考长上下文，再等等...</p>
+      )}
       <div className="mt-10 space-y-2">
         {phases.map((p,i)=>(
           <div key={i} className={`flex items-center gap-3 transition ${i<=step?'opacity-100':'opacity-30'}`}>
@@ -1809,19 +1829,32 @@ ${JSON.stringify(maybeSlim, null, 2)}` : ''}
   const headers = {'Content-Type': 'application/json'};
   // 走代理时不需要 Authorization；只在直连模式下加
   if(!PROXY_URL && DIRECT_KEY) headers['Authorization'] = `Bearer ${DIRECT_KEY}`;
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      model: 'deepseek-chat',
-      messages: [
-        {role:'system', content: sys},
-        {role:'user', content: user},
-      ],
-      temperature: 0.6,
-      response_format: {type:'json_object'},
-    }),
-  });
+
+  // 超时控制：60s 还没回就抛错（DeepSeek 偶尔卡 worker 冷启动 + 长上下文）
+  const ctrl = new AbortController();
+  const timeoutId = setTimeout(()=>ctrl.abort(), 60000);
+  let res;
+  try {
+    res = await fetch(API_URL, {
+      method: 'POST',
+      headers,
+      signal: ctrl.signal,
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          {role:'system', content: sys},
+          {role:'user', content: user},
+        ],
+        temperature: 0.6,
+        response_format: {type:'json_object'},
+      }),
+    });
+  } catch(e){
+    clearTimeout(timeoutId);
+    if(e.name === 'AbortError') throw new Error('AI 服务超时（60s 未响应），请重试或检查代理');
+    throw new Error('网络错误：' + (e.message || String(e)));
+  }
+  clearTimeout(timeoutId);
   if(!res.ok){
     const t = await res.text();
     throw new Error(`DeepSeek ${res.status}: ${t.slice(0,200)}`);
